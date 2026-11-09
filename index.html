@@ -4211,7 +4211,7 @@
     fdEl('fd_wa').addEventListener('click', function () { window.open('https://wa.me/?text=' + encodeURIComponent(FD.lastWa), '_blank'); fdWaDone(FD.lastId); fdWaNoteSet(true); });
     fdEl('fd_again').addEventListener('click', fdResetForm);
     fdEl('fd_toStatus').addEventListener('click', function () { fdResetForm(); FD.tab = 'status'; FD.mine = null; fdRender(); });
-    fdEl('fd_groups').addEventListener('click', function (e) { var b = e.target.closest('[data-fdg]'); if (!b) return; var f = b.dataset.fdg === 'ajukan' ? ['form', 'mod'] : ['status', 'modst'], cur = f.indexOf(FD.tab) >= 0; if (cur) return; var t = document.querySelector('#fd_tabs [data-fdt="' + f[0] + '"]'); FD.tab = f[0]; if (FD.tab === 'status') FD.mine = null; fdRender(); });
+    fdEl('fd_groups').addEventListener('click', function (e) { var b = e.target.closest('[data-fdg]'); if (!b) return; var f = b.dataset.fdg === 'ajukan' ? ['form', 'mod'] : ['status', 'modst'], cur = f.indexOf(FD.tab) >= 0; if (cur) return; FD.tab = f.filter(function (t) { return !FD.allow || FD.allow[t]; })[0] || f[0]; if (FD.tab === 'status') FD.mine = null; fdRender(); });
     fdEl('fd_tabs').addEventListener('click', function (e) { var b = e.target.closest('[data-fdt]'); if (!b) return; FD.tab = b.dataset.fdt; if (FD.tab === 'status') FD.mine = null; if (FD.tab === 'modst') FM.mine = null; fdRender(); });
     fdEl('fd_paneStatus').addEventListener('input', function (e) { if (e.target.id === 'fd_q') { FD.q = e.target.value; fdRenderStatusList(); } });
     fdEl('fd_paneStatus').addEventListener('click', function (e) {
@@ -4398,7 +4398,7 @@
   function fdRender() {
     fdMount();
     var canForm = fdCanW(), allow = { form: RF.on || canForm, status: true, mod: RF.on || fmCanWrite(), modst: true }; /* fm-client + rf-role */
-    if (!allow[FD.tab]) FD.tab = canForm ? 'form' : 'status';
+    FD.allow = allow; if (!allow[FD.tab]) FD.tab = ['form', 'mod', 'status', 'modst'].filter(function (t) { return allow[t]; })[0];
     var grp = FD.tab === 'form' || FD.tab === 'mod' ? 'ajukan' : 'status', gIn = { ajukan: ['form', 'mod'], status: ['status', 'modst'] }; Array.prototype.forEach.call(document.querySelectorAll('#fd_tabs [data-fdt]'), function (b) { b.hidden = !allow[b.dataset.fdt] || gIn[grp].indexOf(b.dataset.fdt) < 0; }); Array.prototype.forEach.call(document.querySelectorAll('#fd_groups [data-fdg]'), function (b) { var g = b.dataset.fdg; b.hidden = !gIn[g].some(function (t) { return allow[t]; }); b.classList.toggle('active', g === grp); });
     fdEl('fd_tabs').hidden = false; if (RF.on) fdEl('fd_groups').style.top = ''; var osg = $('outletSeg'); if (!RF.on && osg && osg.offsetHeight) fdEl('fd_groups').style.top = ((parseFloat(getComputedStyle(osg).top) || 8) + osg.offsetHeight + 16) + 'px';
     Array.prototype.forEach.call(document.querySelectorAll('#fd_tabs [data-fdt]'), function (b) { b.classList.toggle('active', b.dataset.fdt === FD.tab); });
@@ -4996,7 +4996,7 @@
   function rfPickNote(what) { var me = rfMe(); return '<div class="card rf-note"><b>Pilih salesman dulu</b><div class="o-sub">' + esc(what) + ' dibuat atas nama salesman. Pilih salesman di kotak "Salesman" di atas.</div></div>'; }
   document.addEventListener('change', function (e) { if (e.target && e.target.id === 'rfAs') { RF.as = e.target.value; FD.mine = null; fmReset(true); rfRepaint(); } });
   function fdActAs() { return RF.on ? RF.as : (S.role === 'DSS' || S.role === 'AASM' ? (S.as || '') : ''); }
-  function fdCanW() { return RF.on ? !!RF.as : ((S.role === 'DSR' && !RO()) || (S.role === 'DSS' && !!S.as)); }
+  function fdCanW() { return RF.on ? !!RF.as : ((S.role === 'DSR' && !(S.data && S.data.readOnly)) || (S.role === 'DSS' && !!S.as)); } /* pendaftaran outlet tidak terikat periode: sama dengan fmCanWrite */
   function fdSK() { return SK() + '|' + (RF.on ? 'rf:' + RF.as : ''); }
   /* /rf-role */
   /* jr-role (5 Nov 2026): Juragan DSS memakai #view-outlet salesman (tab Juragan) yang dipinjam ke layar DSS */
@@ -6311,7 +6311,6 @@
   }
   document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-scnl]'); if (!b) return; scnLiveStop(); if (b.dataset.scnl === 'foto') scnPickPhoto(); });
   document.addEventListener('visibilitychange', function () { if (document.hidden) scnLiveStop(); });
-  window.addEventListener('popstate', scnLiveStop);
   function scnDone(val) { try { if (navigator.vibrate) navigator.vibrate(60); } catch (e) {} S.stk.q = ''; S.stk.scan = bcDigits(val); S.stk.filter = 'all'; S.stk.shown = STOK_PAGE; renderPane(); }
   function scnFromPhoto(file) {
     scnStatus('Membaca foto…');
@@ -6753,9 +6752,9 @@
     google.script.run
       .withSuccessHandler(function (res) {
         if (S.code !== sk) return; S.dssLoading = false;
-        if (res && res.ok) { S.dss = res; S.dssAll = S.role === 'AASM' && res.dists.length > 1; renderDss(); aasNext(); } else { $('dssBody').innerHTML = '<div class="empty">' + esc((res && res.error) || 'Gagal memuat ringkasan DSS.') + '</div><button class="all-btn big" type="button" id="dssRetry">Coba lagi</button>'; }
+        if (res && res.ok) { S.dss = res; S.dssAll = S.role === 'AASM' && res.dists.length > 1; renderDss(); aasNext(); } else { dvStockHome(); $('dssBody').innerHTML = '<div class="empty">' + esc((res && res.error) || 'Gagal memuat ringkasan DSS.') + '</div><button class="all-btn big" type="button" id="dssRetry">Coba lagi</button>'; }
       })
-      .withFailureHandler(function () { if (S.code !== sk) return; S.dssLoading = false; $('dssBody').innerHTML = '<div class="empty">Tidak bisa terhubung ke server.</div><button class="all-btn big" type="button" id="dssRetry">Coba lagi</button>'; })
+      .withFailureHandler(function () { if (S.code !== sk) return; S.dssLoading = false; dvStockHome(); $('dssBody').innerHTML = '<div class="empty">Tidak bisa terhubung ke server.</div><button class="all-btn big" type="button" id="dssRetry">Coba lagi</button>'; })
       [S.role === 'AASM' ? 'dsrAasm' : 'dsrDss'](S.code, deviceId());
   }
   $('dssBody').addEventListener('click', function (e) {
@@ -8775,7 +8774,7 @@
   }
   function showLogin() { $('dssNav').style.display = 'none'; $('fdaScreen').style.display = 'none'; $('admScreen').style.display = 'none'; $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none'; $('dashboard').style.display = 'none'; $('bottomNav').style.display = 'none'; document.body.classList.remove('has-nav'); $('loginScreen').style.display = 'block'; $('pwInput').value = ''; }
   function logout(msg) { navClear(); document.body.classList.remove('tema-form'); try { rtCloseAkun(); } catch (e) {} try { fdResetSession(); } catch (e) {} try { admReset(); $('admBody').innerHTML = ''; $('admScreen').style.display = 'none'; } catch (e) {} try { fdaReset(); $('fdaBody').innerHTML = ''; $('fdaScreen').style.display = 'none'; } catch (e) {} try { dvReset(); S.aasSnap = {}; S.aasPrev = {}; $('dssNav').style.display = 'none'; } catch (e) {}
-    if (S.code) cacheClear(S.code); try { $('dssBody').innerHTML = ''; } catch (e) {}
+    if (S.code) cacheClear(S.code); try { dvStockHome(); $('dssBody').innerHTML = ''; } catch (e) {}
     if (S.sheet) closeSheet(); $('undoToast').hidden = true; if (typeof KEL !== 'undefined') { KEL.data = null; KEL.code = null; KEL.err = ''; KEL.msg = ''; KEL.confirm = ''; KEL.busy = ''; }
     $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none';
     ls('remove', K_CODE); ls('remove', K_REM);
@@ -8823,7 +8822,7 @@
   // ----- gerbang tombol Kembali HP (= app lama): Kembali memunculkan konfirmasi; bila ada lembar terbuka, Kembali menutup lembar dulu -----
   function armGate() { try { history.pushState({ rsGate: 1 }, ''); } catch (e) {} }
   function exitShow(on) { $('exitConfirm').hidden = !on; }
-  window.addEventListener('popstate', function () { if (S.sheet) { if (S.sheet.back) openSheet(S.sheet.back); else closeSheet(); armGate(); return; } if (navBack()) { armGate(); return; } if (!$('exitConfirm').hidden) { armGate(); return; } exitShow(true); });
+  window.addEventListener('popstate', function () { if (scanSt.live) { scnLiveStop(); armGate(); return; } /* kamera scan terbuka: tutup kamera saja */ if (S.sheet) { if (S.sheet.back) openSheet(S.sheet.back); else closeSheet(); armGate(); return; } if (navBack()) { armGate(); return; } if (!$('exitConfirm').hidden) { armGate(); return; } exitShow(true); });
   $('exitStay').addEventListener('click', function () { exitShow(false); armGate(); });
   $('exitGo').addEventListener('click', function () { exitShow(false); try { history.back(); } catch (e) {} });
   armGate();
