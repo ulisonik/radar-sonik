@@ -474,6 +474,24 @@
   .tamubar button { flex-shrink: 0; border: 0; border-radius: 99px; background: var(--action); color: var(--navy); font-weight: 700; font-size: 12px; padding: 7px 14px; cursor: pointer; }
 
   /* === v15: Laporan Progress Saya === */
+  /* bln-lalu: pemilih bulan + pita hanya-lihat; biru muda + gembok = status sistem */
+  .past-bar { display: flex; align-items: center; gap: 8px; position: sticky; top: 6px; z-index: 30; background: #DCEBFA; border: 1px solid #B7D3EF; color: var(--navy); border-radius: 14px; padding: 8px 10px; margin: 0 0 10px; font-size: 12.5px; line-height: 1.3; box-shadow: 0 4px 12px rgba(16,42,76,.10); }
+  .past-bar[hidden], .past-pick[hidden] { display: none; }
+  .past-bar svg { width: 16px; height: 16px; flex: 0 0 16px; }
+  .past-bar .past-t { flex: 1 1 auto; min-width: 0; }
+  .past-exit { flex: 0 0 auto; max-width: 46%; min-height: 40px; padding: 6px 10px; background: #fff; border: 1px solid #8FB8E3; border-radius: 10px; font: inherit; font-weight: 600; font-size: 12px; color: var(--navy); cursor: pointer; }
+  .past-pick { margin: 0 0 12px; }
+  .past-sel { position: relative; display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 9px 14px; border-radius: 16px; box-sizing: border-box; }
+  .past-sel.aktif { background: var(--navy); border: 1px solid var(--navy); color: #fff; box-shadow: 0 8px 20px rgba(16,42,76,.32); }
+  .past-sel.lalu { background: #EEF4FB; border: 1.5px dashed #9DB7D3; color: #475B73; }
+  .past-sel .past-dot { flex: 0 0 12px; width: 12px; height: 12px; margin: 0 2px; border-radius: 50%; background: #34D399; box-shadow: 0 0 0 5px rgba(52,211,153,.28); }
+  .past-sel > svg { width: 18px; height: 18px; flex: 0 0 18px; }
+  .past-sel .past-v { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; line-height: 1.2; }
+  .past-sel .past-v small { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; opacity: .82; }
+  .past-sel .past-v b { font-size: 16.5px; font-weight: 700; }
+  .past-sel .past-ch { font-size: 12px; font-weight: 600; opacity: .9; }
+  .past-sel select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; font-size: 16px; cursor: pointer; }
+  body.bulan-lalu #hariCard, body.bulan-lalu #homeLinksT, body.bulan-lalu #homeLinks, body.bulan-lalu #repSend, body.bulan-lalu #todayBtn, body.bulan-lalu #visHome { display: none !important; }
   .rep-card { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; border: 0; background: var(--white); border-radius: 20px; padding: 14px 16px; box-shadow: var(--shadow); cursor: pointer; font-family: inherit; color: var(--ink); }
   .rep-card .rc-ico { width: 44px; height: 44px; border-radius: 14px; background: var(--ice); color: var(--navy); display: grid; place-items: center; flex-shrink: 0; }
   .rep-card .rc-ico svg { width: 22px; height: 22px; }
@@ -1258,10 +1276,12 @@
   </div>
 
   <div class="metaline" id="metaLine"></div>
+  <div class="past-bar" id="pastBar" hidden></div>
   <div id="tamuBar" class="tamubar"><span id="tamuTxt"></span><button id="tamuChange" type="button">Ganti salesman</button></div>
 
   <!-- BERANDA -->
   <section class="view" id="view-beranda">
+    <div class="past-pick" id="pastPick" hidden></div>
     <div class="hero">
       <div class="hello"><span id="helloName"></span><small id="helloSub"></small></div>
       <div class="hero-slides" id="heroSlides">
@@ -1568,6 +1588,7 @@
     return hr < 11 ? 'Selamat pagi' : hr < 15 ? 'Selamat siang' : hr < 18 ? 'Selamat sore' : 'Selamat malam';
   }
   function todayName() {
+    if (S && S.past) return ''; // bln-lalu: tidak ada "hari ini" saat melihat bulan lalu
     if (window.__RS_TODAY) return window.__RS_TODAY; // hanya dipakai pratinjau (mengunci "hari ini" ke tanggal data)
     try { var n = new Date().toLocaleDateString('id-ID', { weekday: 'long', timeZone: 'Asia/Jayapura' }); return n.charAt(0).toUpperCase() + n.slice(1); }
     catch (e) { return ''; }
@@ -1595,7 +1616,7 @@
   }
   function renderBanners() {
     var d = S.data, h = '';
-    if (d.periodLocked) h += '<div class="banner lock">🔒 Periode berakhir — form terkunci, data tetap bisa dilihat.</div>';
+    if (d.periodLocked && !S.past) h += '<div class="banner lock">🔒 Periode berakhir — form terkunci, data tetap bisa dilihat.</div>';
     if (!d.npdOn) h += '<div class="banner warn">Riwayat transaksi belum tersedia (hanya centang manual).</div>';
     if (d.warning) h += '<div class="banner warn">' + esc(d.warning) + '</div>';
     if (S.offline) h += '<div class="banner warn">📴 Offline · data per ' + esc(offTime(S.offAt)) + ' ' + infoBtn('offl') + ' <button type="button" data-reconn="1" style="margin-left:6px;border:0;border-radius:99px;background:#0F172A;color:#fff;font-weight:600;font-size:12px;padding:5px 12px;cursor:pointer">Sambung</button></div>';
@@ -1787,8 +1808,8 @@
         var miss = psTargetKeys(o).filter(function (k) { return !psAch(o, k); }); if (!miss.length || psRemaining(o) > 2) return;
         var todo = miss.filter(function (k) { return k !== 'V' && ['riwayat', 'centang', 'manual'].indexOf(psItemState(o, k)) < 0; }); if (!todo.length) return;
         var full = miss.every(function (k) { return todo.indexOf(k) >= 0; }), nm = { A: 'Availability', D: 'Digitization', SE: 'Enrollment' }, imp = [];
-        if (todo.indexOf('A') >= 0) { var t0 = tierInfo(aN, tot, PS_AV), t1 = tierInfo(aN + 1, tot, PS_AV); imp.push(oppChip('Availability', aN, aN + 1, tot)); if (t1.tier && (!t0.tier || t1.tier.min !== t0.tier.min)) imp.push('Naik ke ' + (t1.tier.min >= 0.6 ? 'ACHIEVE' : 'Batas Bawah') + ': Jasper ' + rupiah(t1.tier.jasper)); }
-        if (todo.indexOf('D') >= 0) { var u0 = tierInfo(dN, tot, PS_DG), u1 = tierInfo(dN + 1, tot, PS_DG); imp.push(oppChip('Digitization', dN, dN + 1, tot)); if (u1.tier && (!u0.tier || u1.tier.min !== u0.tier.min)) imp.push('Naik ke ACHIEVE: Jasper ' + rupiah(u1.tier.jasper)); }
+        if (todo.indexOf('A') >= 0) { var t0 = tierInfo(aN, tot, aturan().psAv), t1 = tierInfo(aN + 1, tot, aturan().psAv); imp.push(oppChip('Availability', aN, aN + 1, tot)); if (t1.tier && (!t0.tier || t1.tier.min !== t0.tier.min)) imp.push('Naik ke ' + (t1.tier.min >= 0.6 ? 'ACHIEVE' : 'Batas Bawah') + ': Jasper ' + rupiah(t1.tier.jasper)); }
+        if (todo.indexOf('D') >= 0) { var u0 = tierInfo(dN, tot, aturan().psDg), u1 = tierInfo(dN + 1, tot, aturan().psDg); imp.push(oppChip('Digitization', dN, dN + 1, tot)); if (u1.tier && (!u0.tier || u1.tier.min !== u0.tier.min)) imp.push('Naik ke ACHIEVE: Jasper ' + rupiah(u1.tier.jasper)); }
         if (full) imp.push(oppChip('Outlet Perfect', cN, cN + 1, tot));
         out.push({ kpi: 'ps', kode: o.kode, nama: o.nama, rank: todo.length, act: 'Tinggal ' + todo.map(function (k) { return nm[k]; }).join(' + '), imp: imp });
       });
@@ -1951,9 +1972,9 @@
   function repHourWIT() { if (window.__RS_HOUR != null) return window.__RS_HOUR; try { return Number(new Date().toLocaleString('en-GB', { timeZone: 'Asia/Jayapura', hour: '2-digit', hour12: false })) % 24; } catch (e) { return 0; } }
   function repMKey() { return 'rs_rep_' + (S.data && S.data.me ? S.data.me.id : ''); }
   function repMarked() { try { var o = JSON.parse(localStorage.getItem(repMKey()) || 'null'); return o && o.d === todayIso() ? o : null; } catch (e) { return null; } }
-  function repMark() { if (VW() || !S.data) return; try { localStorage.setItem(repMKey(), JSON.stringify({ d: todayIso(), t: Date.now() })); } catch (e) {} renderRepCard(); }
+  function repMark() { if (VW() || !S.data || S.past) return; try { localStorage.setItem(repMKey(), JSON.stringify({ d: todayIso(), t: Date.now() })); } catch (e) {} renderRepCard(); }
   function renderRepCard() {
-    var c = $('repBig'); if (!c || !S.data) return; var vw = VW(), mk = repMarked(), sunday = new Date().getDay() === 0 && window.__RS_HOUR == null, remind = !vw && !mk && !sunday && repHourWIT() >= REP_REMIND_HOUR;
+    var c = $('repBig'); if (!c || !S.data) return; var rt = c.querySelector('.rb-txt b'); if (S.past) { c.classList.remove('done'); c.classList.remove('remind'); if (rt) rt.textContent = 'Laporan ' + monthLabel(S.past); $('repBigSub').textContent = 'Ringkasan hasil bulan itu'; var nb0 = document.querySelector('#bottomNav [data-view="beranda"]'); if (nb0) nb0.classList.remove('nav-dot'); return; } if (rt) rt.textContent = 'Laporan harian ke WhatsApp'; var vw = VW(), mk = repMarked(), sunday = new Date().getDay() === 0 && window.__RS_HOUR == null, remind = !vw && !mk && !sunday && repHourWIT() >= REP_REMIND_HOUR;
     c.classList.toggle('done', !!mk && !vw); c.classList.toggle('remind', remind);
     var tm = ''; if (mk) { try { tm = new Date(mk.t).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jayapura' }).replace(':', '.'); } catch (e) {} }
     $('repBigSub').textContent = vw ? 'Lihat laporan ' + dispName(S.data.me) : mk ? '✓ Sudah dibagikan hari ini pukul ' + tm : remind ? '⏰ Waktunya kirim laporan hari ini — belum dibagikan' : 'Belum dibagikan hari ini · ringkasan centang & progres';
@@ -1964,8 +1985,8 @@
   setInterval(function () { try { renderRepCard(); } catch (e) {} }, 60000);
   document.addEventListener('click', function (e) { var q = e.target.closest && e.target.closest('#repQuick'); if (q && S.data) { openSheet({ type: 'laporan' }); return; } var a = e.target.closest && e.target.closest('#sheetBody a[href*="wa.me"], #sheetBody a[download]'); if (a) repMark(); });
   function renderMeta() { var d = S.data, el = $('metaLine'); if (!el) return; if (!d) { el.textContent = ''; return; } var t = localDate(new Date().toISOString()), lag = d.period && String(d.period).slice(0, 7) !== String(t).slice(0, 7);
-    el.innerHTML = esc(fmtLong(t)) + ' · ' + (lag && S.view === 'beranda' && (S.role !== 'DSR' || d.periodLocked) ? '<span class="meta-warn">⚠️ Periode ' + esc(monthLabel(d.period)) + ' (belum berganti)</span>' : 'Periode ' + esc(monthLabel(d.period))); }
-  function renderAll() { if (!S.data) return; renderMeta(); renderRepCard(); overlayQueue(); renderBanners(); renderSummary(); renderChips(); renderList(); renderAkun(); renderHome(); renderNudge(); renderOpp(); renderIncentive(); renderPane(); renderSheet(); renderHomeResults(); }
+    el.innerHTML = esc(fmtLong(t)) + ' · ' + (lag && !S.past && S.view === 'beranda' && (S.role !== 'DSR' || d.periodLocked) ? '<span class="meta-warn">⚠️ Periode ' + esc(monthLabel(d.period)) + ' (belum berganti)</span>' : 'Periode ' + esc(monthLabel(d.period))); }
+  function renderAll() { if (!S.data) return; pastPaint(); renderMeta(); renderRepCard(); overlayQueue(); renderBanners(); renderSummary(); renderChips(); renderList(); renderAkun(); renderHome(); renderNudge(); renderOpp(); renderIncentive(); renderPane(); renderSheet(); renderHomeResults(); }
 
   // ---------- data ----------
   // ===== CACHE OFFLINE (DSR saja): data terakhir yang berhasil dimuat disimpan di HP agar aplikasi bisa dibuka tanpa sinyal =====
@@ -1976,6 +1997,7 @@
   function cacheClear(code) { try { var p = 'rs_cd_' + chash(code) + '_'; Object.keys(localStorage).filter(function (k) { return k.indexOf(p) === 0; }).forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {} }
   function offTime(t) { try { return new Date(t).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jayapura' }).replace(':', '.') + ' ' + new Date(t).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', timeZone: 'Asia/Jayapura' }); } catch (e) { return ''; } }
   function applyNpd(res, manual, cachedAt) {
+    if (S.past && S.pastLive) { S.pastLive.data = res; S.lastLoad = Date.now(); return; }
     var firstTime = !S.data; document.body.classList.remove('no-data'); var lf0 = $('loadFail'); if (lf0) lf0.remove();
     S.data = res; S.lastLoad = Date.now(); S.offline = !!cachedAt; S.offAt = cachedAt || 0;
     if (firstTime) { var t = todayName(), has = res.outlets.some(function (o) { return String(o.hari).toLowerCase() === t.toLowerCase(); }); S.day = has ? t : 'Semua'; }
@@ -1990,6 +2012,7 @@
   }
   function loadFail(msg) { /* audit-fix1 */ if (S.data) return; document.body.classList.add('no-data'); var e = $('loadFail'); if (!e) { e = document.createElement('div'); e.id = 'loadFail'; e.className = 'card'; $('view-beranda').insertBefore(e, $('view-beranda').firstChild); } e.innerHTML = '<div class="empty"><b>Data belum bisa dimuat</b><br>' + esc(msg || 'Periksa sinyal lalu coba lagi.') + '<br><button class="btn-retry" type="button" id="loadRetry">Coba lagi</button></div>'; $('loadRetry').onclick = function () { load(true); }; }
   function load(manual) {
+    if (S.past) { if (manual) toast('Sedang melihat bulan lalu. Kembali ke bulan aktif untuk memuat ulang.'); return; }
     if (S.loading) return;
     S.loading = true; setSync('busy', 'Memuat…'); $('refreshBtn').disabled = true;
     var sess = SK();
@@ -2081,6 +2104,7 @@
   function qSave() { var k = qKey(), a = Q.mem[k] || []; try { if (a.length) localStorage.setItem(k, JSON.stringify(a)); else localStorage.removeItem(k); } catch (e) {} try { paintSync(); } catch (e) {} }
   function qAdd(kind, kode, items) { if (S.role !== 'DSR') return; qGet().push({ kind: kind, kode: kode, items: items, ts: Date.now() }); qSave(); }
   function overlayQueue() {
+    if (S.past) return;
     var a = qGet(); if (!a.length) return;
     var me = S.data.me.id, iso = new Date().toISOString();
     a.forEach(function (q) {
@@ -2095,6 +2119,7 @@
     });
   }
   function qFlush() {
+    if (S.past) return;
     if (Q.flushing || !S.data || S.role !== 'DSR' || !qGet().length) return;
     Q.flushing = true; var sess = SK(), rejected = 0, sent = 0;
     function finish() { Q.flushing = false; if (SK() !== sess) return; if (rejected) { toast(rejected + ' centang ditolak server (periode/aturan berubah); data dimuat ulang.'); S.f = {}; S.fe = {}; load(true); return; } if (sent) toast(sent + ' centang tersimpan terkirim.'); renderAll(); }
@@ -2207,22 +2232,23 @@
   function isPane(k) { return k === 'ss' || k === 'bp' || k === 'sfi'; } // halaman Target yang isinya panel (bukan daftar outlet)
   function fetchF(name, pre) {
     S.f = S.f || {}; S.fl = S.fl || {}; S.fe = S.fe || {};
+    if (S.past && !PAST_LIVE[name]) { if (!F(name)) S.fe[name] = name === 'daily' ? 'Performa Harian tidak tersimpan di arsip bulan lalu.' : 'Data ini tidak tersimpan di arsip bulan itu.'; preDone(pre); return; }
     if (S.fl[name]) return; S.fl[name] = true;
     var sess = SK(); // sesi saat permintaan dikirim (kode + salesman yang dilihat)
     google.script.run
       .withSuccessHandler(function (res) {
         if (SK() !== sess) return; // sudah keluar / ganti salesman: buang respons lama
         S.fl[name] = false; preDone(pre);
-        if (!res || !res.ok) S.fe[name] = (res && res.error) || 'Gagal memuat'; else { if (name === 'bp') bpNorm(res); S.f[name] = res; delete S.fe[name]; if (name === 'ob') { try { fdRenderStatusList(); } catch (eOb) {} } if (name === 'jr') { try { juHomeNote(); } catch (eJu) {} } if (S.role === 'DSR') cacheSet(name, res); }
+        if (!res || !res.ok) S.fe[name] = (res && res.error) || 'Gagal memuat'; else { if (name === 'bp') bpNorm(res); pastF(name)[name] = res; delete S.fe[name]; if (name === 'ob') { try { fdRenderStatusList(); } catch (eOb) {} } if (name === 'jr') { try { juHomeNote(); } catch (eJu) {} } if (S.role === 'DSR') cacheSet(name, res); }
         renderAll(); if (S.role === 'DSS' && name === 'stock' && DV.v === 'stock') renderDssApp(); if (S.role === 'DSS' && JRF.on && /^(jr|jru|jur|vis)$/.test(name)) renderOutletPane(); /* jr-role */
       })
-      .withFailureHandler(function () { if (SK() !== sess) return; S.fl[name] = false; preDone(pre); S.fr = S.fr || {}; if (!S.fr[name] && navigator.onLine !== false) { S.fr[name] = 1; S.fl[name] = true; setTimeout(function () { S.fl[name] = false; if (SK() === sess && !F(name)) fetchF(name); }, 1500 + Math.random() * 2500); return; } var c = S.role === 'DSR' ? cacheGet(name) : null; if (c && c.d && c.d.ok) { S.f[name] = name === 'bp' ? bpNorm(c.d) : c.d; delete S.fe[name]; } else S.fe[name] = 'Tidak ada koneksi'; renderAll(); })[FN[name]](S.code, deviceId(), S.as || '');
+      .withFailureHandler(function () { if (SK() !== sess) return; S.fl[name] = false; preDone(pre); S.fr = S.fr || {}; if (!S.fr[name] && navigator.onLine !== false) { S.fr[name] = 1; S.fl[name] = true; setTimeout(function () { S.fl[name] = false; if (SK() === sess && !F(name)) fetchF(name); }, 1500 + Math.random() * 2500); return; } var c = S.role === 'DSR' ? cacheGet(name) : null; if (c && c.d && c.d.ok) { pastF(name)[name] = name === 'bp' ? bpNorm(c.d) : c.d; delete S.fe[name]; } else S.fe[name] = 'Tidak ada koneksi'; renderAll(); })[FN[name]](S.code, deviceId(), S.as || '');
   }
   function ensureF(name) { if (!F(name) && !(S.fl && S.fl[name])) fetchF(name); }
   var PRE = { q: [], on: 0 }; /* audit-fix1 */
   function prePump() { while (PRE.on < 2 && PRE.q.length) { var n = PRE.q.shift(); if (F(n) || (S.fl && S.fl[n])) continue; PRE.on++; fetchF(n, true); } }
   function preDone(mark) { if (mark) { PRE.on = Math.max(0, PRE.on - 1); prePump(); } }
-  function preloadF() { PRE.q = ['cotc', 'ps', 'eco', 'ss', 'hyg', 'bp', 'daily', 'sfi', 'jr']; PRE.on = 0; prePump(); } // jr: pemberitahuan periode usulan peserta Juragan
+  function preloadF() { if (S.past) return; PRE.q = ['cotc', 'ps', 'eco', 'ss', 'hyg', 'bp', 'daily', 'sfi', 'jr']; PRE.on = 0; prePump(); } // jr: pemberitahuan periode usulan peserta Juragan
   function stateMsg(name, what) {
     if (S.fe && S.fe[name]) return '<div class="empty">' + esc(S.fe[name]) + '<br><button class="btn-retry" type="button" data-retry="' + name + '">Coba lagi</button></div>';
     return '<div class="empty">Memuat ' + esc(what) + '…</div>';
@@ -2284,8 +2310,9 @@
     var need = total ? Math.ceil(Math.round(F('ps').perfectTargetPct * total * 1e6) / 1e6) : 0;
     return { total: total, complied: complied, need: need, met: total > 0 && complied >= need, shortfall: Math.max(0, need - complied), pct: total ? complied / total : 0 };
   }
-  var PS_AV = [{ min: 0.6, jasper: 600000, label: 'ACHIEVE (≥60%)' }, { min: 0.4, jasper: 300000, label: 'BATAS BAWAH (40–59,9%)' }];
-  var PS_DG = [{ min: 0.4, jasper: 600000, label: 'ACHIEVE (≥40%)' }];
+  /* bln-lalu: aturan insentif yang tertanam di kode, berlaku per periode. Skema berubah = TAMBAH baris baru dengan "dari" = bulan mulai berlaku; baris lama jangan diubah, supaya bulan lalu tetap memakai aturannya. */
+  var ATURAN_BULAN = [{ dari: '2026-01', psAv: [{ min: 0.6, jasper: 600000, label: 'ACHIEVE (≥60%)' }, { min: 0.4, jasper: 300000, label: 'BATAS BAWAH (40–59,9%)' }], psDg: [{ min: 0.4, jasper: 600000, label: 'ACHIEVE (≥40%)' }], psPotensi: 1200000, tematik: 500000 }];
+  function aturan() { var p = String((S.data && S.data.period) || '9999-12'), hit = ATURAN_BULAN[0]; ATURAN_BULAN.forEach(function (x) { if (x.dari <= p) hit = x; }); return hit; }
   function tierInfo(achieved, total, slabs) { // = psJasperTierInfo app lama
     var pct = total > 0 ? achieved / total : 0, tier = null;
     for (var i = 0; i < slabs.length; i++) { if (pct >= slabs[i].min) { tier = slabs[i]; break; } }
@@ -2297,9 +2324,9 @@
   function psIncentive() {
     if (!F('ps')) return null;
     var os = F('ps').outlets, total = os.length;
-    var av = tierInfo(os.filter(function (o) { return psAch(o, 'A'); }).length, total, PS_AV);
-    var dg = tierInfo(os.filter(function (o) { return psAch(o, 'D'); }).length, total, PS_DG);
-    return { total: total, av: av, dg: dg, grand: av.jasper + dg.jasper, potensi: total ? 1200000 : 0 };
+    var av = tierInfo(os.filter(function (o) { return psAch(o, 'A'); }).length, total, aturan().psAv);
+    var dg = tierInfo(os.filter(function (o) { return psAch(o, 'D'); }).length, total, aturan().psDg);
+    return { total: total, av: av, dg: dg, grand: av.jasper + dg.jasper, potensi: total ? aturan().psPotensi : 0 };
   }
 
   // ---------- adapter daftar Checklist ----------
@@ -2599,7 +2626,7 @@
   function jasperTematik() {
     var j = S.data && S.data.jasper; if (!j || typeof j.target !== 'number') return null;
     var pct = j.target > 0 ? (j.actual || 0) / j.target : 0, ach = pct >= 1;
-    return { target: j.target, actual: j.actual || 0, pct: pct, achieved: ach, jasper: ach ? 500000 : 0, remaining: ach ? 0 : Math.max(0, j.target - (j.actual || 0)) };
+    return { target: j.target, actual: j.actual || 0, pct: pct, achieved: ach, jasper: ach ? aturan().tematik : 0, remaining: ach ? 0 : Math.max(0, j.target - (j.actual || 0)) };
   }
   function incTotal() {
     var d = S.data, achFn = function (o, c) { var st = state(o, c); return st === 'riwayat' || st === 'centang'; };
@@ -2612,7 +2639,7 @@
     var sfiF = F('sfi'), sfiOk = !!(sfiF && sfiF.available);
     parts.push({ k: 'Sahabat Warung', v: sfiOk ? (sfiF.incentive || 0) : 0, ready: sfiOk });
     var total = parts.reduce(function (s, p) { return s + p.v; }, 0);
-    var potensi = npd.potensi + (ps ? ps.potensi : 0) + ssPotensi(ssf, ss) + (d.me.noTematik ? 500000 : 0) + (bpOk ? (bpf.jasperRp || 0) : 0) + (sfiOk ? (sfiF.potensi || 0) : 0);
+    var potensi = npd.potensi + (ps ? ps.potensi : 0) + ssPotensi(ssf, ss) + (d.me.noTematik ? aturan().tematik : 0) + (bpOk ? (bpf.jasperRp || 0) : 0) + (sfiOk ? (sfiF.potensi || 0) : 0);
     // Cara pembayaran (brief Jasper): Jasper Omset/SSV Bulanan = DT Payment (tunai dari distributor); SEMUA yang lain (Add Incentive, NPD, Perfect Store, BP, Sahabat Warung, Jasper Tematik) = Direct Payment (transfer Unilever).
     var payDt = ssf && ss && ss.jasperBulanan ? (ss.jasperBulanan.bonus || 0) : 0, payDtPot = ssf && ssf.cfg && ss ? (ssf.cfg.jasperBulanan.highRp || 0) : 0;
     var pay = { dt: payDt, direct: Math.max(0, total - payDt), dtPot: payDtPot, directPot: Math.max(0, potensi - payDtPot) };
@@ -2669,7 +2696,7 @@
   }
   function tgtMoneyHtml(k) {
     if (!S.data) return ''; var r = incTotal(), tem = S.data.me.noTematik, f;
-    if (k === 'npd') { var v = r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), pot = r.npd.potensi + (tem ? 500000 : 0), more = Math.max(0, r.npd.potensi - r.npd.grand);
+    if (k === 'npd') { var v = r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), pot = r.npd.potensi + (tem ? aturan().tematik : 0), more = Math.max(0, r.npd.potensi - r.npd.grand);
       return moneyCard('NPD & Big Bets', v, pot, 'dr', '🏦 Direct', 'npd', more > 0 ? 'Potensi tambahan <b>' + esc(rupiah(more)) + '</b> bila outlet lain ikut mencapai SKU bernilai' : '') + tematikCardHtml(r); }
     if (k === 'ps' && r.ps) return moneyCard('Perfect Store', r.ps.grand, r.ps.potensi, 'dr', '🏦 Direct', 'ps', '') + tierBlock('Availability', '📦', r.ps.av) + tierBlock('Digitization', '📶', r.ps.dg);
     if (k === 'ss') { var om = r.parts[2]; return moneyCard('Omset BU', om.v, ssPotensi(F('ss'), r.ss), 'dt', '💵 Jasper Bulanan tunai · Add Incentive 🏦', 'ss', ''); }
@@ -2684,7 +2711,7 @@
   function incVals(r) {
     var d = S.data;
     var vals = {}; var tem = d.me.noTematik;
-    vals.npd = [r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), r.npd.potensi + (tem ? 500000 : 0)]; vals.ps = r.ps ? [r.ps.grand, r.ps.potensi] : [0, 0]; vals.ss = [r.parts[2].v, ssPotensi(F('ss'), r.ss)];
+    vals.npd = [r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), r.npd.potensi + (tem ? aturan().tematik : 0)]; vals.ps = r.ps ? [r.ps.grand, r.ps.potensi] : [0, 0]; vals.ss = [r.parts[2].v, ssPotensi(F('ss'), r.ss)];
     var bpf = F('bp'), bpOk = !!(bpf && bpf.available && bpf.target > 0), bpp = r.parts.filter(function (x) { return x.k === 'Jasper BP'; })[0]; vals.bp = [bpOk ? bpp.v : 0, bpOk ? bpf.jasperRp : 0];
     var sf = F('sfi'), sfOk = !!(sf && sf.available); vals.sfi = [sfOk ? sf.incentive : 0, sfOk ? sf.potensi : 0];
     return vals;
@@ -2741,7 +2768,7 @@
     else { ['r2g', 'ss', 'bp', 'ps'].forEach(ensureF); box.innerHTML = r2gBody(); }
   }
   function renderPane() {
-    if (!S.data) return; if (S.view === 'outlet') renderOutletPane(); else if (S.view === 'insentif') { if (isPane(S.is)) S.is = 'inc'; var ih = $('insHost'); if (ih && $('insBody').parentNode !== ih) ih.appendChild($('insBody')); renderInsPane(); }
+    if (!S.data) return; pastPaint(); if (S.view === 'outlet') renderOutletPane(); else if (S.view === 'insentif') { if (isPane(S.is)) S.is = 'inc'; var ih = $('insHost'); if (ih && $('insBody').parentNode !== ih) ih.appendChild($('insBody')); renderInsPane(); }
     else if (S.view === 'stock') { ensureF('stock'); $('stockBody').innerHTML = F('stock') ? stockShell() : stateMsg('stock', 'stok'); if (F('stock') && F('stock').available) paintStokList(); }
   }
 
@@ -2769,7 +2796,7 @@
     $('kpiLeg').innerHTML = '<span class="kl ok">tercapai</span><span class="kl mid">hampir</span><span class="kl low">tertinggal</span>';
   }
   function renderHeroToday() {
-    var el = $('todayRows'); if (!el || !S.data) return; $('todayLabel2').textContent = 'Hari ini · ' + (todayName() || '');
+    var el = $('todayRows'); if (!el || !S.data) return; if (S.past) { $('todayLabel2').textContent = 'Arsip ' + monthLabel(S.past); el.innerHTML = '<div class="o-sub">Data harian tidak ditampilkan saat melihat bulan lalu.</div>'; return; } $('todayLabel2').textContent = 'Hari ini · ' + (todayName() || '');
     var rt = routeProgress(), o = needToday(perfSeries('omset')), b = needToday(perfSeries('bp')), h = '';
     h += '<div class="tr"><span class="ti">📍</span><div class="tt"><b>' + (rt.n ? 'Rute: ' + rt.done + ' dari ' + rt.n + ' outlet selesai' : 'Tidak ada rute hari ini') + '</b>' + (rt.n ? barHtml(rt.done / rt.n * 100) : '') + '</div></div>';
     if (o && o.off) h += ''; else if (o && !o.stale) h += '<div class="tr"><span class="ti">💼</span><div class="tt"><b>Omset: ' + (o.gap <= 0 ? 'target bulan tercapai ✓' : 'butuh ≥ ' + esc(rupiah(Math.round(o.need)))) + '</b><small>' + (o.gap > 0 ? 'sisa ' + o.remain + ' hari kerja · baru ' + esc(rpShort(o.cum)) + ' dari ' + esc(rpShort(o.target)) : '') + '</small></div></div>';
@@ -2779,7 +2806,7 @@
   function renderIncentive() {
     var d = S.data; if (!d) return;
     var r = incTotal(), pct = r.potensi ? Math.round(r.total / r.potensi * 100) : 0;
-    $('incLabel').textContent = 'Insentif sementara · Periode ' + d.period;
+    $('incLabel').textContent = S.past ? 'Insentif ' + monthLabel(S.past) : 'Insentif sementara · Periode ' + d.period;
     $('incAmt').textContent = rupiah(r.total);
     $('incBar').style.width = Math.min(100, pct) + '%';
     $('incTxt').textContent = 'dari potensi ' + rupiah(r.potensi) + ' · ' + pct + '%';
@@ -2820,7 +2847,7 @@
     var R = REP(); if (R.months || R.monthsLoading || VW() && !S.as) return;
     R.monthsLoading = true; var sess = SK();
     google.script.run
-      .withSuccessHandler(function (res) { if (SK() !== sess) return; R.monthsLoading = false; R.months = res && res.ok ? (res.months || []) : []; if (S.sheet && S.sheet.type === 'laporan') renderSheet(); })
+      .withSuccessHandler(function (res) { if (SK() !== sess) return; R.monthsLoading = false; R.months = res && res.ok ? (res.months || []) : []; try { pastPaint(); } catch (ePp) {} if (S.sheet && S.sheet.type === 'laporan') renderSheet(); })
       .withFailureHandler(function () { if (SK() !== sess) return; R.monthsLoading = false; R.months = []; })
       .dsrArsip(S.code, deviceId(), S.as || '', '');
   }
@@ -2832,6 +2859,54 @@
       .withFailureHandler(function () { if (SK() !== sess) return; R.loading[p] = false; R.err[p] = 'Tidak ada koneksi.'; if (S.sheet && S.sheet.type === 'laporan') renderSheet(); })
       .dsrArsip(S.code, deviceId(), S.as || '', p);
   }
+  /* bln-lalu (10 Nov 2026, keputusan user): seluruh menu bisa menampilkan bulan yang sudah diarsipkan; bawaan selalu periode aktif, hanya lihat.
+     Data aktif disimpan di S.pastLive selama melihat bulan lalu. Stock, Pajangan, Pengajuan tidak diarsipkan per bulan, jadi tetap bulan berjalan. */
+  var PAST_LIVE = { stock: 1, vis: 1, jru: 1 };
+  function pastF(n) { return S.past && S.pastLive && !PAST_LIVE[n] ? S.pastLive.f : S.f; }
+  function pastSegar() { navClear(); filtersReset(); renderAll(); if (S.sheet && S.sheet.type === 'laporan') renderSheet(); window.scrollTo(0, 0); }
+  function pastApply(p, snap) {
+    var c = JSON.parse(JSON.stringify(snap)); if (!c.dsrNpd) { toast('Arsip bulan itu tidak lengkap.'); return; }
+    if (!S.pastLive) S.pastLive = { data: S.data, f: S.f || {}, fe: S.fe || {} };
+    var L = S.pastLive, map = { cotc: c.dsrCotc, ps: c.dsrPs, eco: c.dsrEco, jur: c.dsrJuragan, ss: c.dsrSs, r2g: c.dsrR2g, hyg: c.dsrHygiene, bp: c.dsrBp ? bpNorm(c.dsrBp) : null, sfi: c.dsrSfi, ob: c.dsrOutletBaru, jr: c.dsrJuraganReg, prg: c.dsrProgram }, f = {};
+    Object.keys(map).forEach(function (k) { if (map[k]) f[k] = map[k]; });
+    Object.keys(PAST_LIVE).forEach(function (k) { if (L.f[k]) f[k] = L.f[k]; });
+    c.dsrNpd.periodLocked = true; c.dsrNpd.period = p;
+    S.past = p; S.data = c.dsrNpd; S.f = f; S.fe = {}; S.fl = {}; S.jrTab = 'poin';
+    var R = REP(); R.month = null; R.img = null; setSync('ok', 'Arsip ' + monthShort(p)); pastSegar();
+  }
+  function pastExit() {
+    var L = S.pastLive; if (!L) return;
+    S.past = null; S.pastLive = null; S.data = L.data; S.f = L.f; S.fe = L.fe; S.fl = {}; S.jrTab = 'poin';
+    var R = REP(); R.month = null; R.img = null; pastSegar(); load(false);
+  }
+  function pastPick(p) {
+    if (!S.data) return; var live = S.pastLive ? S.pastLive.data : S.data, R = REP();
+    if (!p || p === live.period) { pastExit(); return; }
+    if (S.past === p) return;
+    if (R.past[p]) { pastApply(p, R.past[p]); return; }
+    if (S.pastBusy) return;
+    S.pastBusy = p; pastPaint(); var sess = SK();
+    google.script.run
+      .withSuccessHandler(function (res) { if (SK() !== sess) return; S.pastBusy = ''; if (res && res.ok && res.snap) { R.past[p] = res.snap; pastApply(p, res.snap); } else { pastPaint(); toast((res && res.error) || 'Arsip bulan itu belum bisa dibuka.'); } })
+      .withFailureHandler(function () { if (SK() !== sess) return; S.pastBusy = ''; pastPaint(); toast('Tidak ada koneksi. Coba lagi.'); })
+      .dsrArsip(S.code, deviceId(), S.as || '', p);
+  }
+  function pastPaint() {
+    var bar = $('pastBar'), pick = $('pastPick'); if (!bar || !pick) return;
+    var on = !!(S.past && S.data && S.pastLive); document.body.classList.toggle('bulan-lalu', on); bar.hidden = !on;
+    if (on) {
+      var liveNow = S.view === 'stock' || (S.view === 'outlet' && (S.os === 'vis' || S.os === 'form')), nama = monthLabel(S.past);
+      bar.innerHTML = ICON_LOCK + '<span class="past-t">' + (liveNow ? 'Menu ini selalu bulan berjalan. Menu lain menampilkan <b>' + esc(nama) + '</b>.' : '<b>Melihat ' + esc(nama) + '</b> · hanya lihat') + '</span><button class="past-exit" id="pastExit" type="button">Kembali ke ' + esc(monthLabel(S.pastLive.data.period)) + '</button>';
+    }
+    if (!S.data || (VW() && !S.as)) { pick.hidden = true; return; }
+    repFetchMonths(); var R = REP(), months = R.months || [], live = S.pastLive ? S.pastLive.data : S.data; pick.hidden = !months.length; if (!months.length) return;
+    var kunci = [S.past || '', S.pastBusy, live.period].concat(months).join('|'); if (pick.dataset.k === kunci) return; pick.dataset.k = kunci; /* jangan menggambar ulang saat dropdown terbuka */
+    var lalu = !!S.past, judul = S.pastBusy ? 'Memuat ' + monthLabel(S.pastBusy) + '…' : monthLabel(S.past || live.period);
+    pick.innerHTML = '<label class="past-sel ' + (lalu ? 'lalu' : 'aktif') + '">' + (lalu ? ICON_LOCK : '<span class="past-dot" aria-hidden="true"></span>') + '<span class="past-v"><small>' + (lalu ? 'BULAN LALU · HANYA LIHAT' : 'PERIODE AKTIF') + '</small><b>' + esc(judul) + '</b></span><span class="past-ch" aria-hidden="true">Ganti ▾</span>' +
+      '<select id="pastSel" aria-label="Pilih periode"' + (S.pastBusy ? ' disabled' : '') + '><option value=""' + (!S.past ? ' selected' : '') + '>' + esc(monthLabel(live.period)) + ' (periode aktif)</option>' + months.map(function (p) { return '<option value="' + esc(p) + '"' + (S.past === p ? ' selected' : '') + '>' + esc(monthLabel(p)) + '</option>'; }).join('') + '</select></label>';
+  }
+  document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('#pastExit')) pastPick(''); });
+  document.addEventListener('change', function (e) { if (e.target && e.target.id === 'pastSel') pastPick(e.target.value); });
   function repPct(a, b) { return b > 0 ? a / b * 100 : 0; }
   function bpNorm(b) { /* v63c: target bill selalu bulat, dibulatkan ke atas (sama dgn Bp.gs bpCeil_) */ if (b && b.target > 0 && b.target % 1) { b.target = Math.ceil(Math.round(b.target * 1e6) / 1e6); b.pct = b.actual / b.target; b.achieved = b.actual >= b.target; b.jasper = b.achieved ? (b.jasperRp || 0) : 0; } return b; }
   function withSnap(snap, fn) { // jalankan fn dengan data arsip menggantikan data bulan berjalan (dipulihkan setelahnya)
@@ -2840,7 +2915,7 @@
     try { return fn(); } finally { S.data = d0; S.f = f0; }
   }
   function repModel() {
-    var d = S.data, R = REP(), month = R.month && R.month !== d.period ? R.month : null;
+    var d = S.data, R = REP(), month = S.past ? S.past : (R.month && R.month !== d.period ? R.month : null);
     if (!month) return buildReport(false);
     var snap = R.past[month];
     if (!snap || !snap.dsrNpd) return { id: d.me.id, name: dispName(d.me), sub: d.me.distName, period: month, isPast: true, kpi: null, blocks: [], notes: [], dataUntil: null, pending: [] };
@@ -3060,7 +3135,7 @@
   }
   function handleRep(b) {
     var R = REP(), a = b.dataset.rep;
-    if (a === 'month') { R.month = b.dataset.m || null; R.img = null; if (R.month) repFetchPast(R.month); renderSheet(); }
+    if (a === 'month') { if (S.past) { pastPick(b.dataset.m || ''); return; } R.month = b.dataset.m || null; R.img = null; if (R.month) repFetchPast(R.month); renderSheet(); }
     else if (a === 'retry') { delete R.err[b.dataset.m]; repFetchPast(b.dataset.m); renderSheet(); }
     else if (a === 'share') { repMark(); repShare(); }
     else if (a === 'copy') { repMark(); repCopy(); }
@@ -3349,14 +3424,14 @@
 
 
   // === v16: NPD "Per SKU", Kalkulator Insentif, urut & filter lanjutan, tombol info "i" ===
-  function V18() { return { visSt: 'semua', visBisa: 'semua', visTg: '', visHari: null, visHariInit: false, juBatal: '', jrTab: 'poin', jrBatal: '', jrBusy: '', obSt: '', oppF: '', histF: '', offline: false, offAt: 0, unpOnly: false, insX: {}, insAll: {}, undoing: false, ecoSumOpen: false, stk: { q: '', filter: 'all', sort: 'nama', scan: '', shown: 40, lk: {} }, r2gEmp: null, sfi: { q: '', st: '', day: '', ch: '', sort: 'name', shown: 40 }, r2gSel: null, r2gOpen: {}, kids: {}, ckv: 'outlet', skf: 'belum', kal: null, rep: null, cotcSort: false, psSort: false, psRem: null, psEnr: null, psWait: false, stP: { k: {}, a: {} }, stC: { k: {}, a: {} }, ecoDay: null, ecoSort: null, ecoCh: null, jurDay: null, jurSt: null, jurSort: null, ecoDayInit: false, jurDayInit: false, visStage: 'tugas' }; }
+  function V18() { return { past: null, pastLive: null, pastBusy: '', visSt: 'semua', visBisa: 'semua', visTg: '', visHari: null, visHariInit: false, juBatal: '', jrTab: 'poin', jrBatal: '', jrBusy: '', obSt: '', oppF: '', histF: '', offline: false, offAt: 0, unpOnly: false, insX: {}, insAll: {}, undoing: false, ecoSumOpen: false, stk: { q: '', filter: 'all', sort: 'nama', scan: '', shown: 40, lk: {} }, r2gEmp: null, sfi: { q: '', st: '', day: '', ch: '', sort: 'name', shown: 40 }, r2gSel: null, r2gOpen: {}, kids: {}, ckv: 'outlet', skf: 'belum', kal: null, rep: null, cotcSort: false, psSort: false, psRem: null, psEnr: null, psWait: false, stP: { k: {}, a: {} }, stC: { k: {}, a: {} }, ecoDay: null, ecoSort: null, ecoCh: null, jurDay: null, jurSt: null, jurSort: null, ecoDayInit: false, jurDayInit: false, visStage: 'tugas' }; }
   Object.assign(S, V18());
   /* filter-reset (8 Nov 2026, keputusan user): MENU BAWAH = MULAI BARU -> filter, kata cari, urutan, chip hari kembali ke bawaan (chip hari = rute hari ini).
      Pindah SUB-MENU di halaman yang sama: filter TETAP. Tombol "‹ Kembali ke …" / Kembali HP: memulihkan keadaan sebelumnya. Field filter baru WAJIB ditambahkan di sini. */
   function filtersReset() {
     var v = function (id) { var e = $(id); if (e) e.value = ''; };
     S.q = ''; S.osq = ''; v('searchInput'); v('homeSearchInput'); v('osSearch');
-    S.day = S.data && typeof todayOutlets === 'function' && todayOutlets().length ? todayName() : 'Semua';
+    S.day = !S.past && S.data && typeof todayOutlets === 'function' && todayOutlets().length ? todayName() : 'Semua';
     S.psRem = null; S.psEnr = null; S.psWait = false; S.psSort = false; S.cotcSort = false;
     S.ecoDay = null; S.ecoSt = 'Semua'; S.ecoCh = null; S.ecoSort = null; S.ecoDayInit = false;
     S.jurDay = null; S.jurSt = null; S.jurSort = null; S.jurDayInit = false;
@@ -3661,7 +3736,7 @@
     return '<div class="sec-title big">' + lic('💼') + ' Insentif Omset (Secondary Sales) ' + infoBtn('ss') + '</div>' + pairBox(om.v, pot, om.ready) + cards + incCta('ss');
   }
   function incSecNpd(r) {
-    var tem = S.data.me.noTematik, tot = r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), pot = r.npd.potensi + (tem ? 500000 : 0);
+    var tem = S.data.me.noTematik, tot = r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), pot = r.npd.potensi + (tem ? aturan().tematik : 0);
     return '<div class="sec-title big">' + lic('📦') + ' Insentif NPD &amp; Big Bets ' + infoBtn('npd') + '</div><div class="pbrow">' + payBadge('dr') + '</div>' + pairBox(tot, pot, true);
   }
   function incSecPs(r) { return '<div class="sec-title big">' + lic('🏪') + ' Insentif Perfect Store ' + infoBtn('ps') + '</div><div class="pbrow">' + payBadge('dr') + '</div>' + pairBox(r.ps.grand, r.ps.potensi, true); }
@@ -5965,7 +6040,7 @@
     if (!dataUntil) return null; var p = String(dataUntil).slice(0, 10).split('-').map(Number), du = new Date(p[0], p[1] - 1, p[2]); if (isNaN(du)) return null;
     var first = new Date(p[0], p[1] - 1, 1), last = new Date(p[0], p[1], 0), approx = !(typeof serverTotal === 'number' && serverTotal >= 0);
     var total = approx ? countWork(first, last) : serverTotal, run = countWork(first, du);
-    return { total: total, run: run, left: Math.max(0, total - run), tf: total > 0 ? run / total : 0, approx: approx };
+    return { total: total, run: run, left: S.past ? 0 : Math.max(0, total - run), tf: total > 0 ? run / total : 0, approx: approx };
   }
   function ssPotensi(ssf, ss) { // = Potensi Insentif Omset app lama: Jasper tertinggi + Add Incentive bila eligible & belum "TIDAK CAPAI" pasti
     if (!ssf || !ssf.cfg || !ss) return 0;
@@ -7462,7 +7537,7 @@
         if (g > 0 && g <= r.ss.target * 0.03) out.push({ id: r.id, nm: nm, k: 'om', gap: g, rel: g / r.ss.target, txt: 'Omset kurang ' + rpShort(g) + ' ke ' + lbl }); }
       if (r.bp && r.bp.target > 0) { var gb = r.bp.target - r.bp.actual; if (gb > 0 && gb <= Math.max(5, r.bp.target * 0.03)) out.push({ id: r.id, nm: nm, k: 'bp', gap: gb, rel: gb / r.bp.target, txt: 'BP kurang ' + gb + ' bill ke target 100%' }); }
       var n = r.ps ? r.ps.total : 0;
-      if (n > 0) { [['pa', r.ps.a, PS_AV, 'Availability'], ['pd', r.ps.d, PS_DG, 'Digitization']].forEach(function (x) { var next = x[2].slice().sort(function (a, b) { return a.min - b.min; }).filter(function (s) { return x[1] / n < s.min; })[0]; if (!next) return; var g2 = Math.ceil(Math.round(next.min * n * 1e6) / 1e6) - x[1]; if (g2 > 0 && g2 <= 3) out.push({ id: r.id, nm: nm, k: x[0], gap: g2, rel: g2 / n, txt: x[3] + ' kurang ' + g2 + ' outlet ke ' + next.label }); }); }
+      if (n > 0) { [['pa', r.ps.a, aturan().psAv, 'Availability'], ['pd', r.ps.d, aturan().psDg, 'Digitization']].forEach(function (x) { var next = x[2].slice().sort(function (a, b) { return a.min - b.min; }).filter(function (s) { return x[1] / n < s.min; })[0]; if (!next) return; var g2 = Math.ceil(Math.round(next.min * n * 1e6) / 1e6) - x[1]; if (g2 > 0 && g2 <= 3) out.push({ id: r.id, nm: nm, k: x[0], gap: g2, rel: g2 / n, txt: x[3] + ' kurang ' + g2 + ' outlet ke ' + next.label }); }); }
     });
     return out.sort(function (a, b) { return a.rel - b.rel; });
   }
@@ -7820,7 +7895,7 @@
     return (JRF.on ? '' : '<div class="seg jr-main" role="tablist">' + one(['poin', 'Juragan', '']) + (prgHas('jplus') ? one(['jplus', 'Juragan+', '']) : '') + (prgHas('mitra') ? one(['mitra', 'Mitra', '']) : '') + '</div>') + (t === 'mitra' || t === 'jplus' || (!JRF.on && !urus) ? '' : (JRF.on ? '' : '<button type="button" class="jur-back" data-jrtab="poin">‹ Kembali ke peserta Juragan</button>') + '<div class="seg seg-side jr-seg" role="tablist">' + [['na', 'Belum aktif', na], ['aj', 'Pengajuan', aj], ['us', 'Usulan peserta', jrUsBadge()]].map(one).join('') + '</div>');
   }
   function jrUsBadge() { var f = F('jr'); return f && f.periodeUsul && (f.periodeUsul.open || f.periodeUsul.status === 'AKAN') ? (juCount(f.periodeUsul) || {}).badge || 'BUKA' : ''; }
-  function jrUrusanLink() { /* jur-ringkas */ var f = F('jr'); if (!f) return '';
+  function jrUrusanLink() { /* jur-ringkas */ if (S.past) return ''; var f = F('jr'); if (!f) return '';
     var na = (f.notActive || []).length, aj = (f.pengajuan || []).filter(function (a) { return JR_OPEN[a.status] && a.jenis !== 'REGISTRASI'; }).length, us = jrUsBadge(), p = [];
     if (na) p.push('<b class="todo">' + na + '</b> belum aktif'); if (aj) p.push('<b>' + aj + '</b> pengajuan'); if (us) p.push('usulan <b class="todo">' + esc(us) + '</b>');
     return '<button type="button" class="jur-urus" data-jrtab="na"><span class="ju-t">Urusan peserta</span><span class="ju-s">' + (p.length ? p.join(' · ') : 'Belum aktif, pengajuan, usulan') + '</span>' + ICON_CHEV + '</button>'; }
@@ -8773,7 +8848,7 @@
     load(false);
   }
   function showLogin() { $('dssNav').style.display = 'none'; $('fdaScreen').style.display = 'none'; $('admScreen').style.display = 'none'; $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none'; $('dashboard').style.display = 'none'; $('bottomNav').style.display = 'none'; document.body.classList.remove('has-nav'); $('loginScreen').style.display = 'block'; $('pwInput').value = ''; }
-  function logout(msg) { navClear(); document.body.classList.remove('tema-form'); try { rtCloseAkun(); } catch (e) {} try { fdResetSession(); } catch (e) {} try { admReset(); $('admBody').innerHTML = ''; $('admScreen').style.display = 'none'; } catch (e) {} try { fdaReset(); $('fdaBody').innerHTML = ''; $('fdaScreen').style.display = 'none'; } catch (e) {} try { dvReset(); S.aasSnap = {}; S.aasPrev = {}; $('dssNav').style.display = 'none'; } catch (e) {}
+  function logout(msg) { navClear(); document.body.classList.remove('tema-form'); document.body.classList.remove('bulan-lalu'); try { rtCloseAkun(); } catch (e) {} try { fdResetSession(); } catch (e) {} try { admReset(); $('admBody').innerHTML = ''; $('admScreen').style.display = 'none'; } catch (e) {} try { fdaReset(); $('fdaBody').innerHTML = ''; $('fdaScreen').style.display = 'none'; } catch (e) {} try { dvReset(); S.aasSnap = {}; S.aasPrev = {}; $('dssNav').style.display = 'none'; } catch (e) {}
     if (S.code) cacheClear(S.code); try { dvStockHome(); $('dssBody').innerHTML = ''; } catch (e) {}
     if (S.sheet) closeSheet(); $('undoToast').hidden = true; if (typeof KEL !== 'undefined') { KEL.data = null; KEL.code = null; KEL.err = ''; KEL.msg = ''; KEL.confirm = ''; KEL.busy = ''; }
     $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none';
