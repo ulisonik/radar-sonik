@@ -2639,7 +2639,7 @@
     var sfiF = F('sfi'), sfiOk = !!(sfiF && sfiF.available);
     parts.push({ k: 'Sahabat Warung', v: sfiOk ? (sfiF.incentive || 0) : 0, ready: sfiOk });
     var total = parts.reduce(function (s, p) { return s + p.v; }, 0);
-    var potensi = npd.potensi + (ps ? ps.potensi : 0) + ssPotensi(ssf, ss) + (d.me.noTematik ? aturan().tematik : 0) + (bpOk ? (bpf.jasperRp || 0) : 0) + (sfiOk ? (sfiF.potensi || 0) : 0);
+    var potensi = npd.potensi + (ps ? ps.potensi : 0) + ssPotensi(ssf, ss) + (d.me.noTematik && jasperTematik() ? aturan().tematik : 0) + (bpOk ? (bpf.jasperRp || 0) : 0) + (sfiOk ? (sfiF.potensi || 0) : 0);
     // Cara pembayaran (brief Jasper): Jasper Omset/SSV Bulanan = DT Payment (tunai dari distributor); SEMUA yang lain (Add Incentive, NPD, Perfect Store, BP, Sahabat Warung, Jasper Tematik) = Direct Payment (transfer Unilever).
     var payDt = ssf && ss && ss.jasperBulanan ? (ss.jasperBulanan.bonus || 0) : 0, payDtPot = ssf && ssf.cfg && ss ? (ssf.cfg.jasperBulanan.highRp || 0) : 0;
     var pay = { dt: payDt, direct: Math.max(0, total - payDt), dtPot: payDtPot, directPot: Math.max(0, potensi - payDtPot) };
@@ -2696,7 +2696,7 @@
   }
   function tgtMoneyHtml(k) {
     if (!S.data) return ''; var r = incTotal(), tem = S.data.me.noTematik, f;
-    if (k === 'npd') { var v = r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), pot = r.npd.potensi + (tem ? aturan().tematik : 0), more = Math.max(0, r.npd.potensi - r.npd.grand);
+    if (k === 'npd') { var v = r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), pot = r.npd.potensi + (tem && jasperTematik() ? aturan().tematik : 0), more = Math.max(0, r.npd.potensi - r.npd.grand);
       return moneyCard('NPD & Big Bets', v, pot, 'dr', '🏦 Direct', 'npd', more > 0 ? 'Potensi tambahan <b>' + esc(rupiah(more)) + '</b> bila outlet lain ikut mencapai SKU bernilai' : '') + tematikCardHtml(r); }
     if (k === 'ps' && r.ps) return moneyCard('Perfect Store', r.ps.grand, r.ps.potensi, 'dr', '🏦 Direct', 'ps', '') + tierBlock('Availability', '📦', r.ps.av) + tierBlock('Digitization', '📶', r.ps.dg);
     if (k === 'ss') { var om = r.parts[2]; return moneyCard('Omset BU', om.v, ssPotensi(F('ss'), r.ss), 'dt', '💵 Jasper Bulanan tunai · Add Incentive 🏦', 'ss', ''); }
@@ -2711,7 +2711,7 @@
   function incVals(r) {
     var d = S.data;
     var vals = {}; var tem = d.me.noTematik;
-    vals.npd = [r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), r.npd.potensi + (tem ? aturan().tematik : 0)]; vals.ps = r.ps ? [r.ps.grand, r.ps.potensi] : [0, 0]; vals.ss = [r.parts[2].v, ssPotensi(F('ss'), r.ss)];
+    vals.npd = [r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), r.npd.potensi + (tem && jasperTematik() ? aturan().tematik : 0)]; vals.ps = r.ps ? [r.ps.grand, r.ps.potensi] : [0, 0]; vals.ss = [r.parts[2].v, ssPotensi(F('ss'), r.ss)];
     var bpf = F('bp'), bpOk = !!(bpf && bpf.available && bpf.target > 0), bpp = r.parts.filter(function (x) { return x.k === 'Jasper BP'; })[0]; vals.bp = [bpOk ? bpp.v : 0, bpOk ? bpf.jasperRp : 0];
     var sf = F('sfi'), sfOk = !!(sf && sf.available); vals.sfi = [sfOk ? sf.incentive : 0, sfOk ? sf.potensi : 0];
     return vals;
@@ -3736,7 +3736,7 @@
     return '<div class="sec-title big">' + lic('💼') + ' Insentif Omset (Secondary Sales) ' + infoBtn('ss') + '</div>' + pairBox(om.v, pot, om.ready) + cards + incCta('ss');
   }
   function incSecNpd(r) {
-    var tem = S.data.me.noTematik, tot = r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), pot = r.npd.potensi + (tem ? aturan().tematik : 0);
+    var tem = S.data.me.noTematik, tot = r.npd.grand + (tem && r.jt ? r.jt.jasper : 0), pot = r.npd.potensi + (tem && jasperTematik() ? aturan().tematik : 0);
     return '<div class="sec-title big">' + lic('📦') + ' Insentif NPD &amp; Big Bets ' + infoBtn('npd') + '</div><div class="pbrow">' + payBadge('dr') + '</div>' + pairBox(tot, pot, true);
   }
   function incSecPs(r) { return '<div class="sec-title big">' + lic('🏪') + ' Insentif Perfect Store ' + infoBtn('ps') + '</div><div class="pbrow">' + payBadge('dr') + '</div>' + pairBox(r.ps.grand, r.ps.potensi, true); }
