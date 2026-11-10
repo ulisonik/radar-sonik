@@ -1530,6 +1530,9 @@
 <script>
 (function () {
   var K_CODE = 'rss_code', K_DEV = 'rss_device', K_REM = 'rss_remember';
+  /* sesi-tab (11 Nov 2026): tarik layar = muat ulang halaman. Tanpa "Ingat saya", kode disimpan di sessionStorage (hilang saat tab/browser ditutup) supaya muat ulang tidak mengeluarkan pengguna, dan menu terakhir dibuka lagi. */
+  var K_SES = 'rss_ses', K_VIEW = 'rss_view';
+  function ssn(op, key, val) { try { if (op === 'get') return sessionStorage.getItem(key); if (op === 'set') sessionStorage.setItem(key, val); else sessionStorage.removeItem(key); } catch (e) { return null; } }
   var DAYS = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
   var $ = function (id) { return document.getElementById(id); };
   var VIEWS = { beranda: 'Beranda', checklist: 'Target', outlet: 'Outlet', insentif: 'Insentif', stock: 'Stock', akun: 'Akun' };
@@ -1767,7 +1770,7 @@
   function temaForm() { var on = !!S.data && S.view === 'outlet'; document.body.classList.toggle('tema-form', on && S.os === 'form'); document.body.classList.toggle('tema-vis', on && S.os === 'vis'); } /* tema-form; vis-alur: tema-vis (toska) */
   function showView(v) {
     if (!VIEWS[v]) v = 'beranda';
-    S.view = v; try { renderMeta(); } catch (eM) {}
+    S.view = v; if (S.data) ssn('set', K_VIEW, v); try { renderMeta(); } catch (eM) {}
     Object.keys(VIEWS).forEach(function (k) { $('view-' + k).classList.toggle('hidden', k !== v); }); temaForm();
     Array.prototype.forEach.call(document.querySelectorAll('#bottomNav .nav-item'), function (b) {
       var on = b.dataset.view === v; b.classList.toggle('active', on); if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
@@ -2006,6 +2009,7 @@
     $('helloSub').textContent = res.me.distName;
     if (manual) { S.f = {}; S.fe = {}; }
     renderAll();
+    if (firstTime && S.restoreView) { var rv0 = S.restoreView; S.restoreView = ''; showView(rv0); }
     preloadF();
     if (!cachedAt) qFlush();
     if (manual && !cachedAt) toast('Data diperbarui');
@@ -3424,7 +3428,7 @@
 
 
   // === v16: NPD "Per SKU", Kalkulator Insentif, urut & filter lanjutan, tombol info "i" ===
-  function V18() { return { past: null, pastLive: null, pastBusy: '', visSt: 'semua', visBisa: 'semua', visTg: '', visHari: null, visHariInit: false, juBatal: '', jrTab: 'poin', jrBatal: '', jrBusy: '', obSt: '', oppF: '', histF: '', offline: false, offAt: 0, unpOnly: false, insX: {}, insAll: {}, undoing: false, ecoSumOpen: false, stk: { q: '', filter: 'all', sort: 'nama', scan: '', shown: 40, lk: {} }, r2gEmp: null, sfi: { q: '', st: '', day: '', ch: '', sort: 'name', shown: 40 }, r2gSel: null, r2gOpen: {}, kids: {}, ckv: 'outlet', skf: 'belum', kal: null, rep: null, cotcSort: false, psSort: false, psRem: null, psEnr: null, psWait: false, stP: { k: {}, a: {} }, stC: { k: {}, a: {} }, ecoDay: null, ecoSort: null, ecoCh: null, jurDay: null, jurSt: null, jurSort: null, ecoDayInit: false, jurDayInit: false, visStage: 'tugas' }; }
+  function V18() { return { restoreView: '', past: null, pastLive: null, pastBusy: '', visSt: 'semua', visBisa: 'semua', visTg: '', visHari: null, visHariInit: false, juBatal: '', jrTab: 'poin', jrBatal: '', jrBusy: '', obSt: '', oppF: '', histF: '', offline: false, offAt: 0, unpOnly: false, insX: {}, insAll: {}, undoing: false, ecoSumOpen: false, stk: { q: '', filter: 'all', sort: 'nama', scan: '', shown: 40, lk: {} }, r2gEmp: null, sfi: { q: '', st: '', day: '', ch: '', sort: 'name', shown: 40 }, r2gSel: null, r2gOpen: {}, kids: {}, ckv: 'outlet', skf: 'belum', kal: null, rep: null, cotcSort: false, psSort: false, psRem: null, psEnr: null, psWait: false, stP: { k: {}, a: {} }, stC: { k: {}, a: {} }, ecoDay: null, ecoSort: null, ecoCh: null, jurDay: null, jurSt: null, jurSort: null, ecoDayInit: false, jurDayInit: false, visStage: 'tugas' }; }
   Object.assign(S, V18());
   /* filter-reset (8 Nov 2026, keputusan user): MENU BAWAH = MULAI BARU -> filter, kata cari, urutan, chip hari kembali ke bawaan (chip hari = rute hari ini).
      Pindah SUB-MENU di halaman yang sama: filter TETAP. Tombol "‹ Kembali ke …" / Kembali HP: memulihkan keadaan sebelumnya. Field filter baru WAJIB ditambahkan di sini. */
@@ -8852,12 +8856,12 @@
     if (S.code) cacheClear(S.code); try { dvStockHome(); $('dssBody').innerHTML = ''; } catch (e) {}
     if (S.sheet) closeSheet(); $('undoToast').hidden = true; if (typeof KEL !== 'undefined') { KEL.data = null; KEL.code = null; KEL.err = ''; KEL.msg = ''; KEL.confirm = ''; KEL.busy = ''; }
     $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none';
-    ls('remove', K_CODE); ls('remove', K_REM);
+    ls('remove', K_CODE); ls('remove', K_REM); ssn('remove', K_SES); ssn('remove', K_VIEW);
     S = { code: '', data: null, day: 'Semua', q: '', open: {}, busy: {}, lastLoad: 0, loading: false, view: 'beranda', ck: 'npd', os: 'eco', is: 'inc', f: {}, fl: {}, fe: {}, osq: '', ecoSt: 'Semua' };
     Object.assign(S, V18());
     $('rememberMe').checked = true; showLogin(); showError(msg || '');
   }
-  function submit(code, fromRemembered) {
+  function submit(code, fromRemembered, fromSes) {
     showError(''); setBusy(true);
     google.script.run
       .withSuccessHandler(function (res) {
@@ -8867,9 +8871,11 @@
           if (res.role === 'DSR') cacheSet('login', res, code);
           if ($('rememberMe').checked || fromRemembered) { ls('set', K_CODE, code); ls('set', K_REM, '1'); }
           else { ls('remove', K_CODE); ls('remove', K_REM); }
-          showDashboard(res);
+          ssn('set', K_SES, code); var rv = (fromRemembered || fromSes) ? ssn('get', K_VIEW) : '';
+          showDashboard(res); if (rv && rv !== 'beranda' && S.role === 'DSR' && VIEWS[rv]) S.restoreView = rv;
         } else {
           if (fromRemembered) { ls('remove', K_CODE); ls('remove', K_REM); }
+          if (fromSes || fromRemembered) ssn('remove', K_SES);
           showLogin(); showError((res && res.error) || 'Gagal masuk. Coba lagi.');
         }
       })
@@ -8879,7 +8885,7 @@
         if (lc && nc && lc.d && lc.d.ok && lc.d.role === 'DSR') {
           S.code = code; S.offline = true;
           if ($('rememberMe').checked || fromRemembered) { ls('set', K_CODE, code); ls('set', K_REM, '1'); }
-          showDashboard(lc.d); return;
+          ssn('set', K_SES, code); showDashboard(lc.d); return;
         }
         showLogin(); showError('Tidak bisa terhubung ke server. Periksa sinyal lalu coba lagi.');
       })
@@ -8989,6 +8995,7 @@
   INFO.akbarsip = { t: 'Kenapa arsip dulu?', h: '<p>Arsip menyimpan <b>foto data bulan ini</b> supaya salesman bisa membuka Laporan <b>bulan lalu</b>.</p><p>Kalau periode diganti sebelum arsip dibuat, data bulan itu hilang dari Laporan bulan lalu. Arsip aman diulang.</p><p>Syarat: semua salesman sudah punya kode di tab akses.</p>' };
   var saved = ls('get', K_CODE);
   if (saved && ls('get', K_REM) === '1') { $('rememberMe').checked = true; submit(saved, true); }
+  else if (ssn('get', K_SES)) { $('rememberMe').checked = false; submit(ssn('get', K_SES), false, true); }
 })();
 </script>
 </body>
