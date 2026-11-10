@@ -1077,6 +1077,53 @@
   .seg.scroll { scrollbar-width: none; } .seg.scroll::-webkit-scrollbar { display: none; }
   .pick .seg.adm-seg, .pick .dv-tseg { top: -10px !important; } /* .pick punya padding atas 18px: menempel 8px dari tepi layar seperti DSR */
   #ckSeg, #outletSeg, #insSeg, .seg.adm-seg, .dv-tseg, #fd_tabs { top: 8px; background: #fff; box-shadow: 0 0 0 8px #C2E2F4, -48px 0 0 8px #C2E2F4, 48px 0 0 8px #C2E2F4; } #outletSeg.oseg { background: #C2E2F4; border-radius: 22px; box-shadow: 0 0 0 8px #C2E2F4, -48px 0 0 8px #C2E2F4, 48px 0 0 8px #C2E2F4, 0 16px 12px -10px rgba(15,23,42,.25); } #outletSeg.oseg .oseg-mon { background: #fff; } #fd_tabs { box-shadow: 0 0 0 8px #C2E2F4, -48px 0 0 8px #C2E2F4, 48px 0 0 8px #C2E2F4, 0 16px 12px -10px rgba(15,23,42,.25); } #ckSeg, #insSeg, .seg.adm-seg, .dv-tseg { box-shadow: 0 0 0 8px #C2E2F4, -48px 0 0 8px #C2E2F4, 48px 0 0 8px #C2E2F4, 0 16px 12px -10px rgba(15,23,42,.25); }
+  .dv-load { position: fixed; top: calc(10px + env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); width: min(560px, calc(100vw - 32px)); z-index: 60; display: flex; align-items: center; gap: 12px; margin: 0; padding: 12px 14px; border-radius: 16px; background: #FEF3C7; border: 2px solid #F59E0B; color: #78350F; box-shadow: 0 6px 18px rgba(15,23,42,.12); }
+  .dv-load .dl-t { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; font-size: 12.5px; line-height: 1.35; } .dv-load .dl-t b { font-size: 14px; }
+  .dv-load .dl-spin { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 3px solid rgba(180,83,9,.25); border-top-color: #B45309; animation: dlspin .8s linear infinite; }
+  .dv-load .dl-bar { height: 6px; border-radius: 9px; background: rgba(180,83,9,.18); margin-top: 6px; overflow: hidden; } .dv-load .dl-bar i { display: block; height: 100%; background: #D97706; border-radius: 9px; transition: width .4s; }
+  .dv-load.ok { background: #DCFCE7; border-color: #22C55E; color: #14532D; animation: dlok 6s ease forwards; } .dv-load .dl-ok { flex: none; width: 24px; height: 24px; border-radius: 50%; background: #16A34A; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; animation: dlpop .5s ease; }
+  @keyframes dlspin { to { transform: rotate(360deg); } } @keyframes dlpop { 0% { transform: scale(.3); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
+  @keyframes dlok { 0%, 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } } /* banner melayang: isi halaman tidak bergeser saat muncul/hilang */
+  @media (prefers-reduced-motion: reduce) { .dv-load .dl-spin, .dv-load.ok, .dv-load .dl-ok { animation: none; } }
+  .br-ld { display: inline-block; padding: 1px 8px; border-radius: 99px; font-weight: 800; } .br-ld.ok { background: #DCFCE7; color: #166534; } .br-ld.wait { background: #FEF3C7; color: #92400E; }
+  .bottom-nav .nav-sep { flex: none; align-self: stretch; width: 1px; margin: 10px 2px; background: #CBD5E1; } body.dt-dss #dssNav .nav-sep { width: auto; height: 1px; margin: 6px 12px; }
+  /* briefing (11 Nov 2026, keputusan user): layar tayang saat briefing DSS/AASM dgn semua salesman. Angka absolut + %, kekurangan per hari per salesman & per distributor,
+     peringkat bisa dipilih, insentif DSR disembunyikan (sakelar), Jasper DSS TIDAK PERNAH tampil. Tidak menggantikan menu Target. */
+  .br-top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 12px; margin: 2px 0 12px; }
+  .br-top h3 { margin: 0; font-size: 19px; } .br-top small { display: block; color: var(--muted, #64748B); font-size: 12.5px; font-weight: 600; margin-top: 2px; }
+  .br-fil { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
+  .br-fil select { font: inherit; font-size: 13px; font-weight: 700; padding: 9px 10px; border-radius: 12px; border: 1.5px solid #CFE0EE; background: #fff; color: #0F172A; max-width: 100%; }
+  .br-fil label.br-sw { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; padding: 8px 10px; border-radius: 12px; background: #fff; border: 1.5px solid #CFE0EE; cursor: pointer; }
+  .br-fil button { font: inherit; font-size: 13px; font-weight: 800; padding: 9px 12px; border-radius: 12px; border: 0; background: #0F172A; color: #fff; cursor: pointer; }
+  .br-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 14px; } .br-k { display: flex; flex-direction: column; } @media (max-width: 600px) { .br-kpis { grid-template-columns: 1fr 1fr; } }
+  button.br-k { font: inherit; text-align: left; border-left: 0; border-right: 0; border-bottom: 0; cursor: pointer; display: flex; flex-direction: column; } button.br-k:hover { box-shadow: 0 4px 16px rgba(15,23,42,.12); } button.br-k.on { outline: 2.5px solid #1D74B8; outline-offset: 0; }
+  .br-k .bk-a { font-size: 12.5px; font-weight: 700; color: #334155; margin-top: 4px; line-height: 1.35; font-variant-numeric: tabular-nums; }
+  .br-k .bk-b { font-size: 11px; color: #64748B; margin-top: 6px; line-height: 1.35; font-style: italic; }
+  .br-k .bk-s { margin-top: auto; padding-top: 8px; }
+  .br-t th.hl, .br-t td.hl { background: #FFF4E5; } .br-t th.srt, .br-t td.srt { background: #E0F2FE; } .br-t th.srt { box-shadow: inset 0 -3px 0 #1D74B8; color: #0F3D63; }
+  .br-t th button { all: unset; cursor: pointer; } .br-t th button::after { content: ' ⇅'; opacity: .45; } .br-t th.srt button::after { content: ' ▼'; opacity: 1; }
+  .br-t td button.br-nm { all: unset; cursor: pointer; font-weight: 800; color: #0F3D63; text-decoration: underline; text-decoration-color: #9CC3E6; text-underline-offset: 3px; }
+  .br-rk div .rk-t { display: flex; flex-direction: column; min-width: 0; } .br-rk div .rk-t small { font-size: 11.5px; color: #64748B; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .br-k { background: #fff; border-radius: 18px; padding: 14px; box-shadow: 0 2px 10px rgba(15,23,42,.06); border-top: 5px solid #94A3B8; min-width: 0; }
+  .br-k.ok { border-top-color: #15803D; } .br-k.wait { border-top-color: #D97706; } .br-k.bad { border-top-color: #DC2626; }
+  .br-k .bk-l { font-size: 12.5px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: .03em; }
+  .br-k .bk-v { font-size: 26px; font-weight: 800; line-height: 1.1; margin-top: 6px; overflow-wrap: anywhere; } .br-k.ok .bk-v { color: #15803D; } .br-k.wait .bk-v { color: #B45309; } .br-k.bad .bk-v { color: #B91C1C; }
+  .br-k .bk-p { font-size: 15px; font-weight: 800; margin-top: 2px; } .br-k.ok .bk-p { color: #15803D; } .br-k.wait .bk-p { color: #B45309; } .br-k.bad .bk-p { color: #B91C1C; }
+  .br-k .bk-s { font-size: 12px; color: #475569; line-height: 1.35; margin-top: 6px; } .br-k .bk-s b { color: #0F172A; }
+  .br-bar { height: 7px; border-radius: 9px; background: #E2E8F0; margin-top: 8px; overflow: hidden; } .br-bar i { display: block; height: 100%; border-radius: 9px; background: #1D74B8; }
+  .br-card { background: #fff; border-radius: 18px; padding: 14px; box-shadow: 0 2px 10px rgba(15,23,42,.06); margin-bottom: 14px; min-width: 0; }
+  .br-card h4 { margin: 0 0 4px; font-size: 15.5px; } .br-card .br-note { font-size: 12px; color: #64748B; margin-bottom: 10px; }
+  .br-tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .br-t { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 640px; }
+  .br-t th { text-align: left; font-size: 11.5px; color: #475569; font-weight: 800; padding: 8px 8px; border-bottom: 2px solid #E2E8F0; white-space: nowrap; }
+  .br-t td { padding: 9px 8px; border-bottom: 1px solid #EEF2F7; vertical-align: top; white-space: nowrap; } .br-t td.n, .br-t th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .br-t td small { display: block; color: #64748B; font-size: 11.5px; } .br-t tr.tot td { font-weight: 800; background: #F8FBFE; }
+  .br-st { display: inline-block; min-width: 18px; padding: 1px 6px; border-radius: 99px; font-size: 11px; font-weight: 800; } .br-st.ok { background: #DCFCE7; color: #166534; } .br-st.wait { background: #FEF3C7; color: #92400E; } .br-st.bad { background: #FEE2E2; color: #991B1B; }
+  .br-rk { display: grid; gap: 6px; } .br-rk div { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 12px; background: #F8FBFE; font-size: 13.5px; font-weight: 700; }
+  .br-rk div .rk-n { width: 28px; text-align: center; font-size: 16px; } .br-rk div .rk-v { margin-left: auto; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .br-rk div.top { background: #FFF7E0; }
+  @media (min-width: 1440px) { body.dt-peran .br-two { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 14px; align-items: start; } body.dt-peran .br-two > .br-card { margin-bottom: 0; } body.dt-peran .br-two { margin-bottom: 14px; } }
+  body.br-big .br-k .bk-v { font-size: 30px; } body.br-big .br-t { font-size: 15px; } body.br-big .br-top h3 { font-size: 24px; }
   /* seg-lepas (10 Nov 2026, masukan user): pita biru penutup hanya saat sub menu MENEMPEL di atas. Di posisi biasa (belum digulir) pita
      disembunyikan karena warnanya tidak senada dengan latar gradasi. Kelas .seg-lepas dipasang JS segPita(); tanpa JS pita tetap seperti dulu. */
   .sn-head, .sn-foot { display: none; } /* sn-panel: hanya tampil di laptop (lihat mode-desktop) */
@@ -1263,6 +1310,7 @@
     body.dt-peran #dssBody > .aas-dc { grid-column: span 2; }
     body.dt-peran #dssBody > .hero { min-height: 0; }
     body.dt-peran .hero .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    body.dt-peran .perf-chart svg { width: 100%; max-height: 300px; } /* grafik-desktop (10 Nov, bug user): grafik harian tidak membesar ikut lebar layar */
     body.dt-dss #dssScreen, body.dt-adm #admScreen { padding-left: 260px; padding-bottom: 56px; }
     body.dt-adm #admNav, body.dt-dss #dssNav { left: 32px; right: auto; top: 28px; bottom: auto; transform: none; width: 200px; max-width: none; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 4px; padding: 14px 10px; border-radius: 24px; }
     body.dt-adm #admNav .nav-item, body.dt-dss #dssNav .nav-item { flex: none; flex-direction: row; white-space: nowrap; text-align: left; justify-content: flex-start; gap: 12px; width: 100%; padding: 12px 14px; font-size: 14px; border-radius: 14px; }
@@ -1283,6 +1331,14 @@
   @media (min-width: 1280px) {
     body.dt-peran .pick-in, body.dt-dss #dssNav, body.dt-adm #admNav, body.dt-peran .sheet > * { zoom: 1.1; }
     body.dt-dss #dssScreen, body.dt-adm #admScreen { padding-left: 280px; }
+  }
+  /* login-desktop (11 Nov 2026, masukan user): halaman masuk di laptop (>= 1024px) = 2 kolom, merek kiri & kotak masuk kanan. HP tidak berubah. */
+  @media (min-width: 1024px) {
+    #loginScreen .lg-inner { max-width: 1120px; width: calc(100% - 96px); margin: 0 auto; min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr); grid-template-areas: "top sheet" "tag sheet" "copy sheet"; column-gap: 80px; align-content: center; align-items: start; padding: 48px 0; }
+    #loginScreen .lg-top { grid-area: top; } #loginScreen .lg-tag { grid-area: tag; } #loginScreen .lg-copy { grid-area: copy; }
+    #loginScreen .lg-sheet { grid-area: sheet; align-self: center; position: static; margin: 0; width: 100%; max-width: 440px; justify-self: end; border-radius: 28px; }
+    #loginScreen .lg-sheet, #loginScreen .lg-sheet-in { border-radius: 28px; overflow: hidden; }
+    #loginScreen .lg-copy h1 { font-size: 54px; line-height: 1.05; } #loginScreen .lg-copy p { font-size: 16px; max-width: 420px; } #loginScreen .lg-tag { font-size: 13px; max-width: 460px; }
   }
 </style>
 </head>
@@ -1544,6 +1600,8 @@
   <button class="nav-item" type="button" data-admv="manual"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6.5 10h.01"/><path d="M10 10h.01"/><path d="M14 10h.01"/><path d="M17.5 10h.01"/><path d="M7.5 14h9"/></svg></span><span>Input Manual</span></button>
 </nav>
 <nav class="bottom-nav" id="dssNav" aria-label="Menu DSS" style="display:none"><!-- dss-v2 -->
+  <button class="nav-item" type="button" data-dvv="brief"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 21l4-5 4 5"/><path d="M7 12l3-3 3 2 4-4"/></svg></span>Dashboard</button>
+  <span class="nav-sep" aria-hidden="true"></span><!-- dv-dash: Dashboard (tayang ke tim) | menu kerja DSS -->
   <button class="nav-item active" type="button" data-dvv="home"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>Beranda</button>
   <button class="nav-item" type="button" data-dvv="target"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span>Target</button>
   <button class="nav-item" type="button" data-dvv="tim"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.9-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2c2.5-.3 4.5 1.3 5 4.3"/></svg></span>Tim DSR</button>
@@ -6658,7 +6716,7 @@
 
   // ---------- navigasi & interaksi fitur ----------
   /* nav-kembali (7 Nov 2026): setiap lompatan dari kartu/lembar ke halaman lain bisa dikembalikan. Menu bawah = mulai baru. */
-  var NAV = [], NAV_SH = { visit: 'kunjungan', route: 'daftar tugas', oppstore: 'peluang outlet', opp: 'daftar peluang', menu: 'Semua menu', laporan: 'laporan', hist: 'riwayat centang', dssdsr: 'profil DSR', perf: 'Performa Harian', prg: 'rincian outlet', prgbrief: 'cara dapat poin', visrekap: 'rekap', kalk: 'kalkulator', jraasm: 'Pengajuan Juragan', juaasm: 'Usulan Peserta', fmaasm: 'Modifikasi Outlet', kelola: 'Kelola', visform: 'formulir' }, NAV_DV = { home: 'Beranda', target: 'Target', tim: 'Tim DSR', ins: 'Insentif', stock: 'Stock', form: 'Pengajuan Outlet', jur: 'Juragan', vis: 'Pajangan' };
+  var NAV = [], NAV_SH = { visit: 'kunjungan', route: 'daftar tugas', oppstore: 'peluang outlet', opp: 'daftar peluang', menu: 'Semua menu', laporan: 'laporan', hist: 'riwayat centang', dssdsr: 'profil DSR', perf: 'Performa Harian', prg: 'rincian outlet', prgbrief: 'cara dapat poin', visrekap: 'rekap', kalk: 'kalkulator', jraasm: 'Pengajuan Juragan', juaasm: 'Usulan Peserta', fmaasm: 'Modifikasi Outlet', kelola: 'Kelola', visform: 'formulir' }, NAV_DV = { home: 'Beranda', brief: 'Dashboard', target: 'Target', tim: 'Tim DSR', ins: 'Insentif', stock: 'Stock', form: 'Pengajuan Outlet', jur: 'Juragan', vis: 'Pajangan' };
   function navSheetLbl(t) { return NAV_SH[t] || 'sebelumnya'; }
   function navLbl(o) { return o.sheet ? navSheetLbl(o.sheet.type) : o.dv ? (NAV_DV[o.dv] || 'sebelumnya') : (VIEWS[o.view] || 'sebelumnya'); }
   function navPaint() { var b = $('navBack'); if (!b) return; var o = NAV[NAV.length - 1]; b.hidden = !o; if (o) b.textContent = '‹ Kembali ke ' + navLbl(o); }
@@ -8696,7 +8754,9 @@
     A.ps.need = A.ps.out ? Math.ceil(Math.round(A.ps.tgtPct * A.ps.out * 1e6) / 1e6) : 0;
     DV_AGG.key = key; DV_AGG.v = A; return A;
   }
-  function dvLoadNote(A) { return A.n < A.m ? '<div class="adm-note">Memuat data DSR ' + A.n + ' dari ' + A.m + '… angka bisa berubah sampai semua DSR termuat.</div>' : ''; }
+  function dvLoadNote(A) { /* dv-load (11 Nov 2026, masukan user): banner mencolok + animasi; selesai = tanda hijau sesaat */
+    if (A.n < A.m) { DV.loadDone = 0; return '<div class="dv-load" role="status" aria-live="polite"><span class="dl-spin" aria-hidden="true"></span><div class="dl-t"><b>Memuat data DSR ' + A.n + ' dari ' + A.m + '…</b><span>Angka masih bisa berubah. Tunggu sampai selesai sebelum dipakai briefing.</span><div class="dl-bar"><i style="width:' + Math.round(A.n / Math.max(1, A.m) * 100) + '%"></i></div></div></div>'; }
+    if (!DV.loadDone) DV.loadDone = Date.now(); return Date.now() - DV.loadDone < 6000 ? '<div class="dv-load ok" role="status" aria-live="polite"><span class="dl-ok" aria-hidden="true">✓</span><div class="dl-t"><b>Semua ' + A.m + ' data DSR termuat</b><span>Angka sudah final untuk tanggal data ini.</span></div></div>' : ''; }
   function dvPerRow(y, k, line, num, st, small) {
     return '<button type="button" class="adm-row" data-dvp="' + esc(y.r.id) + '" data-dvk="' + k + '"><span class="dv-dot ' + (st || 'na') + '" aria-hidden="true">' + dvIco(st) + '</span><div class="adm-rm"><b>' + esc(dispName(y.r)) + '</b><span>' + line + '</span></div><span class="dv-num">' + num + (small ? '<small>' + small + '</small>' : '') + '</span></button>';
   }
@@ -8833,7 +8893,7 @@
   function dvStockHome() { var sb = $('stockBody'), vs = $('view-stock'); if (sb && vs && sb.parentNode !== vs) vs.appendChild(sb); } // kembalikan #stockBody ke layar salesman sebelum isi DSS diganti
   function renderDssApp() {
     var res = S.dss, el = $('dssBody'); if (!el) return; dvStockHome(); rfHome(); jrfHome(); /* rf-role + jr-role */
-    $('dssTitle').textContent = { home: 'Beranda', target: 'Target', tim: 'Tim DSR', ins: 'Insentif', stock: 'Stock', form: 'Pengajuan Outlet', jur: 'Juragan', vis: 'Pajangan' }[DV.v] || 'Beranda';
+    $('dssTitle').textContent = { home: 'Beranda', brief: 'Dashboard', target: 'Target', tim: 'Tim DSR', ins: 'Insentif', stock: 'Stock', form: 'Pengajuan Outlet', jur: 'Juragan', vis: 'Pajangan' }[DV.v] || 'Beranda';
     rtSync('dss', res ? 'ok' : S.dssLoading ? 'busy' : 'bad', res ? rtStamp(res.serverTime) : S.dssLoading ? 'Memuat…' : 'Gagal memuat');
 
     if (!res) { el.innerHTML = '<div class="empty">' + (S.dssLoading ? 'Memuat ringkasan DSS…' : 'Ringkasan belum dimuat.') + '</div>'; dvNav(false); return; }
@@ -8842,7 +8902,7 @@
     if ((DV.v === 'jur' || DV.v === 'vis') && S.role === 'DSS') { if (JRF.mode !== DV.v) { JRF.mode = DV.v; JRF.as = ''; } h += '<div id="jrfHost"></div>'; el.innerHTML = h; dvNav(true); jrfMount($('jrfHost')); return; } /* jr-role + vis-client */
     if (DV.v === 'form' && S.role === 'DSS') { h += '<div id="rfHost"></div>'; el.innerHTML = h; dvNav(true); rfMount($('rfHost')); return; } /* rf-role */
     if (DV.v === 'stock') { h += '<div id="dvStockHost"></div>'; el.innerHTML = h; dvNav(true); var sb = $('stockBody'); $('dvStockHost').appendChild(sb); if (!S.as && D.dsr.length) S.as = D.dsr[0].id; ensureF('stock'); sb.innerHTML = F('stock') ? stockShell() : stateMsg('stock', 'stok'); if (F('stock') && F('stock').available) paintStokList(); return; }
-    if (DV.v === 'home') h += dvHome(D, M); else if (DV.v === 'target') h += dvTarget(D, M); else if (DV.v === 'tim') h += dvTim(); else h += dvIns(D, M);
+    if (DV.v === 'brief') h += dvBrief(res, D); else if (DV.v === 'home') h += dvHome(D, M); else if (DV.v === 'target') h += dvTarget(D, M); else if (DV.v === 'tim') h += dvTim(); else h += dvIns(D, M);
     el.innerHTML = h; dvHeroAfter(); dvNav(true);
   }
   function dvNav(show) {
@@ -8852,7 +8912,67 @@
   function dvLater() { // insentif & foto DSR datang satu per satu -> segarkan tampilan tanpa mengganggu ketikan
     clearTimeout(dvLater._t); dvLater._t = setTimeout(function () { if (!VW() || $('dssScreen').style.display !== 'block') return; if (!DVM()) { var y0 = window.scrollY; renderDss(); window.scrollTo(0, y0); if (S.sheet && S.sheet.type === 'dssdsr') renderSheet(); return; } dvArsNext(); if (DV.v === 'form') return; if (DV.v === 'jur' || DV.v === 'vis') { if (!JRF.as && DV.v === 'jur') jrfRepaint(); return; } /* jr-role: ringkasan diperbarui saat foto DSR masuk */ if (DV.v === 'tim' && DV.tv !== 'rank' && DV.tv !== 'r2g') dvTimRefresh(); else renderDssApp(); if (S.sheet && S.sheet.type === 'dssdsr') renderSheet(); }, 300);
   }
-  function dvGo(v, tk) { if (RTAK) { var _p = RTAK; DV.v = v; rtCloseAkun(); if (_p === 'dss') return; } DV.v = v; if (tk) DV.tk = tk; if (S.sheet) closeSheet(); renderDssApp(); window.scrollTo(0, 0); }
+  /* briefing: tontonan saat briefing; data dari ringkasan DSS yang sama (tanpa Jasper DSS, insentif DSR tersembunyi bawaan) */
+  function brSum(L) { var o = { st: 0, sa: 0, bt: 0, ba: 0, n: 0, a: 0, d: 0, hy: 0, hyN: 0 }; L.forEach(function (r) { if (r.ss) { o.st += Number(r.ss.target) || 0; o.sa += Number(r.ss.actual) || 0; } if (r.bp) { o.bt += Number(r.bp.target) || 0; o.ba += Number(r.bp.actual) || 0; } if (r.ps) { o.n += r.ps.total || 0; o.a += r.ps.a || 0; o.d += r.ps.d || 0; } if (r.hyg) { o.hyN++; if (r.hyg.S === 'HYGIENE') o.hy++; } }); return o; }
+  function brSt(p, tf, to) { to = to || 1; return p >= to ? 'ok' : p >= to * (tf || 0) ? 'wait' : 'bad'; }
+  function dvBrief(res, D) {
+    var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }, wd = dvWd(), tf = wd ? wd.tf : 0, left = wd && wd.left > 0 ? wd.left : 0; if (!B.sort) B.sort = 'omh';
+    if (B.sm && !D.dsr.some(function (r) { return r.id === B.sm; })) B.sm = '';
+    var rowsAll = dvRows(), rows = rowsAll.filter(function (x) { return !B.sm || x.r.id === B.sm; }), T = brSum(rows.map(function (x) { return x.r; }));
+    var pc = function (a, b) { return b > 0 ? a / b : 0; }, ph = function (v) { return left ? v / left : 0; }, nf = function (n) { return Math.round(Number(n) || 0).toLocaleString('id-ID'); }, bar = function (p) { return '<div class="br-bar"><i style="width:' + Math.min(100, Math.round(p * 100)) + '%"></i></div>'; };
+    var kS = Math.max(0, T.st - T.sa), kB = Math.max(0, T.bt - T.ba), kA40 = Math.max(0, Math.ceil(0.4 * T.n - 1e-9) - T.a), kA60 = Math.max(0, Math.ceil(0.6 * T.n - 1e-9) - T.a), kD = Math.max(0, Math.ceil(0.4 * T.n - 1e-9) - T.d);
+    var nm = B.sm ? dispName((rows[0] || {}).r || {}) : 'Tim ' + (D.name || '');
+    var Ld = dvAgg(D), h = dvLoadNote(Ld) + '<div class="br-top"><div><h3>📊 Dashboard · ' + esc(nm) + '</h3><small>Data s.d. ' + esc(fdShortDate(res.dataUntil) || '-') + ' · laju waktu ' + p1(tf) + ' · sisa ' + left + ' hari kerja · ' + (Ld.n < Ld.m ? '<span class="br-ld wait">⏳ Memuat ' + Ld.n + '/' + Ld.m + ' DSR</span>' : '<span class="br-ld ok">✅ ' + Ld.m + '/' + Ld.m + ' DSR termuat</span>') + '</small></div></div>'; /* tanda lengkap data DSR (selalu tampil) */
+    h += '<div class="br-fil"><select id="brSm" aria-label="Pilih salesman"><option value="">Semua salesman (' + D.dsr.length + ')</option>' + D.dsr.map(function (r) { return '<option value="' + esc(r.id) + '"' + (B.sm === r.id ? ' selected' : '') + '>' + esc(dispName(r)) + '</option>'; }).join('') + '</select>' +
+      '<label class="br-sw"><input type="checkbox" id="brIns"' + (B.ins ? ' checked' : '') + '> Tampilkan insentif DSR</label><button type="button" data-brfull="1">⛶ Layar penuh</button></div>';
+    var k = function (key, l, v, st, abs, basis, sub, b) { return '<button type="button" class="br-k ' + st + (B.sort === key || B.sort === key + 'h' ? ' on' : '') + '" data-brk="' + key + '" title="Ketuk: urutkan tabel menurut ' + l + '"><span class="bk-l">' + l + '</span><span class="bk-v">' + v + '</span><span class="bk-a">' + abs + '</span>' + (b || '') + '<span class="bk-b">' + basis + '</span><span class="bk-s">' + sub + '</span></button>'; };
+    var pS = pc(T.sa, T.st), pB = pc(T.ba, T.bt), pA = pc(T.a, T.n), pD = pc(T.d, T.n), A = !B.sm ? dvAgg(D) : null, P = A && A.n === A.m && A.ps && A.ps.out ? A.ps : null;
+    h += '<div class="br-kpis">' +
+      k('om', 'Omset (SSV)', p1(pS), brSt(pS, tf), rupiah(T.sa) + '<br>dari ' + rupiah(T.st), 'Dasar: target omset DSR 100%', kS ? 'Kurang <b>' + rupiah(kS) + '</b><br><b>' + rupiah(ph(kS)) + '/hari</b>' : '✅ Target tercapai', bar(pS)) +
+      k('bp', 'Bills Productivity', p1(pB), brSt(pB, tf), nf(T.ba) + ' dari ' + nf(T.bt) + ' bill', 'Dasar: target bill DSR 100%', kB ? 'Kurang <b>' + nf(kB) + ' bill</b> · <b>' + nf(Math.ceil(ph(kB))) + '/hari</b>' : '✅ Target tercapai', bar(pB)) +
+      k('pa', 'Availability', p1(pA), pA >= 0.6 ? 'ok' : pA >= 0.4 ? 'wait' : 'bad', nf(T.a) + ' dari ' + nf(T.n) + ' outlet panel PS', 'Batas: 40% slab bawah · 60% slab atas', kA40 ? 'Kurang <b>' + nf(kA40) + ' outlet</b> ke 40% · ' + nf(kA60) + ' ke 60%' : kA60 ? 'Kurang <b>' + nf(kA60) + ' outlet</b> ke 60%' : '✅ Sudah 60%', bar(pA / 0.6)) +
+      k('pd', 'Digitization', p1(pD), pD >= 0.4 ? 'ok' : 'bad', nf(T.d) + ' dari ' + nf(T.n) + ' outlet panel PS', 'Batas: 40% dari outlet panel', kD ? 'Kurang <b>' + nf(kD) + ' outlet</b> ke 40%' : '✅ Sudah 40%', bar(pD / 0.4)) +
+      (!B.sm ? '<div class="br-k ' + (P ? (P.perfect >= P.need ? 'ok' : 'bad') : '') + '"><span class="bk-l">Perfect Store</span><span class="bk-v">' + (P ? p1(pc(P.perfect, P.out)) : '…') + '</span><span class="bk-a">' + (P ? nf(P.perfect) + ' dari ' + nf(P.out) + ' outlet panel' : 'Memuat data outlet…') + '</span>' + (P ? bar(pc(P.perfect, P.need)) : '') + '<span class="bk-b">Target tim: ' + Math.round(((P && P.tgtPct) || 0.5) * 100) + '% outlet panel perfect</span><span class="bk-s">' + (P ? (P.perfect >= P.need ? '✅ Target tercapai' : 'Kurang <b>' + nf(P.need - P.perfect) + ' outlet perfect</b>') : '') + '</span></div>' : '') +
+      k('hy', 'Hygiene', T.hyN ? p1(pc(T.hy, T.hyN)) : '-', T.hyN && T.hy === T.hyN ? 'ok' : 'bad', nf(T.hy) + ' dari ' + nf(T.hyN) + ' DSR', 'Dasar: status HYGIENE tiap DSR', T.hyN - T.hy ? '<b>' + (T.hyN - T.hy) + ' DSR</b> belum hygiene' : '✅ Semua hygiene') + '</div>';
+    // tabel kekurangan per salesman (urut per KPI, kolom aktif disorot)
+    var ins = B.ins, kss = function (r) { return Math.max(0, ((r.ss || {}).target || 0) - ((r.ss || {}).actual || 0)); }, kbp = function (r) { return Math.max(0, ((r.bp || {}).target || 0) - ((r.bp || {}).actual || 0)); }, pr = function (o) { return o ? o.pct : 9; };
+    var SORT = { omh: function (a, b) { return kss(b.r) - kss(a.r); }, bph: function (a, b) { return kbp(b.r) - kbp(a.r); }, om: function (a, b) { return pr(a.s.om) - pr(b.s.om); }, bp: function (a, b) { return pr(a.s.bp) - pr(b.s.bp); }, pa: function (a, b) { return pr(a.s.pa) - pr(b.s.pa); }, pd: function (a, b) { return pr(a.s.pd) - pr(b.s.pd); }, hy: function (a, b) { return (a.s.hy && a.s.hy.st === 'ok' ? 1 : 0) - (b.s.hy && b.s.hy.st === 'ok' ? 1 : 0); }, nm: function (a, b) { return dispName(a.r).localeCompare(dispName(b.r)); } };
+    if (!SORT[B.sort]) B.sort = 'omh';
+    var col = function (key, extra) { return (B.sort === key ? ' srt' : extra ? ' ' + extra : ''); }, th = function (key, lbl, n, extra) { return '<th class="' + (n ? 'n' : '') + col(key, extra) + '"><button type="button" data-brsort="' + key + '">' + lbl + '</button></th>'; };
+    var st = function (o) { return o ? '<span class="br-st ' + o.st + '">' + (o.st === 'ok' ? '✓' : o.st === 'wait' ? '•' : '✕') + '</span>' : '–'; };
+    var tr = function (x) { var r = x.r, s = x.s, ss = r.ss || {}, bp = r.bp || {}, a1 = kss(r), b1 = kbp(r);
+      return '<tr><td class="' + col('nm') + '"><button type="button" class="br-nm" data-dvp="' + esc(r.id) + '">' + esc(dispName(r)) + '</button></td>' +
+        '<td class="n' + col('om') + '">' + rupiah(ss.actual || 0) + '<small>' + (ss.target ? p1(pc(ss.actual || 0, ss.target)) + ' dari ' + rupiah(ss.target) + ' ' : '') + st(s.om) + '</small></td>' +
+        '<td class="n' + col('omh', 'hl') + '"><b>' + (a1 ? rupiah(ph(a1)) : '✓') + '</b><small>' + (a1 ? 'kurang ' + rupiah(a1) : 'tercapai') + '</small></td>' +
+        '<td class="n' + col('bp') + '">' + nf(bp.actual) + ' / ' + nf(bp.target) + '<small>' + (bp.target ? p1(pc(bp.actual || 0, bp.target)) + ' ' : '') + st(s.bp) + '</small></td>' +
+        '<td class="n' + col('bph', 'hl') + '"><b>' + (b1 ? nf(Math.ceil(ph(b1))) + ' bill' : '✓') + '</b><small>' + (b1 ? 'kurang ' + nf(b1) + ' bill' : 'tercapai') + '</small></td>' +
+        '<td class="n' + col('pa') + '">' + (r.ps ? nf(r.ps.a) + ' / ' + nf(r.ps.total) : '–') + '<small>' + (r.ps && r.ps.total ? p1(pc(r.ps.a, r.ps.total)) + ' ' : '') + st(s.pa) + '</small></td>' +
+        '<td class="n' + col('pd') + '">' + (r.ps ? nf(r.ps.d) + ' / ' + nf(r.ps.total) : '–') + '<small>' + (r.ps && r.ps.total ? p1(pc(r.ps.d, r.ps.total)) + ' ' : '') + st(s.pd) + '</small></td>' +
+        '<td class="' + col('hy') + '">' + st(s.hy) + '</td>' + (ins ? '<td class="n">' + (x.a ? rupiah(x.a.total) : '…') + '</td>' : '') + '</tr>'; };
+    var SL = [['omh', 'Kurang omset/hari terbesar'], ['bph', 'Kurang BP/hari terbesar'], ['om', '% Omset terendah'], ['bp', '% BP terendah'], ['pa', 'Availability terendah'], ['pd', 'Digitization terendah'], ['hy', 'Belum hygiene dulu'], ['nm', 'Nama A–Z']];
+    var tabel = '<div class="br-card"><h4>Kekurangan per hari · per salesman</h4><div class="br-note">Kurang/hari = kekurangan ke target 100% ÷ ' + left + ' hari kerja tersisa (kolom kuning). Ketuk judul kolom atau kartu KPI untuk mengurutkan; kolom biru = urutan aktif. Ketuk nama untuk detail DSR. Availability & Digitization: outlet panel Perfect Store.</div>' +
+      '<div class="br-fil" style="margin:0 0 8px"><select id="brSort" aria-label="Urutkan tabel">' + SL.map(function (o) { return '<option value="' + o[0] + '"' + (B.sort === o[0] ? ' selected' : '') + '>Urut: ' + o[1] + '</option>'; }).join('') + '</select>' + (B.sort !== 'omh' ? '<button type="button" data-brreset="1" style="background:#fff;color:#0F172A;border:1.5px solid #CFE0EE">↺ Urutan awal</button>' : '') + '</div>' +
+      '<div class="br-tw"><table class="br-t"><thead><tr>' + th('nm', 'Salesman') + th('om', 'Omset', 1) + th('omh', 'Kurang omset/hari', 1, 'hl') + th('bp', 'BP', 1) + th('bph', 'Kurang BP/hari', 1, 'hl') + th('pa', 'Avail.', 1) + th('pd', 'Digit.', 1) + th('hy', 'Hyg.') + (ins ? '<th class="n">Insentif</th>' : '') + '</tr></thead><tbody>' +
+      rows.slice().sort(SORT[B.sort]).map(tr).join('') +
+      (rows.length > 1 ? '<tr class="tot"><td>Total tim</td><td class="n">' + rupiah(T.sa) + '<small>' + p1(pS) + '</small></td><td class="n hl">' + (kS ? rupiah(ph(kS)) : '✓') + '</td><td class="n">' + nf(T.ba) + ' / ' + nf(T.bt) + '</td><td class="n hl">' + (kB ? nf(Math.ceil(ph(kB))) + ' bill' : '✓') + '</td><td class="n">' + nf(T.a) + ' / ' + nf(T.n) + '</td><td class="n">' + nf(T.d) + ' / ' + nf(T.n) + '</td><td>' + T.hy + '/' + T.hyN + '</td>' + (ins ? '<td></td>' : '') + '</tr>' : '') + '</tbody></table></div></div>';
+    // peringkat + angka absolut
+    var RK = [['om', '% Omset'], ['bp', '% BP'], ['pa', 'Availability'], ['pd', 'Digitization'], ['okN', 'Jumlah KPI tercapai']].concat(ins ? [['ins', 'Insentif']] : []); if (!RK.some(function (x) { return x[0] === B.rk; })) B.rk = 'om';
+    var val = function (x) { return B.rk === 'okN' ? x.s.okN : B.rk === 'ins' ? (x.a ? x.a.total : null) : x.s[B.rk] ? x.s[B.rk].pct : null; }, fmt = function (v) { return v == null ? '–' : B.rk === 'okN' ? v + ' dari 5' : B.rk === 'ins' ? rupiah(v) : p1(v); };
+    var absT = function (x) { var r = x.r; return B.rk === 'om' ? rupiah((r.ss || {}).actual) + ' dari ' + rupiah((r.ss || {}).target) : B.rk === 'bp' ? nf((r.bp || {}).actual) + ' dari ' + nf((r.bp || {}).target) + ' bill' : B.rk === 'pa' ? nf((r.ps || {}).a) + ' dari ' + nf((r.ps || {}).total) + ' outlet' : B.rk === 'pd' ? nf((r.ps || {}).d) + ' dari ' + nf((r.ps || {}).total) + ' outlet' : B.rk === 'okN' ? 'Omset, BP, Avail., Digit., Hygiene' : 'insentif sementara'; };
+    var L = rowsAll.filter(function (x) { return val(x) != null; }).sort(function (a, b) { return val(b) - val(a); });
+    var rank = '<div class="br-card"><h4>🏆 Peringkat</h4><div class="br-fil" style="margin:6px 0 10px"><select id="brRk" aria-label="Dasar peringkat">' + RK.map(function (x) { return '<option value="' + x[0] + '"' + (B.rk === x[0] ? ' selected' : '') + '>' + x[1] + '</option>'; }).join('') + '</select></div><div class="br-rk">' +
+      (L.length ? L.map(function (x, i) { return '<div class="' + (i < 3 ? 'top' : '') + '"><span class="rk-n">' + (['🥇', '🥈', '🥉'][i] || (i + 1)) + '</span><span class="rk-t"><span>' + esc(dispName(x.r)) + '</span><small>' + absT(x) + '</small></span><span class="rk-v">' + fmt(val(x)) + '</span></div>'; }).join('') : '<div>Belum ada data.</div>') + '</div></div>';
+    h += '<div class="br-two">' + tabel + rank + '</div>';
+    if (res.dists.length > 1) h += '<div class="br-card"><h4>Per distributor</h4><div class="br-tw"><table class="br-t"><thead><tr><th>Distributor</th><th class="n">Omset</th><th class="n hl">Kurang omset/hari</th><th class="n">BP</th><th class="n hl">Kurang BP/hari</th><th class="n">Avail.</th><th class="n">Digit.</th></tr></thead><tbody>' + res.dists.map(function (d) { var t = brSum(d.dsr), ks = Math.max(0, t.st - t.sa), kb = Math.max(0, t.bt - t.ba); return '<tr><td><b>' + esc(d.name) + '</b></td><td class="n">' + rupiah(t.sa) + '<small>' + p1(pc(t.sa, t.st)) + ' dari ' + rupiah(t.st) + '</small></td><td class="n hl"><b>' + (ks ? rupiah(ph(ks)) : '✓') + '</b></td><td class="n">' + nf(t.ba) + ' / ' + nf(t.bt) + '</td><td class="n hl"><b>' + (kb ? nf(Math.ceil(ph(kb))) + ' bill' : '✓') + '</b></td><td class="n">' + p1(pc(t.a, t.n)) + '<small>' + nf(t.a) + ' / ' + nf(t.n) + '</small></td><td class="n">' + p1(pc(t.d, t.n)) + '<small>' + nf(t.d) + ' / ' + nf(t.n) + '</small></td></tr>'; }).join('') + '</tbody></table></div></div>';
+    if (!B.sm) { var ch = dvTeamChart(D, 'ssv'); if (ch) h += ch.replace(/kebutuhan per hari ke ACHIEVE DSS \(\d+% target\)/, 'kebutuhan per hari tim'); }
+    return h;
+  }
+  document.addEventListener('change', function (e) { var t = e.target; if (!t || !/^(brSm|brRk|brIns|brSort)$/.test(t.id)) return; var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }; if (t.id === 'brSm') B.sm = t.value; else if (t.id === 'brRk') B.rk = t.value; else if (t.id === 'brSort') B.sort = t.value; else B.ins = t.checked; renderDssApp(); });
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-brsort],[data-brk]'); if (!b) return; var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }, v = b.getAttribute('data-brsort') || b.getAttribute('data-brk'); if (b.hasAttribute('data-brk')) { B.sort = v === 'om' ? 'omh' : v === 'bp' ? 'bph' : v; if (/^(om|bp|pa|pd)$/.test(v)) B.rk = v; } else B.sort = v; renderDssApp(); });
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-brfull]'); if (!b) return; var on = !document.body.classList.contains('br-big'); document.body.classList.toggle('br-big', on); try { if (on && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); else if (!on && document.fullscreenElement) document.exitFullscreen(); } catch (er) {} });
+  document.addEventListener('click', function (e) { if (!(e.target.closest && e.target.closest('[data-brreset]'))) return; var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }; B.sort = 'omh'; renderDssApp(); }); /* reset urutan ke bawaan (kurang omset/hari terbesar) */
+  document.addEventListener('fullscreenchange', function () { if (!document.fullscreenElement) document.body.classList.remove('br-big'); });
+  function dvGo(v, tk) { if (RTAK) { var _p = RTAK; DV.v = v; rtCloseAkun(); if (_p === 'dss') return; } DV.v = v; if (v === 'brief' && S.dssAll) S.dssAll = false; /* briefing per distributor */ if (tk) DV.tk = tk; if (S.sheet) closeSheet(); renderDssApp(); window.scrollTo(0, 0); }
   /* dsp (9 Nov 2026): DSS melihat Laporan Display Pajangan yang diisi field force di RADAR SONIK+ */
   var DSP = { d: null, err: '', busy: false, open: null, q: '', bulan: '', shown: 20, tgl: '', wa: '' };
   function dspLoad() { DSP.busy = true; DSP.err = ''; var sk = S.code; google.script.run.withSuccessHandler(function (r) { if (S.code !== sk) return; DSP.busy = false; if (r && r.ok) DSP.d = r; else DSP.err = (r && r.error) || 'Gagal memuat.'; if (S.sheet && S.sheet.type === 'dsp') renderSheet(); }).withFailureHandler(function () { if (S.code !== sk) return; DSP.busy = false; DSP.err = 'Tidak bisa terhubung. Coba lagi.'; if (S.sheet && S.sheet.type === 'dsp') renderSheet(); }).dssDisplay(S.code, deviceId(), DSP.bulan || ''); }
@@ -9008,7 +9128,7 @@
   window.addEventListener('popstate', function () { if (scanSt.live) { scnLiveStop(); armGate(); return; } /* kamera scan terbuka: tutup kamera saja */ if (S.sheet) { if (S.sheet.back) openSheet(S.sheet.back); else closeSheet(); armGate(); return; } if (navBack()) { armGate(); return; } if (!$('exitConfirm').hidden) { armGate(); return; } exitShow(true); });
   $('exitStay').addEventListener('click', function () { exitShow(false); armGate(); });
   $('exitGo').addEventListener('click', function () { exitShow(false); try { history.back(); } catch (e) {} });
-  armGate();
+  armGate(); (function () { var once = function () { armGate(); document.removeEventListener("pointerdown", once, true); document.removeEventListener("keydown", once, true); }; document.addEventListener("pointerdown", once, true); document.addEventListener("keydown", once, true); })(); /* gerbang-laptop (11 Nov): Chrome laptop mengabaikan entri riwayat tanpa klik pengguna -> pasang ulang saat interaksi pertama */
 
   // ===== KELOLA (hak AASM dgn Kelola=YA): Periode Aktif, arsip bulan, kode akses (cabut/aktifkan/reset/buat) =====
   var KEL = { data: null, loading: false, err: '', busy: '', msg: '', code: null, confirm: '', q: '', shown: 40, form: { peran: 'DSR', sid: '', cak: '', nama: '', per: '' } };
