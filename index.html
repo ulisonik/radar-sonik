@@ -1077,6 +1077,29 @@
   .seg.scroll { scrollbar-width: none; } .seg.scroll::-webkit-scrollbar { display: none; }
   .pick .seg.adm-seg, .pick .dv-tseg { top: -10px !important; } /* .pick punya padding atas 18px: menempel 8px dari tepi layar seperti DSR */
   #ckSeg, #outletSeg, #insSeg, .seg.adm-seg, .dv-tseg, #fd_tabs { top: 8px; background: #fff; box-shadow: 0 0 0 8px #C2E2F4, -48px 0 0 8px #C2E2F4, 48px 0 0 8px #C2E2F4; } #outletSeg.oseg { background: #C2E2F4; border-radius: 22px; box-shadow: 0 0 0 8px #C2E2F4, -48px 0 0 8px #C2E2F4, 48px 0 0 8px #C2E2F4, 0 16px 12px -10px rgba(15,23,42,.25); } #outletSeg.oseg .oseg-mon { background: #fff; } #fd_tabs { box-shadow: 0 0 0 8px #C2E2F4, -48px 0 0 8px #C2E2F4, 48px 0 0 8px #C2E2F4, 0 16px 12px -10px rgba(15,23,42,.25); } #ckSeg, #insSeg, .seg.adm-seg, .dv-tseg { box-shadow: 0 0 0 8px #C2E2F4, -48px 0 0 8px #C2E2F4, 48px 0 0 8px #C2E2F4, 0 16px 12px -10px rgba(15,23,42,.25); }
+  /* seg-lepas (10 Nov 2026, masukan user): pita biru penutup hanya saat sub menu MENEMPEL di atas. Di posisi biasa (belum digulir) pita
+     disembunyikan karena warnanya tidak senada dengan latar gradasi. Kelas .seg-lepas dipasang JS segPita(); tanpa JS pita tetap seperti dulu. */
+  .sn-head, .sn-foot { display: none; } /* sn-panel: hanya tampil di laptop (lihat mode-desktop) */
+  .sn-logo { display: block; color: #0F172A; } .sn-logo svg { display: block; height: 28px; width: auto; max-width: 100%; }
+  .sn-who { margin-top: 12px; font-size: 13px; font-weight: 800; color: #0F172A; line-height: 1.25; } .sn-who small { display: block; margin-top: 2px; font-size: 11.5px; font-weight: 600; color: #64748B; }
+  .sn-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border: 0; background: none; border-radius: 14px; font: inherit; font-size: 13.5px; font-weight: 700; color: #334155; cursor: pointer; text-align: left; }
+  .sn-btn:hover { background: #EEF5FB; } .sn-btn svg { flex: none; width: 20px; height: 20px; } .sn-btn .sdot { flex: none; margin: 0 4px 0 5px; } .sn-st { flex: 1; min-width: 0; } .sn-rl { color: #1D74B8; font-size: 16px; }
+  #ckSeg.seg-lepas, #insSeg.seg-lepas, .seg.adm-seg.seg-lepas, .dv-tseg.seg-lepas { box-shadow: 0 4px 14px rgba(15,23,42,.08); }
+  /* adm-nav (10 Nov 2026, keputusan user): Admin punya menu bawah (HP) / menu samping (laptop) berikon, 5 menu: Proses SND, Daftar Outlet,
+     Modifikasi, Status, Input Manual. Proses SND = alur pendaftaran outlet bernomor 1-3 (Konfirmasi AASM -> Input SND Pro -> Cek hasil SND).
+     Isi tiap layar tidak berubah. */
+  body.has-nav #admScreen { padding-bottom: 120px; } #admNav { z-index: 30; }
+  .adm-grpl { font-size: 11.5px; font-weight: 800; color: #475569; letter-spacing: .05em; text-transform: uppercase; margin: 2px 4px 8px; }
+  .adm-tiles.adm-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 16px; }
+  .adm-flow .seg-btn.adm-step { position: relative; display: flex; align-items: center; justify-content: flex-start; gap: 8px; min-width: 0; padding: 10px 10px; text-align: left; white-space: normal; background: #fff; color: #0F172A; border: 1px solid #D6E6F3; border-radius: 16px; font-weight: 700; box-shadow: 0 2px 8px rgba(15,23,42,.05); }
+  .adm-flow .seg-btn.adm-step.active { background: #0F172A; color: #fff; border-color: #0F172A; }
+  .adm-flow .adm-step + .adm-step::before { content: '›'; position: absolute; left: -10px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-weight: 800; font-size: 15px; line-height: 1; }
+  .adm-sn { flex: none; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; background: #E2EEF8; color: #134F7E; }
+  .seg-btn.active .adm-sn { background: #E7F77D; color: #0F172A; }
+  .adm-sl { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; line-height: 1.15; }
+  .adm-sl small { font-size: 10.5px; font-weight: 600; opacity: .72; margin-top: 2px; }
+  .adm-flow .adm-tnew { position: absolute; top: -8px; right: 8px; }
+  @media (max-width: 599px) { .adm-tiles.adm-flow { gap: 10px; } .adm-flow .adm-sl small { display: none; } .adm-flow .seg-btn.adm-step { flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 9px; font-size: 12.5px; } .adm-flow .seg-n { position: absolute; top: 8px; right: 8px; } }
   /* dss-v3 */ .dv-tgrp { margin: 2px 0 8px; } .dv-full { display: block; width: 100%; margin: 0; text-align: center; padding: 12px; font-size: 14px; } .adm-row.dv-static { cursor: default; } .adm-row.dv-static::after { content: none !important; }
   /* aasm-v3 */ .aas-dc { display: block; width: 100%; text-align: left; padding: 14px; margin-bottom: 10px; } .aas-dh { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; } .aas-dh > b { font-size: 15px; color: var(--navy); } .aas-rp { text-align: right; font-weight: 800; font-size: 16px; color: var(--navy); font-variant-numeric: tabular-nums; } .aas-rp small { display: block; font-weight: 500; font-size: 12px; color: var(--slate); }
   .aas-kp { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin: 10px 0 8px; } .aas-k { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 6px 2px; border-radius: 10px; background: #F1F5F9; min-width: 0; } .aas-k i { font-style: normal; font-weight: 800; font-size: 13px; } .aas-k small { font-size: 11px; color: var(--slate); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; } .aas-k b { font-size: 12.5px; color: var(--navy); font-variant-numeric: tabular-nums; } .aas-k.ok { background: #E8F6EC; } .aas-k.ok i { color: #15803D; } .aas-k.wait { background: #FEF3C7; } .aas-k.wait i { color: #B45309; } .aas-k.bad { background: #FDECEC; } .aas-k.bad i { color: #DC2626; } .aas-k.na i { color: #94A3B8; }
@@ -1227,6 +1250,40 @@
   .scn-hint { position: absolute; left: 16px; right: 16px; top: calc(50% + 92px); text-align: center; color: #fff; font-size: 14px; font-weight: 600; }
   .scn-act { position: absolute; left: 16px; right: 16px; bottom: calc(22px + env(safe-area-inset-bottom)); display: flex; gap: 10px; } .scn-act button { flex: 1; padding: 14px; border: 0; border-radius: 14px; font: inherit; font-size: 15px; font-weight: 600; background: #D9F25A; color: #0F172A; cursor: pointer; } .scn-act button[data-scnl="foto"] { background: #fff; }
   /* dsp */ .dsp-wa { display: inline-block; padding: 0 7px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; } .dsp-wa.ok { background: #E3F6E9; color: #136B42; } .dsp-wa.no { background: #FDE9D2; color: #A3560A; } .dsp-reset { display: block; margin: 4px 0 6px auto; padding: 4px 2px; border: 0; background: none; color: var(--finora-strong); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; } .dsp-q { position: relative; } .dsp-q input { padding-right: 42px; } .dsp-q input::-webkit-search-cancel-button { display: none; } .dsp-clr { position: absolute; right: 6px; top: 50%; width: 32px; height: 32px; margin-top: -16px; border: 0; border-radius: 50%; background: var(--ice-soft); color: var(--slate); font-size: 18px; line-height: 1; cursor: pointer; } .dsp-in.dim { opacity: .5; } .dsp-in { width: 100%; box-sizing: border-box; padding: 10px; margin-bottom: 8px; border: 1px solid var(--border); border-radius: 10px; font: inherit; background: #fff; color: var(--ink); } .dsp-grp { font-size: 12.5px; font-weight: 600; color: var(--slate); margin: 10px 2px 2px; } .dsp-more { display: block; width: 100%; margin-top: 8px; padding: 11px; border: 1px solid var(--finora-strong); border-radius: 10px; background: #fff; color: var(--finora-strong); font: inherit; font-weight: 600; cursor: pointer; } .dsp-two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; } .dsp-two img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: contain; border-radius: 10px; background: var(--ice-soft); } .dsp-two small { display: block; margin-bottom: 4px; font-weight: 600; } .dsp-back { border: 0; background: none; padding: 0 0 10px; color: var(--finora-strong); font: inherit; font-weight: 600; cursor: pointer; }
+/* mode-desktop (11 Nov 2026, keputusan user): HANYA layar >= 1024px DAN peran DSS / AASM / ADMIN (body.dt-peran).
+     Tampilan HP dan peran DSR tidak berubah. Isi layar peran disusun dalam grid 6 kolom: kartu masalah & DSR berdampingan (3+3),
+     kartu distributor AASM bertiga (2+2+2), judul & daftar tetap selebar penuh. Menu bawah DSS menjadi menu samping kiri,
+     lembar rincian menjadi panel kanan. */
+  @media (min-width: 1024px) {
+    body.dt-peran .pick { padding: 28px 36px 56px; }
+    body.dt-peran .pick-in { max-width: 1200px; }
+    body.dt-peran #dssBody, body.dt-peran #admBody, body.dt-peran #fdaBody { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: 18px; align-items: start; }
+    body.dt-peran #dssBody > *, body.dt-peran #admBody > *, body.dt-peran #fdaBody > * { grid-column: 1 / -1; min-width: 0; }
+    body.dt-peran #dssBody > .dv-prob, body.dt-peran #dssBody > .dv-dsr, body.dt-peran #admBody > .dv-prob { grid-column: span 3; }
+    body.dt-peran #dssBody > .aas-dc { grid-column: span 2; }
+    body.dt-peran #dssBody > .hero { min-height: 0; }
+    body.dt-peran .hero .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    body.dt-dss #dssScreen, body.dt-adm #admScreen { padding-left: 260px; padding-bottom: 56px; }
+    body.dt-adm #admNav, body.dt-dss #dssNav { left: 32px; right: auto; top: 28px; bottom: auto; transform: none; width: 200px; max-width: none; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 4px; padding: 14px 10px; border-radius: 24px; }
+    body.dt-adm #admNav .nav-item, body.dt-dss #dssNav .nav-item { flex: none; flex-direction: row; white-space: nowrap; text-align: left; justify-content: flex-start; gap: 12px; width: 100%; padding: 12px 14px; font-size: 14px; border-radius: 14px; }
+    /* sn-panel (10 Nov 2026, keputusan user): menu samping = panel setinggi layar. Atas: logo + peran/nama; tengah: menu; bawah: sinkron + akun.
+       Tombol sinkron/akun di pojok kanan atas disembunyikan (pindah ke panel). */
+    body.dt-adm #admNav .nav-item span:last-child { font-size: inherit; }
+    body.dt-adm #admNav, body.dt-dss #dssNav { top: 0; bottom: 0; left: 0; width: 220px; border-radius: 0 28px 28px 0; padding: 22px 12px 18px; }
+    body.dt-adm #admNav .sn-head, body.dt-dss #dssNav .sn-head { display: block; padding: 2px 10px 16px; margin-bottom: 8px; border-bottom: 1px solid #E2E8F0; }
+    body.dt-adm #admNav .sn-foot, body.dt-dss #dssNav .sn-foot { display: flex; flex-direction: column; gap: 4px; margin-top: auto; padding-top: 12px; border-top: 1px solid #E2E8F0; }
+    body.dt-dss #dssScreen .rtop .topbar-sync, body.dt-adm #admScreen .rtop .topbar-sync { display: none; }
+    body.dt-peran .sheet { left: auto; right: 0; top: 0; bottom: 0; width: min(580px, 46vw); max-width: none; max-height: none; height: 100vh; border-radius: 28px 0 0 28px; transform: translateX(100%); }
+    body.dt-peran .sheet-wrap.show .sheet { transform: translateX(0); }
+    body.dt-peran .sheet-grip { display: none; }
+    body.dt-peran .sheet-backdrop { background: rgba(15,23,42,.28); }
+  }
+  /* mode-desktop skala (10 Nov 2026, keputusan user): layar >= 1280px, isi, menu samping, dan isi panel kanan diperbesar 10%
+     serentak (zoom) agar huruf/tombol proporsional di laptop. Wadah panel & layar tidak di-zoom supaya tinggi 100vh tetap pas. */
+  @media (min-width: 1280px) {
+    body.dt-peran .pick-in, body.dt-dss #dssNav, body.dt-adm #admNav, body.dt-peran .sheet > * { zoom: 1.1; }
+    body.dt-dss #dssScreen, body.dt-adm #admScreen { padding-left: 280px; }
+  }
 </style>
 </head>
 <body>
@@ -1479,6 +1536,13 @@
     <div id="admBody"></div>
   </div>
 </div>
+<nav class="bottom-nav" id="admNav" aria-label="Menu Admin SND" style="display:none"><!-- adm-nav -->
+  <button class="nav-item active" type="button" data-admv="snd"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3.5-3.5"/><path d="M20 16H7l3.5 3.5"/></svg></span><span>Proses SND</span></button>
+  <button class="nav-item" type="button" data-admv="daftar"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9.5 5 4.5h14l1.5 5"/><path d="M4.5 9.5V20h8"/><path d="M19.5 9.5V12"/><path d="M18 15v6"/><path d="M15 18h6"/></svg></span><span>Daftar Outlet</span></button>
+  <button class="nav-item" type="button" data-admv="mod"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="M14.5 7.5l3 3"/></svg></span><span>Modifikasi</span></button>
+  <button class="nav-item" type="button" data-admv="status"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 12.5l2 2 4-4"/></svg></span><span>Status</span></button>
+  <button class="nav-item" type="button" data-admv="manual"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6.5 10h.01"/><path d="M10 10h.01"/><path d="M14 10h.01"/><path d="M17.5 10h.01"/><path d="M7.5 14h9"/></svg></span><span>Input Manual</span></button>
+</nav>
 <nav class="bottom-nav" id="dssNav" aria-label="Menu DSS" style="display:none"><!-- dss-v2 -->
   <button class="nav-item active" type="button" data-dvv="home"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>Beranda</button>
   <button class="nav-item" type="button" data-dvv="target"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span>Target</button>
@@ -4479,7 +4543,7 @@
     var canForm = fdCanW(), allow = { form: RF.on || canForm, status: true, mod: RF.on || fmCanWrite(), modst: true }; /* fm-client + rf-role */
     FD.allow = allow; if (!allow[FD.tab]) FD.tab = ['form', 'mod', 'status', 'modst'].filter(function (t) { return allow[t]; })[0];
     var grp = FD.tab === 'form' || FD.tab === 'mod' ? 'ajukan' : 'status', gIn = { ajukan: ['form', 'mod'], status: ['status', 'modst'] }; Array.prototype.forEach.call(document.querySelectorAll('#fd_tabs [data-fdt]'), function (b) { b.hidden = !allow[b.dataset.fdt] || gIn[grp].indexOf(b.dataset.fdt) < 0; }); Array.prototype.forEach.call(document.querySelectorAll('#fd_groups [data-fdg]'), function (b) { var g = b.dataset.fdg; b.hidden = !gIn[g].some(function (t) { return allow[t]; }); b.classList.toggle('active', g === grp); });
-    fdEl('fd_tabs').hidden = false; if (RF.on) fdEl('fd_groups').style.top = ''; var osg = $('outletSeg'); if (!RF.on && osg && osg.offsetHeight) fdEl('fd_groups').style.top = ((parseFloat(getComputedStyle(osg).top) || 8) + osg.offsetHeight + 16) + 'px';
+    fdEl('fd_tabs').hidden = false; var admRF = RF.on && S.role === 'ADMIN'; fdEl('fd_groups').style.display = admRF ? 'none' : ''; fdEl('fd_tabs').style.display = admRF && grp === 'ajukan' ? 'none' : ''; /* adm-nav */ if (RF.on) fdEl('fd_groups').style.top = ''; var osg = $('outletSeg'); if (!RF.on && osg && osg.offsetHeight) fdEl('fd_groups').style.top = ((parseFloat(getComputedStyle(osg).top) || 8) + osg.offsetHeight + 16) + 'px';
     Array.prototype.forEach.call(document.querySelectorAll('#fd_tabs [data-fdt]'), function (b) { b.classList.toggle('active', b.dataset.fdt === FD.tab); });
     fdEl('fd_paneForm').hidden = FD.tab !== 'form'; fdEl('fd_paneStatus').hidden = FD.tab !== 'status'; fdEl('fd_paneMod').hidden = FD.tab !== 'mod'; fdEl('fd_paneModSt').hidden = FD.tab !== 'modst';
     var pn = document.getElementById('fd_pickNote'); if (!pn) { pn = document.createElement('div'); pn.id = 'fd_pickNote'; fdEl('fd_paneForm').parentNode.insertBefore(pn, fdEl('fd_paneForm')); } pn.hidden = !(RF.on && !RF.as && FD.tab === 'form'); if (!pn.hidden) { pn.innerHTML = rfPickNote('Pendaftaran outlet baru'); fdEl('fd_paneForm').hidden = true; return; } /* rf-role */
@@ -6875,7 +6939,7 @@
   function rtStamp(iso) { var x = iso ? new Date(iso) : new Date(); if (isNaN(x)) x = new Date(); return 'Sinkron ' + clockWIT(x.toISOString()); } // = format teks sinkron DSR
   function rtMeta(p) { var el = $(p + 'Meta'); if (!el) return; var t = localDate(new Date().toISOString()), per = S.role !== 'ADMIN' && S.dss && S.dss.period, lag = per && String(per).slice(0, 7) !== String(t).slice(0, 7); /* meta-seragam: = renderMeta DSR */
     el.innerHTML = esc(fmtLong(t)) + (per ? ' · ' + (lag && !(S.role === 'DSS' && DV.v && DV.v !== 'home') ? '<span class="meta-warn">⚠️ Periode ' + esc(monthLabel(per)) + ' (belum berganti)</span>' : 'Periode ' + esc(monthLabel(per))) : ''); }
-  function rtSync(p, kind, txt) { rtMeta(p); setTimeout(segHint, 0); /* tanda geser sub menu = DSR */ var d = $(p + 'SyncDot'), t = $(p + 'SyncTxt'); if (!d || !t) return; d.className = 'sdot ' + kind; t.textContent = txt; }
+  function rtSync(p, kind, txt) { rtMeta(p); setTimeout(segHint, 0); /* tanda geser sub menu = DSR */ var d = $(p + 'SyncDot'), t = $(p + 'SyncTxt'); if (!d || !t) return; d.className = 'sdot ' + kind; t.textContent = txt; var sf = document.querySelector('.sn-foot[data-snp="' + p + '"]'); if (sf) { sf.querySelector('.sdot').className = 'sdot ' + kind; sf.querySelector('.sn-st').textContent = txt; } /* sn-panel */ }
   function rtSyncInfo(p) {
     var r = S.dss, du = p === 'adm' ? '' : (r && r.dataUntil ? dShort(String(r.dataUntil).slice(0, 10)) : ''), st = ($(p + 'SyncDot') || {}).className || '';
     INFO.rsync = { t: 'Status data', h: '<p>' + (/ok/.test(st) ? '🟢 Data sudah termuat' + (du ? ' — data pusat s.d. <b>' + esc(du) + '</b>' : '') + '.' : /bad/.test(st) ? '🔴 Gagal memuat — periksa sinyal lalu ketuk status ini.' : '🟡 Sedang memuat data…') + '</p><p>Ketuk <b>status sinkron</b> untuk memuat ulang data terbaru dari server.</p>' };
@@ -6954,10 +7018,13 @@
     h += admHero(d); /* adm-hero */
     if (d) h += admNewBanner(d);
     if (ADM.err) h += '<div class="banner lock" style="margin:0 0 12px">' + esc(ADM.err) + '</div>';
-    if (!d) { $('admBody').innerHTML = h + '<div class="empty">' + (ADM.loading ? 'Memuat antrean…' : 'Belum ada data.') + '</div>'; admHeroAfter(); return; }
+    admNav(true); /* adm-nav */ if (!d) { $('admBody').innerHTML = h + '<div class="empty">' + (ADM.loading ? 'Memuat antrean…' : 'Belum ada data.') + '</div>'; admHeroAfter(); return; }
     var nCheck = d.riwayat.filter(admNeedCheck).length + ((d.lengkapi || []).length); /* ob: + tuntas tanpa kode */
-    var tiles = [['queue', d.queue.length, 'Siap diinput', 'ke SND Pro'], ['waiting', d.waiting.length, 'Menunggu AASM', 'hanya dilihat'], ['riwayat', nCheck, 'Cek hasil SND', 'tuntas / ditolak'], ['manual', (d.manual || []).length, 'Input manual', 'di luar form'], ['mod', fmAdmCount(), 'Pengajuan Outlet', 'daftar & modifikasi']]; /* ob-manual + fm-client + rf-role */
-    h += '<div class="seg scroll adm-tiles adm-seg" role="tablist">' + tiles.map(function (t) { return '<button type="button" role="tab" class="seg-btn' + (ADM.tab === t[0] ? ' active' : '') + '" data-admtab="' + t[0] + '" aria-selected="' + (ADM.tab === t[0]) + '">' + t[2] + ' <b class="seg-n' + (t[0] !== 'waiting' && t[1] ? ' todo' : '') + '">' + t[1] + '</b>' + (function () { /* seg-seragam */ var k = t[0] === 'queue' ? d.queue.filter(function (x) { return admIsNew(x, 'queue'); }).length : t[0] === 'waiting' ? d.waiting.filter(function (x) { return admIsNew(x, 'waiting'); }).length : 0; return k ? '<em class="adm-tnew">' + k + ' baru</em>' : ''; })() + '</button>'; }).join('') + '</div>';
+    /* adm-alur: tahap bernomor sesuai alur pendaftaran outlet + kelompok Lainnya (ob-manual + fm-client + rf-role) */
+    var flow = [['waiting', d.waiting.length, 'Konfirmasi AASM', 'hanya lihat'], ['queue', d.queue.length, 'Input SND Pro', 'tugas Anda'], ['riwayat', nCheck, 'Cek hasil SND', 'tugas Anda']]; /* adm-nav: Daftar/Modifikasi/Status/Input manual = menu Admin */
+    var admBtn = function (t, no) { var k = t[0] === 'queue' ? d.queue.filter(function (x) { return admIsNew(x, 'queue'); }).length : t[0] === 'waiting' ? d.waiting.filter(function (x) { return admIsNew(x, 'waiting'); }).length : 0; /* seg-seragam */
+      return '<button type="button" role="tab" class="seg-btn' + (no ? ' adm-step' : '') + (ADM.tab === t[0] ? ' active' : '') + '" data-admtab="' + t[0] + '" aria-selected="' + (ADM.tab === t[0]) + '">' + (no ? '<span class="adm-sn">' + no + '</span>' : '') + '<span class="adm-sl">' + t[2] + '<small>' + t[3] + '</small></span><b class="seg-n' + (t[0] !== 'waiting' && t[1] ? ' todo' : '') + '">' + t[1] + '</b>' + (k ? '<em class="adm-tnew">' + k + ' baru</em>' : '') + '</button>'; };
+    if (admNavKey() === 'snd') h += '<div class="adm-grpl">Alur pendaftaran outlet</div><div class="adm-tiles adm-seg adm-flow" role="tablist">' + flow.map(function (t, i) { return admBtn(t, i + 1); }).join('') + '</div>';
     if (ADM.loading) h += '<div class="adm-note">Memperbarui…</div>';
     if (ADM.tab === 'queue') {
       h += '<div class="sec-title adm-st">Siap diinput ke SND Pro <small class="adm-sub">urut dari yang paling lama dikonfirmasi AASM</small></div>';
@@ -6972,7 +7039,7 @@
         h += '<button type="button" class="adm-wa" data-admwa="1"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>Ingatkan AASM via WhatsApp (' + d.waiting.length + ' outlet)</button>';
         h += '<div class="card adm-list">' + d.waiting.map(function (it) { return '<div class="adm-row ro"><div class="adm-rm"><b>' + esc(it.namaOutlet) + (admIsNew(it, 'waiting') ? ' ' + admNewTag() : '') + '</b><span>' + esc(it.namaSales) + ' · didaftarkan ' + esc(fdShortDate(it.timestamp)) + '</span><span class="adm-tags">' + admAge(it.timestampSort) + '</span></div><span class="adm-eye" aria-hidden="true">👁</span></div>'; }).join('') + '</div>';
       }
-    } else if (ADM.tab === 'mod') { h += '<div class="sec-title adm-st">Pengajuan Outlet <small class="adm-sub">daftarkan outlet baru / ajukan modifikasi atas nama salesman · lihat statusnya</small></div><div id="rfHost"></div>'; /* rf-role */
+    } else if (ADM.tab === 'mod') { var mk = admNavKey(), mt = mk === 'daftar' ? ['Daftar outlet baru', 'atas nama salesman · pilih salesman dulu'] : mk === 'mod' ? ['Modifikasi outlet', 'ajukan perubahan data outlet atas nama salesman'] : ['Status pengajuan', 'pendaftaran &amp; modifikasi · pilih salesman atau lihat semua']; h += '<div class="sec-title adm-st">' + mt[0] + ' <small class="adm-sub">' + mt[1] + '</small></div><div id="rfHost"></div>'; /* rf-role + adm-nav */
     } else if (ADM.tab === 'manual') { h += manListHtml(d.manual || [], 'adm'); /* ob-manual */
     } else {
       var need = d.riwayat.filter(admNeedCheck), wait = d.riwayat.filter(function (r) { return r.status === 'Diinput SND (Admin)'; }), done = d.riwayat.filter(function (r) { return !!r.tanggalKonfirmasiSnd; });
@@ -6983,7 +7050,7 @@
       if (lk.length) h += '<div class="sec-title adm-st">Tuntas, kode outlet belum diisi <small class="adm-sub">' + lk.length + ' outlet · isi agar outlet baru bisa dipantau</small></div>' + lk.map(function (r) { return admKdCard(r, 'lengkapi'); }).join('');
       if (done.length) h += '<div class="sec-title adm-st">Tuntas di SND Pro <small class="adm-sub">30 hari terakhir</small></div>' + done.map(function (r) { return admKdCard(r, 'done'); }).join('');
     }
-    $('admBody').innerHTML = h; admHeroAfter(); if (ADM.tab === 'mod') rfMount($('rfHost')); /* rf-role */
+    $('admBody').innerHTML = h; admHeroAfter(); if (ADM.tab === 'mod') rfMount($('rfHost')); /* rf-role */ admNav(true); /* adm-nav */
   }
   function admKdOk(k, n) { var c = String(k || '').replace(/[\s.\-]/g, ''); return /^\d{18}$/.test(c) && String(n || '').trim().length >= 3; } /* ob-client */
   function admKdForm(r, busy) {
@@ -7103,7 +7170,7 @@
   function waAge(ms) { var dd = admDays(ms); return dd ? dd + ' hari' : 'hari ini'; }
   function waOldest(list, f) { return (list || []).slice().sort(function (a, b) { return (a[f] || 0) - (b[f] || 0); }); }
   $('admBody').addEventListener('click', function (e) {
-    var t = e.target.closest('[data-admtab]'); if (t) { ADM.tab = t.dataset.admtab; ADM.confirm = ''; ADM.rej = ''; renderAdm(); return; }
+    var t = e.target.closest('[data-admtab]'); if (t) { ADM.tab = t.dataset.admtab; if (/^(waiting|queue|riwayat)$/.test(ADM.tab)) ADM.sndTab = ADM.tab; /* adm-nav */ ADM.confirm = ''; ADM.rej = ''; renderAdm(); return; }
     var o = e.target.closest('[data-admopen]'); if (o) { ADM.confirm = ''; openSheet({ type: 'adm', id: o.dataset.admopen }); return; }
     if (e.target.closest('[data-admwa]')) { window.open('https://wa.me/?text=' + encodeURIComponent(admWaText()), '_blank'); return; }
     var a = e.target.closest('[data-admact]'); if (!a) return; var card = a.closest('[data-admid]'), id = card && card.dataset.admid; if (!id) return;
@@ -8779,7 +8846,7 @@
     el.innerHTML = h; dvHeroAfter(); dvNav(true);
   }
   function dvNav(show) {
-    var n = $('dssNav'); if (!n) return; n.style.display = show ? 'flex' : 'none'; document.body.classList.toggle('has-nav', !!show);
+    var n = $('dssNav'); if (!n) return; n.style.display = show ? 'flex' : 'none'; document.body.classList.toggle('has-nav', !!show); document.body.classList.toggle('dt-dss', !!show && document.body.classList.contains('dt-peran')); /* mode-desktop: menu samping kiri DSS/AASM */
     Array.prototype.forEach.call(n.querySelectorAll('[data-dvv]'), function (b) { b.classList.toggle('active', b.dataset.dvv === DV.v); });
   }
   function dvLater() { // insentif & foto DSR datang satu per satu -> segarkan tampilan tanpa mengganggu ketikan
@@ -8843,7 +8910,7 @@
     $('loginScreen').style.display = 'none'; $('dashboard').style.display = 'block'; $('bottomNav').style.display = 'flex'; document.body.classList.add('has-nav'); showView('beranda');
     $('helloName').textContent = greeting() + ', ' + res.nama; $('helloSub').textContent = 'Salesman ' + res.salesmanId;
     window.scrollTo(0, 0);
-    S.role = res.role || 'DSR'; S.roster = res.roster || null; S.as = '';
+    S.role = res.role || 'DSR'; S.roster = res.roster || null; S.as = ''; dtPeran(); snWho(res.nama || ''); /* sn-panel */
     if (S.role === 'ADMIN') { S.admNama = res.nama || ''; admReset(); showAdm(); return; } /* fd-admin-ui */
     if (S.role === 'AASM') { fdaReset(); S.aasmNama = res.nama || 'AASM'; } /* aasm-fo */
     if (S.role === 'DSS') { dvReset(); S.aasSnap = {}; S.aasPrev = {}; S.dssNama = res.nama || ''; } /* dss-v2 */
@@ -8851,8 +8918,43 @@
     if (S.role === 'DSS' || S.role === 'AASM') { S.dss = null; S.dssI = 0; S.dssAll = false; S.aas = {}; S.aasFail = {}; S.aasSort = 'nama'; S.aasBusy = false; showDss(); return; }
     load(false);
   }
-  function showLogin() { $('dssNav').style.display = 'none'; $('fdaScreen').style.display = 'none'; $('admScreen').style.display = 'none'; $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none'; $('dashboard').style.display = 'none'; $('bottomNav').style.display = 'none'; document.body.classList.remove('has-nav'); $('loginScreen').style.display = 'block'; $('pwInput').value = ''; }
-  function logout(msg) { navClear(); document.body.classList.remove('tema-form'); document.body.classList.remove('bulan-lalu'); try { rtCloseAkun(); } catch (e) {} try { fdResetSession(); } catch (e) {} try { admReset(); $('admBody').innerHTML = ''; $('admScreen').style.display = 'none'; } catch (e) {} try { fdaReset(); $('fdaBody').innerHTML = ''; $('fdaScreen').style.display = 'none'; } catch (e) {} try { dvReset(); S.aasSnap = {}; S.aasPrev = {}; $('dssNav').style.display = 'none'; } catch (e) {}
+  function showLogin() { $('dssNav').style.display = 'none'; $('admNav').style.display = 'none'; document.body.classList.remove('dt-adm'); /* adm-nav */ $('fdaScreen').style.display = 'none'; $('admScreen').style.display = 'none'; $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none'; $('dashboard').style.display = 'none'; $('bottomNav').style.display = 'none'; document.body.classList.remove('has-nav'); $('loginScreen').style.display = 'block'; $('pwInput').value = ''; }
+  /* mode-desktop: kelas tubuh untuk tampilan laptop peran DSS/AASM/ADMIN (CSS hanya aktif >= 1024px) */
+  /* seg-lepas: tandai sub menu yang belum menempel (lihat CSS seg-lepas) */
+  (function segPita() {
+    var SEL = '#ckSeg, #insSeg, .seg.adm-seg, .dv-tseg', t = 0;
+    function wadah(e) { for (var w = e.parentElement; w && w !== document.body; w = w.parentElement) { var o = getComputedStyle(w).overflowY; if ((o === 'auto' || o === 'scroll') && w.scrollHeight > w.clientHeight + 1) return w; } return null; }
+    function cek() { t = 0; Array.prototype.forEach.call(document.querySelectorAll(SEL), function (e) { if (!e.getClientRects().length) return; var w = wadah(e), top0 = w ? w.getBoundingClientRect().top + (parseFloat(getComputedStyle(w).paddingTop) || 0) : 0, st = parseFloat(getComputedStyle(e).top) || 0; e.classList.toggle('seg-lepas', e.getBoundingClientRect().top > top0 + st * 1.1 + 3); }); }
+    function jadwal() { if (!t) t = requestAnimationFrame(cek); }
+    document.addEventListener('scroll', jadwal, true); window.addEventListener('resize', jadwal);
+    setInterval(function () { if (!document.hidden) jadwal(); }, 600);
+  })();
+  /* adm-nav: menu Admin. Proses SND = tab waiting/queue/riwayat; Daftar/Modifikasi/Status = Pengajuan Outlet (FD.tab form/mod/status); Input Manual = manual */
+  function admNavKey() { if (ADM.tab === 'manual') return 'manual'; if (ADM.tab === 'mod') return FD.tab === 'form' ? 'daftar' : FD.tab === 'mod' ? 'mod' : 'status'; return 'snd'; }
+  function admNav(show) {
+    var n = $('admNav'); if (!n) return; n.style.display = show ? 'flex' : 'none'; document.body.classList.toggle('has-nav', !!show); document.body.classList.toggle('dt-adm', !!show && document.body.classList.contains('dt-peran'));
+    var k = admNavKey(); Array.prototype.forEach.call(n.querySelectorAll('[data-admv]'), function (b) { b.classList.toggle('active', b.dataset.admv === k); });
+  }
+  $('admNav').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-admv]'); if (!b) return; var v = b.dataset.admv; if (S.sheet) closeSheet();
+    if (v === 'snd') ADM.tab = ADM.sndTab || 'queue'; else if (v === 'manual') ADM.tab = 'manual'; else { ADM.tab = 'mod'; FD.tab = v === 'daftar' ? 'form' : v === 'mod' ? 'mod' : 'status'; }
+    ADM.confirm = ''; ADM.rej = ''; renderAdm(); var sc = $('admScreen'); if (sc) sc.scrollTop = 0; window.scrollTo(0, 0);
+  });
+  /* sn-panel: kepala (logo + peran) & kaki (sinkron, akun) menu samping; klik diteruskan ke tombol topbar yang sama */
+  (function snBuild() {
+    [['dssNav', 'dss'], ['admNav', 'adm']].forEach(function (x) {
+      var n = $(x[0]); if (!n || n.querySelector('.sn-head')) return;
+      var h = document.createElement('div'); h.className = 'sn-head'; h.innerHTML = '<div class="sn-logo" role="img" aria-label="Radar Sonik">' + (($('topLogo') || {}).innerHTML || '<b>RADAR SONIK</b>') + '</div><div class="sn-who"></div>'; n.insertBefore(h, n.firstChild);
+      var fo = document.createElement('div'); fo.className = 'sn-foot'; fo.setAttribute('data-snp', x[1]);
+      fo.innerHTML = '<button type="button" class="sn-btn" data-sn="sync" aria-label="Status sinkron data, klik untuk memuat ulang"><span class="sdot busy"></span><span class="sn-st">Memuat…</span><span class="sn-rl" aria-hidden="true">⟳</span></button>' +
+        '<button type="button" class="sn-btn" data-sn="akun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></svg><span>Akun &amp; Keluar</span></button>';
+      n.appendChild(fo);
+    });
+    document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('.sn-foot [data-sn]'); if (!b) return; var p = b.parentNode.getAttribute('data-snp'), t = $(p + (b.dataset.sn === 'sync' ? 'Sync' : 'Akun')); if (t) t.click(); });
+  })();
+  function snWho(nama) { var r = S.role || '', lab = r === 'ADMIN' ? 'Admin SND' : r; Array.prototype.forEach.call(document.querySelectorAll('.sn-who'), function (w) { w.innerHTML = esc(lab) + (nama ? '<small>' + esc(nama) + '</small>' : ''); }); }
+  function dtPeran() { var r = S.role || ''; document.body.classList.toggle('dt-peran', r === 'DSS' || r === 'AASM' || r === 'ADMIN'); if (!document.body.classList.contains('dt-peran')) { document.body.classList.remove('dt-dss'); document.body.classList.remove('dt-adm'); } }
+  function logout(msg) { navClear(); document.body.classList.remove('dt-peran'); document.body.classList.remove('dt-dss'); document.body.classList.remove('tema-form'); document.body.classList.remove('bulan-lalu'); try { rtCloseAkun(); } catch (e) {} try { fdResetSession(); } catch (e) {} try { admReset(); $('admBody').innerHTML = ''; $('admScreen').style.display = 'none'; } catch (e) {} try { fdaReset(); $('fdaBody').innerHTML = ''; $('fdaScreen').style.display = 'none'; } catch (e) {} try { dvReset(); S.aasSnap = {}; S.aasPrev = {}; $('dssNav').style.display = 'none'; } catch (e) {}
     if (S.code) cacheClear(S.code); try { dvStockHome(); $('dssBody').innerHTML = ''; } catch (e) {}
     if (S.sheet) closeSheet(); $('undoToast').hidden = true; if (typeof KEL !== 'undefined') { KEL.data = null; KEL.code = null; KEL.err = ''; KEL.msg = ''; KEL.confirm = ''; KEL.busy = ''; }
     $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none';
