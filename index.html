@@ -1102,6 +1102,12 @@
   @media (prefers-reduced-motion: reduce) { .dv-load .dl-spin, .dv-load.ok, .dv-load .dl-ok { animation: none; } }
   .br-ld { display: inline-block; padding: 1px 8px; border-radius: 99px; font-weight: 800; } .br-ld.ok { background: #DCFCE7; color: #166534; } .br-ld.wait { background: #FEF3C7; color: #92400E; }
   .sn-tools { display: none; }
+  /* aasm-rev (12 Nov 2026, masukan user): "Perlu tindakan" Gabungan mencolok */
+  .aas-pendc { background: #FFF7ED; border: 2px solid #F97316; border-radius: 18px; padding: 12px 12px 4px; margin: 0 0 14px; }
+  .aas-pendh { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; } .aas-pendh i { flex: none; width: 34px; height: 34px; border-radius: 50%; background: #EA580C; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-style: normal; }
+  .aas-pendh b { font-size: 16px; color: #9A3412; } .aas-pendh small { display: block; font-size: 12px; color: #9A3412; font-weight: 600; }
+  .aas-pendc .home-links { margin: 0; } .aas-pendc .rep-card { border-left: 5px solid #EA580C; background: #fff; }
+  .br-nm small { display: block; font-size: 11px; color: #64748B; font-weight: 600; text-decoration: none; }
   .bottom-nav .nav-sep { flex: none; align-self: stretch; width: 1px; margin: 10px 2px; background: #CBD5E1; } body.dt-dss #dssNav .nav-sep { width: auto; height: 1px; margin: 6px 12px; }
   /* briefing (11 Nov 2026, keputusan user): layar tayang saat briefing DSS/AASM dgn semua salesman. Angka absolut + %, kekurangan per hari per salesman & per distributor,
      peringkat bisa dipilih, insentif DSR disembunyikan (sakelar), Jasper DSS TIDAK PERNAH tampil. Tidak menggantikan menu Target. */
@@ -1119,7 +1125,9 @@
   /* br-freeze (12 Nov 2026, masukan user): kolom nama tetap saat tabel digeser ke samping */
   .br-t th:first-child, .br-t td:first-child { position: sticky; left: 0; z-index: 1; background: #fff; box-shadow: inset -1px 0 0 #E2E8F0; }
   .br-t th.srt:first-child, .br-t td.srt:first-child { background: #E0F2FE; } .br-t tr.tot td:first-child { background: #F8FBFE; }
-  .br-top h3 { margin: 0; font-size: 19px; } .br-top small { display: block; color: var(--muted, #64748B); font-size: 12.5px; font-weight: 600; margin-top: 2px; }
+  .br-top { align-items: stretch !important; } .br-ttl { display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; } .br-ey { font-size: 12.5px; font-weight: 800; color: #1D74B8; text-transform: uppercase; letter-spacing: .05em; } /* br-ttl (12 Nov 2026, masukan user): judul proporsional dgn kotak info */
+  .br-ttl small { margin-top: 0 !important; } .br-ld { display: inline-flex; align-items: center; gap: 4px; font-size: 13px !important; font-weight: 800; padding: 5px 12px; border-radius: 99px; background: #fff; box-shadow: 0 2px 8px rgba(15,23,42,.06); }
+  .br-top h3 { margin: 0; font-size: 19px; } @media (min-width: 1024px) { .br-top h3 { font-size: 26px; line-height: 1.15; } .br-info .bi { padding: 10px 16px; } .br-info .bi > b { font-size: 24px; } } .br-top small { display: block; color: var(--muted, #64748B); font-size: 12.5px; font-weight: 600; margin-top: 2px; }
   .br-fil { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
   .br-fil select { font: inherit; font-size: 13px; font-weight: 700; padding: 9px 10px; border-radius: 12px; border: 1.5px solid #CFE0EE; background: #fff; color: #0F172A; max-width: 100%; }
   .br-fil label.br-sw { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; padding: 8px 10px; border-radius: 12px; background: #fff; border: 1.5px solid #CFE0EE; cursor: pointer; }
@@ -1365,7 +1373,8 @@
     body.dt-adm #admNav .sn-head, body.dt-dss #dssNav .sn-head { display: block; padding: 2px 10px 16px; margin-bottom: 8px; border-bottom: 1px solid #E2E8F0; }
     body.dt-adm #admNav .sn-foot, body.dt-dss #dssNav .sn-foot { display: flex; flex-direction: column; gap: 4px; margin-top: auto; padding-top: 12px; border-top: 1px solid #E2E8F0; }
     /* sn-tools (12 Nov 2026, keputusan user): di laptop "Alat" pindah ke menu samping; di HP tetap di Beranda (atas) */
-    body.dt-dss #dssNav { overflow-y: auto; } body.dt-dss #dssNav:has(.sn-tl) .nav-item { padding-top: 8px; padding-bottom: 8px; } body.dt-dss #dssNav:has(.sn-tl) .sn-head { padding-bottom: 10px; } body.dt-dss #dssBody .dv-tools-sec { display: none; }
+    body.dt-dss #dssNav { overflow-y: auto; } body.dt-dss #dssNav:has(.sn-tl) .nav-item { padding-top: 8px; padding-bottom: 8px; } body.dt-dss #dssNav:has(.sn-tl) .sn-head { padding-bottom: 10px; } body.dt-dss:not(.r-aasm) #dssBody .dv-tools-sec, body.dt-dss #dssBody .aas-tools-sec { display: none; } /* aasm-rev: AASM laptop = Alat AASM di menu samping; alat distributor tetap di atas Beranda distributor */
+    body.dt-dss #dssNav .sn-tools .rc-main b > span, body.dt-dss #dssNav .sn-tools .rc-main b > em { display: none; } body.dt-dss #dssNav .sn-tools .rep-card.sn-pend b::after { content: ''; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #DC2626; margin-left: 6px; vertical-align: middle; }
     body.dt-dss #dssNav .sn-tools { display: flex; flex-direction: column; gap: 2px; margin-top: 6px; padding-top: 8px; border-top: 1px solid #E2E8F0; }
     body.dt-dss #dssNav .sn-tl { font-size: 11px; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: .04em; padding: 2px 14px 4px; }
     body.dt-dss #dssNav .sn-tools .rep-card { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 12px; width: 100%; padding: 6px 14px; border-radius: 12px; font-size: 13px; font-weight: 700; color: #334155; cursor: pointer; }
@@ -6982,11 +6991,11 @@
   }
   function renderDss() {
     if (DVM()) { renderDssApp(); return; } /* dss-v2 / aasm-v3 */
-    if (S.role === 'AASM') setTimeout(function () { if (S.role === 'AASM' && !S.aasDv && $('dssScreen').style.display !== 'none') { DV.v = 'home'; dvNav(true); } }, 0); /* aasm-nav (12 Nov 2026, keputusan user): menu tetap tampil di Gabungan; Beranda = Ringkasan */
+    if (S.role === 'AASM') setTimeout(function () { if (S.role === 'AASM' && !S.aasDv && $('dssScreen').style.display !== 'none') { if (DV.v !== 'brief') DV.v = 'home'; dvNav(true); } }, 0); /* aasm-nav (12 Nov 2026, keputusan user): menu tetap tampil di Gabungan; Beranda = Ringkasan */
     var res = S.dss, el = $('dssBody'); if (!el) return;
-    $('dssTitle').textContent = 'Ringkasan'; rtSync('dss', res ? 'ok' : S.dssLoading ? 'busy' : 'bad', res ? rtStamp(res.serverTime) : S.dssLoading ? 'Memuat…' : 'Gagal memuat');
+    $('dssTitle').textContent = S.role === 'AASM' ? 'Beranda' : 'Ringkasan'; /* aasm-rev: judul Gabungan = nama menu */ rtSync('dss', res ? 'ok' : S.dssLoading ? 'busy' : 'bad', res ? rtStamp(res.serverTime) : S.dssLoading ? 'Memuat…' : 'Gagal memuat');
     if (!res) { el.innerHTML = '<div class="empty">' + (S.dssLoading ? 'Memuat ringkasan DSS…' : 'Ringkasan belum dimuat.') + '</div>'; return; }
-    if (S.role === 'AASM') { el.innerHTML = aasHome(res); return; } /* aasm-v3 */
+    if (S.role === 'AASM') { if (DV.v === 'brief') { $('dssTitle').textContent = 'Dashboard'; el.innerHTML = aasBrief(res); } else el.innerHTML = aasHome(res); return; } /* aasm-v3 + aasm-rev */
     var all = S.role === 'AASM' && S.dssAll && res.dists.length > 1, dl = res.dists, i = Math.min(S.dssI || 0, dl.length - 1), D = all ? dssCombined(res) : dl[i], k = D.kpi, h = D.hyg, html = '';
     html += fdaCardHtml(); /* aasm-fo */
     if (S.role === 'AASM') html += '<button class="rep-card akb-open" type="button" data-akb="open"><span class="rc-ico" aria-hidden="true"><svg class="lic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 11h6M9 15h6"/></svg></span><span class="rc-main"><b>Checklist akhir bulan</b><small>' + akbDone(res.period) + ' dari 5 selesai · periode ' + esc(res.period) + '</small></span><span class="rc-go">Buka</span></button>';
@@ -7074,7 +7083,7 @@
     if (S.role === 'AASM' && !S.aasDv && e.target.closest('[data-jua]')) { JUA.tab = 'baru'; JUA.sel = {}; openSheet({ type: 'juaasm' }); juaLoad(); return; } /* ju-client */
     if (S.role === 'AASM' && !S.aasDv && e.target.closest('[data-jra]')) { JRA.tab = 'baru'; JRA.sel = {}; openSheet({ type: 'jraasm' }); jraLoad(); return; } /* jr-client */
     if (S.role === 'AASM' && !S.aasDv) { var ap = e.target.closest('[data-aasp]'); if (ap) { DV.di = Number(ap.dataset.aasd); S.dssI = DV.di; openSheet({ type: 'dssdsr', id: ap.dataset.aasp, k: '' }); return; }
-      var ad = e.target.closest('[data-aasd]'); if (ad) { aasEnter(Number(ad.dataset.aasd), ad.dataset.aast ? 'target' : 'home', ad.dataset.aast || ''); return; } } /* aasm-v3 */
+      var ad = e.target.closest('[data-aasd]'); if (ad) { aasEnter(Number(ad.dataset.aasd), ad.dataset.aasv || (ad.dataset.aast ? 'target' : 'home'), ad.dataset.aast || ''); return; } } /* aasm-v3 */
     var d = e.target.closest('[data-dssd]'); if (d) { if (d.dataset.dssd === 'all') S.dssAll = true; else { S.dssAll = false; S.dssI = Number(d.dataset.dssd); } renderDss(); aasNext(); return; }
     var so = e.target.closest('[data-aass]'); if (so) { S.aasSort = so.dataset.aass; renderDss(); return; }
     var r = e.target.closest('[data-dssid]'); if (r) { pickSalesman(r.dataset.dssid); return; }
@@ -8990,7 +8999,14 @@
   function DVM() { return S.role === 'DSS' || (S.role === 'AASM' && !!S.aasDv); } // memakai layar aplikasi DSS
   function aasAt(i, fn) { var p = DV.di; DV.di = i; try { return fn(); } finally { DV.di = p; } } // jalankan fungsi DSS untuk distributor ke-i
   function aasEnter(i, v, tk) { navClear(); if (S.sheet) closeSheet(); S.aasDv = true; S.dssAll = false; DV.di = i; S.dssI = i; DV.v = v || 'home'; if (tk) DV.tk = tk; DV.q = ''; DV.lab = ''; DV.miss = ''; renderDss(); aasNext(); window.scrollTo(0, 0); }
-  function aasLeave() { navClear(); if (S.sheet) closeSheet(); S.aasDv = false; S.dssAll = S.dss && S.dss.dists.length > 1; dvNav(false); renderDss(); aasNext(); window.scrollTo(0, 0); }
+  function aasLeave() { navClear(); if (S.sheet) closeSheet(); var kb = DV.v === 'brief'; S.aasDv = false; S.dssAll = S.dss && S.dss.dists.length > 1; DV.v = kb ? 'brief' : 'home'; /* aasm-rev: dari Dashboard distributor -> Dashboard Gabungan */ renderDss(); aasNext(); window.scrollTo(0, 0); }
+  function aasBrief(res) { /* aasm-rev (12 Nov 2026, masukan user): Dashboard Gabungan = template Dashboard distributor, seluruh DSR semua distributor */
+    var dl = res.dists, rows = [], dsr = [], ag = { n: 0, m: 0, ps: { out: 0, perfect: 0, need: 0, tgtPct: 0.5 } };
+    dl.forEach(function (D, i) { aasAt(i, dvRows).forEach(function (x) { x.di = i; x.dn = D.name; rows.push(x); }); dsr = dsr.concat(D.dsr); var A = dvAgg(D); ag.n += A.n; ag.m += A.m; if (A.ps) { ag.ps.out += A.ps.out || 0; ag.ps.perfect += A.ps.perfect || 0; ag.ps.need += A.ps.need || 0; ag.ps.tgtPct = A.ps.tgtPct || 0.5; } });
+    var h = dl.length > 1 ? '<div class="chips fda-dists"><button class="chip active" type="button" data-dssd="all">Gabungan</button>' + dl.map(function (x, j) { return '<button class="chip" type="button" data-aasd="' + j + '" data-aasv="brief">' + esc(x.name) + '</button>'; }).join('') + '</div>' : '';
+    return h + dvBrief(res, { name: 'Gabungan ' + dl.length + ' distributor', dsr: dsr, __all: true, __rows: rows, __agg: ag });
+  }
+  function dvRe() { if (DVM()) renderDssApp(); else renderDss(); } /* aasm-rev: render ulang Dashboard di mode distributor / Gabungan */
   function aasDistCard(D, i) {
     var M = aasAt(i, function () { return dvMoney(D); }), rows = aasAt(i, dvRows), att = rows.filter(function (x) { return x.s.lab === 'att'; }).length, wd = dvWd();
     var k = D.kpi, hg = D.hyg, pc = function (t) { return t.target > 0 ? p1(t.pct) : '–'; };
@@ -9003,18 +9019,24 @@
       '<div class="aas-dl">' + (dsrL ? dsrL.map(function (x) { return '<span><small>' + x[0] + '</small> <b>' + esc(x[1]) + '</b></span>'; }).join('') + (A.n < A.m ? '<span class="aas-ld">memuat ' + A.n + '/' + A.m + ' DSR…</span>' : '') : '<span class="aas-ld">KPI DSR: memuat data DSR…</span>') + '</div>' +
       '<div class="aas-df"><span class="' + (att ? 'aas-att' : 'aas-ok') + '">' + (att ? att + ' dari ' + D.dsr.length + ' DSR perlu perhatian' : '✓ Tidak ada DSR perlu perhatian') + '</span><span class="adm-go">Buka distributor ›</span></div></button>';
   }
-  function aasHome(res) {
-    var dl = res.dists, h = '';
-    /* ui-sederhana: kondisi distributor dulu; kartu menu = "Perlu tindakan" (hanya yang ada pekerjaan) + ikon Alat */
+  function aasToolCards(res) { /* aasm-rev: Alat AASM (Perlu tindakan = yang ada pekerjaan) dipakai Beranda Gabungan & menu samping laptop */
     var cards = [[fdaCardHtml(), /[1-9]\d* perlu (konfirmasi|approval)/], [visRekapCard(), /adm-new-tag/], [fmaCard(), /[1-9]\d* belum direkap/], [jraCard(), /[1-9]\d* perlu dikirim/], [juaCard(), /[1-9]\d* usulan menunggu/]], pend = '', tools = '';
     cards.forEach(function (c) { if (c[1].test(c[0])) pend += c[0]; else tools += c[0]; });
     tools += '<button class="rep-card akb-open" type="button" data-akb="open"><span class="rc-ico" aria-hidden="true"><svg class="lic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 11h6M9 15h6"/></svg></span><span class="rc-main"><b>Checklist akhir bulan</b><small>' + akbDone(res.period) + ' dari 5 selesai · periode ' + esc(res.period) + '</small></span><span class="rc-go">Buka</span></button>';
     if (res.kelola) tools += '<button class="rep-card kel-open" type="button" data-kel="open"><span class="rc-ico" aria-hidden="true"><svg class="lic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></span><span class="rc-main"><b>Kelola akses</b><small>Periode Aktif · kode akses · arsip</small></span><span class="rc-go">Buka</span></button>';
+    return { pend: pend, tools: tools };
+  }
+  function aasToolsNav() { if (!S.dss) return ''; var tc = aasToolCards(S.dss); return tc.pend.split('class="rep-card').join('class="rep-card sn-pend') + tc.tools; }
+  function aasHome(res) {
+    var dl = res.dists, h = '';
+    /* ui-sederhana: kondisi distributor dulu; kartu menu = "Perlu tindakan" (hanya yang ada pekerjaan) + ikon Alat */
+    var tc = aasToolCards(res), pend = tc.pend, tools = tc.tools; /* aasm-rev */
     if (dl.length > 1) h += '<div class="chips" style="margin-bottom:12px"><button class="chip active" type="button" data-dssd="all">Gabungan</button>' + dl.map(function (x, j) { return '<button class="chip" type="button" data-aasd="' + j + '">' + esc(x.name) + '</button>'; }).join('') + '</div>';
     var C = dssCombined(res);
     h += '<h2 style="margin:0 0 2px">' + esc(dl.length > 1 ? C.name : dl[0].name) + '</h2><p style="margin:0 0 12px;color:var(--slate);font-size:13px">' + C.dsrCount + ' DSR · Periode ' + esc(res.period) + (res.dataUntil ? ' · data s.d. ' + esc(dShort(String(res.dataUntil).slice(0, 10))) : '') + '</p>';
+    if (pend) h += '<div class="aas-pendc" role="region" aria-label="Perlu tindakan"><div class="aas-pendh"><i aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></i><div><b>Perlu tindakan Anda</b><small>selesaikan agar pengajuan tim tidak tertahan</small></div></div><div class="home-links aas-pend">' + pend + '</div></div>';
+    h += '<div class="aas-tools-sec"><div class="sec-title adm-st">Alat</div><div class="tool-grid">' + tools + '</div></div>'; /* aasm-rev: HP di atas; laptop di menu samping */
     if (dl.length > 1) h += dssAllHero(C);
-    if (pend) h += '<div class="sec-title adm-st">Perlu tindakan</div><div class="home-links aas-pend">' + pend + '</div>';
     // per distributor (= per DSS)
     h += '<div class="sec-title adm-st">Per distributor <small class="adm-sub">insentif DSS sementara · 5 KPI DSS · KPI DSR · ketuk untuk membuka</small></div>' + dl.map(function (D, i) { return aasDistCard(D, i); }).join('');
     // masalah terbesar lintas distributor (maks 5)
@@ -9026,7 +9048,6 @@
     at.sort(function (a, b) { return b.x.s.x - a.x.s.x || (a.x.a ? a.x.a.total : 0) - (b.x.a ? b.x.a.total : 0); });
     h += '<div class="sec-title adm-st">DSR perlu perhatian <small class="adm-sub">≥2 KPI di bawah laju · ketuk = profil 1-on-1</small></div>' + (at.length ? '<div class="card adm-list">' + at.slice(0, 8).map(function (y) { var x = y.x, miss = DV_KPI.filter(function (k) { return x.s[k[0]] && x.s[k[0]].st === 'bad'; }).map(function (k) { return k[1]; }).join(', ');
       return '<button type="button" class="adm-row" data-aasd="' + y.i + '" data-aasp="' + esc(x.r.id) + '"><span class="dv-dot bad" aria-hidden="true">✕</span><div class="adm-rm"><b>' + esc(dispName(x.r)) + '</b><span>' + esc(y.d) + ' · belum: ' + esc(miss) + '</span></div><span class="dv-num">' + (x.a ? esc(rpShort(x.a.total)) + '<small>insentif</small>' : '…') + '</span></button>'; }).join('') + (at.length > 8 ? '<div class="adm-note">+' + (at.length - 8) + ' DSR lain — buka distributornya, menu Tim DSR.</div>' : '') + '</div>' : '<div class="empty">✓ Tidak ada DSR dengan ≥2 KPI di bawah laju.</div>');
-    h += '<div class="sec-title adm-st">Alat</div><div class="tool-grid">' + tools + '</div>';
     h += '<div class="note">Angka resmi = data pusat ' + infoBtn('dssnote') + '</div>';
     return h;
   }
@@ -9047,11 +9068,11 @@
     if (DV.v === 'brief') h += dvBrief(res, D); else if (DV.v === 'home') h += dvHome(D, M); else if (DV.v === 'target') h += dvTarget(D, M); else if (DV.v === 'tim') h += dvTim(); else h += dvIns(D, M);
     el.innerHTML = h; dvHeroAfter(); dvNav(true); swCheck(); /* sw-adm */
   }
-  function dvNavTools() { snTools(S.dss && (S.role !== 'AASM' || S.aasDv) ? dvTools() : ''); var n = $('dssNav'); if (n) Array.prototype.forEach.call(n.querySelectorAll('.sn-tools [data-dv]'), function (b) { b.classList.toggle('active', b.dataset.dv === DV.v); }); }
+  function dvNavTools() { snTools(!S.dss ? '' : S.role === 'AASM' ? aasToolsNav() : dvTools()); /* aasm-rev: AASM = Alat AASM sama di Gabungan & distributor (menu samping konsisten) */ var n = $('dssNav'); if (n) Array.prototype.forEach.call(n.querySelectorAll('.sn-tools [data-dv]'), function (b) { b.classList.toggle('active', b.dataset.dv === DV.v); }); }
   function dvNav(show) {
     var n = $('dssNav'); if (!n) return; n.style.display = show ? 'flex' : 'none'; document.body.classList.toggle('has-nav', !!show); document.body.classList.toggle('dt-dss', !!show && document.body.classList.contains('dt-peran')); /* mode-desktop: menu samping kiri DSS/AASM */
     Array.prototype.forEach.call(n.querySelectorAll('[data-dvv]'), function (b) { b.classList.toggle('active', b.dataset.dvv === DV.v); });
-    if (show) dvNavTools(); /* sn-tools */
+    document.body.classList.toggle('r-aasm', S.role === 'AASM'); if (show) dvNavTools(); /* sn-tools */
   }
   function dvLater() { // insentif & foto DSR datang satu per satu -> segarkan tampilan tanpa mengganggu ketikan
     clearTimeout(dvLater._t); dvLater._t = setTimeout(function () { if (!VW() || $('dssScreen').style.display !== 'block') return; if (!DVM()) { var y0 = window.scrollY; renderDss(); window.scrollTo(0, y0); if (S.sheet && S.sheet.type === 'dssdsr') renderSheet(); return; } dvArsNext(); if (DV.v === 'form') return; if (DV.v === 'jur' || DV.v === 'vis') { if (!JRF.as && DV.v === 'jur') jrfRepaint(); return; } /* jr-role: ringkasan diperbarui saat foto DSR masuk */ if (DV.v === 'tim' && DV.tv !== 'rank' && DV.tv !== 'r2g') dvTimRefresh(); else renderDssApp(); if (S.sheet && S.sheet.type === 'dssdsr') renderSheet(); }, 300);
@@ -9062,17 +9083,17 @@
   function dvBrief(res, D) {
     var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }, wd = dvWd(), tf = wd ? wd.tf : 0, left = wd && wd.left > 0 ? wd.left : 0; if (!B.sort) B.sort = 'omh';
     if (B.sm && !D.dsr.some(function (r) { return r.id === B.sm; })) B.sm = '';
-    var rowsAll = dvRows(), rows = rowsAll.filter(function (x) { return !B.sm || x.r.id === B.sm; }), T = brSum(rows.map(function (x) { return x.r; }));
+    var rowsAll = D.__rows || dvRows(), rows = rowsAll.filter(function (x) { return !B.sm || x.r.id === B.sm; }), T = brSum(rows.map(function (x) { return x.r; }));
     var pc = function (a, b) { return b > 0 ? a / b : 0; }, ph = function (v) { return left ? v / left : 0; }, nf = function (n) { return Math.round(Number(n) || 0).toLocaleString('id-ID'); }, bar = function (p) { return '<div class="br-bar"><i style="width:' + Math.min(100, Math.round(p * 100)) + '%"></i></div>'; };
     var kS = Math.max(0, T.st - T.sa), kB = Math.max(0, T.bt - T.ba), kA40 = Math.max(0, Math.ceil(0.4 * T.n - 1e-9) - T.a), kA60 = Math.max(0, Math.ceil(0.6 * T.n - 1e-9) - T.a), kD = Math.max(0, Math.ceil(0.4 * T.n - 1e-9) - T.d);
-    var nm = B.sm ? dispName((rows[0] || {}).r || {}) : 'Tim ' + (D.name || '');
-    var Ld = dvAgg(D), h = dvLoadNote(Ld) + '<div class="br-top"><div><h3>📊 Dashboard · ' + esc(nm) + '</h3><small>' + (Ld.n < Ld.m ? '<span class="br-ld wait">⏳ Memuat ' + Ld.n + '/' + Ld.m + ' DSR</span>' : '<span class="br-ld ok">✅ ' + Ld.m + '/' + Ld.m + ' DSR termuat</span>') + '</small></div>' + /* br-info */
+    var nm = B.sm ? dispName((rows[0] || {}).r || {}) : D.__all ? D.name : 'Tim ' + (D.name || '');
+    var Ld = D.__agg || dvAgg(D), h = dvLoadNote(Ld) + '<div class="br-top"><div class="br-ttl"><span class="br-ey">📊 Dashboard</span><h3>' + esc(nm) + '</h3><small>' + (Ld.n < Ld.m ? '<span class="br-ld wait">⏳ Memuat ' + Ld.n + '/' + Ld.m + ' DSR</span>' : '<span class="br-ld ok">✅ ' + Ld.m + '/' + Ld.m + ' DSR termuat</span>') + '</small></div>' + /* br-info */
       '<div class="br-info"><div class="bi"><span class="bi-l">Laju waktu</span><b>' + p1(tf) + '</b><small>' + (wd ? 'hari kerja ke-' + wd.run + ' dari ' + wd.total : '-') + '</small></div><div class="bi"><span class="bi-l">Sisa hari kerja</span><b>' + left + ' hari</b><small>sampai akhir bulan</small></div>' +
       '<div class="bi bi-d"><span class="bi-l">Data s.d. (per KPI)</span><ul>' + [['om', 'Omset'], ['bp', 'BP'], ['pa', 'Availability'], ['pd', 'Digitization'], ['hy', 'Hygiene']].map(function (x) { return '<li>' + x[1] + ' <b>' + esc(dvUntil(x[0]) || '-') + '</b></li>'; }).join('') + '</ul></div></div></div>'; /* tanda lengkap data DSR (selalu tampil) */
-    h += '<div class="br-fil"><select id="brSm" aria-label="Pilih salesman"><option value="">Semua salesman (' + D.dsr.length + ')</option>' + D.dsr.map(function (r) { return '<option value="' + esc(r.id) + '"' + (B.sm === r.id ? ' selected' : '') + '>' + esc(dispName(r)) + '</option>'; }).join('') + '</select>' +
+    h += '<div class="br-fil"><select id="brSm" aria-label="Pilih salesman"><option value="">Semua salesman (' + D.dsr.length + ')</option>' + D.dsr.map(function (r) { return '<option value="' + esc(r.id) + '"' + (B.sm === r.id ? ' selected' : '') + '>' + esc(dispName(r)) + (D.__all && r.distName ? ' · ' + esc(r.distName) : '') + '</option>'; }).join('') + '</select>' +
       '<label class="br-sw"><input type="checkbox" id="brIns"' + (B.ins ? ' checked' : '') + '> Tampilkan insentif DSR</label><button type="button" data-brfull="1">⛶ Layar penuh</button></div>';
     var k = function (key, l, v, st, abs, basis, sub, b) { return '<button type="button" class="br-k ' + st + (B.sort === key || B.sort === key + 'h' ? ' on' : '') + '" data-brk="' + key + '" title="Ketuk: urutkan tabel menurut ' + l + '"><span class="bk-l">' + l + '</span>' + (dvUntil(key) ? '<span class="bk-d">Data s.d. ' + esc(dvUntil(key)) + '</span>' : '') + '<span class="bk-v">' + v + '</span><span class="bk-a">' + abs + '</span>' + (b || '') + '<span class="bk-b">' + basis + '</span><span class="bk-s">' + sub + '</span></button>'; };
-    var pS = pc(T.sa, T.st), pB = pc(T.ba, T.bt), pA = pc(T.a, T.n), pD = pc(T.d, T.n), A = !B.sm ? dvAgg(D) : null, P = A && A.n === A.m && A.ps && A.ps.out ? A.ps : null;
+    var pS = pc(T.sa, T.st), pB = pc(T.ba, T.bt), pA = pc(T.a, T.n), pD = pc(T.d, T.n), A = !B.sm ? (D.__agg || dvAgg(D)) : null, P = A && A.n === A.m && A.ps && A.ps.out ? A.ps : null;
     h += '<div class="br-kpis">' +
       k('om', 'Omset (SSV)', p1(pS), brSt(pS, tf), rupiah(T.sa) + '<br>dari ' + rupiah(T.st), 'Dasar: target omset DSR 100%', kS ? 'Kurang <b>' + rupiah(kS) + '</b><br><b>' + rupiah(ph(kS)) + '/hari</b>' : '✅ Target tercapai', bar(pS)) +
       k('bp', 'Bills Productivity', p1(pB), brSt(pB, tf), nf(T.ba) + ' dari ' + nf(T.bt) + ' bill', 'Dasar: target bill DSR 100%', kB ? 'Kurang <b>' + nf(kB) + ' bill</b> · <b>' + nf(Math.ceil(ph(kB))) + '/hari</b>' : '✅ Target tercapai', bar(pB)) +
@@ -9087,7 +9108,7 @@
     var col = function (key, extra) { return (B.sort === key ? ' srt' : extra ? ' ' + extra : ''); }, th = function (key, lbl, n, extra) { return '<th class="' + (n ? 'n' : '') + col(key, extra) + '"><button type="button" data-brsort="' + key + '">' + lbl + '</button></th>'; };
     var st = function (o) { return o ? '<span class="br-st ' + o.st + '">' + (o.st === 'ok' ? '✓' : o.st === 'wait' ? '•' : '✕') + '</span>' : '–'; };
     var tr = function (x) { var r = x.r, s = x.s, ss = r.ss || {}, bp = r.bp || {}, a1 = kss(r), b1 = kbp(r);
-      return '<tr><td class="' + col('nm') + '"><button type="button" class="br-nm" data-dvp="' + esc(r.id) + '">' + esc(dispName(r)) + '</button></td>' +
+      return '<tr><td class="' + col('nm') + '"><button type="button" class="br-nm" ' + (D.__all ? 'data-aasd="' + x.di + '" data-aasp="' + esc(r.id) + '"' : 'data-dvp="' + esc(r.id) + '"') + '>' + esc(dispName(r)) + (D.__all ? '<small>' + esc(x.dn) + '</small>' : '') + '</button></td>' +
         '<td class="n' + col('om') + '">' + rupiah(ss.actual || 0) + '<small>' + (ss.target ? p1(pc(ss.actual || 0, ss.target)) + ' dari ' + rupiah(ss.target) + ' ' : '') + st(s.om) + '</small></td>' +
         '<td class="n' + col('omh', 'hl') + '"><b>' + (a1 ? rupiah(ph(a1)) : '✓') + '</b><small>' + (a1 ? 'kurang ' + rupiah(a1) : 'tercapai') + '</small></td>' +
         '<td class="n' + col('bp') + '">' + nf(bp.actual) + ' / ' + nf(bp.target) + '<small>' + (bp.target ? p1(pc(bp.actual || 0, bp.target)) + ' ' : '') + st(s.bp) + '</small></td>' +
@@ -9109,14 +9130,14 @@
     var rank = '<div class="br-card"><h4>🏆 Peringkat</h4><div class="br-fil" style="margin:6px 0 10px"><select id="brRk" aria-label="Dasar peringkat">' + RK.map(function (x) { return '<option value="' + x[0] + '"' + (B.rk === x[0] ? ' selected' : '') + '>' + x[1] + '</option>'; }).join('') + '</select></div><div class="br-rk">' +
       (L.length ? L.map(function (x, i) { return '<div class="' + (i < 3 ? 'top' : '') + '"><span class="rk-n">' + (['🥇', '🥈', '🥉'][i] || (i + 1)) + '</span><span class="rk-t"><span>' + esc(dispName(x.r)) + '</span><small>' + absT(x) + '</small></span><span class="rk-v">' + fmt(val(x)) + '</span></div>'; }).join('') : '<div>Belum ada data.</div>') + '</div></div>';
     h += '<div class="br-two">' + tabel + rank + '</div>';
-    if (res.dists.length > 1) h += '<div class="br-card"><h4>Per distributor</h4><div class="br-tw"><table class="br-t"><thead><tr><th>Distributor</th><th class="n">Omset</th><th class="n hl">Kurang omset/hari</th><th class="n">BP</th><th class="n hl">Kurang BP/hari</th><th class="n">Avail.</th><th class="n">Digit.</th></tr></thead><tbody>' + res.dists.map(function (d) { var t = brSum(d.dsr), ks = Math.max(0, t.st - t.sa), kb = Math.max(0, t.bt - t.ba); return '<tr><td><b>' + esc(d.name) + '</b></td><td class="n">' + rupiah(t.sa) + '<small>' + p1(pc(t.sa, t.st)) + ' dari ' + rupiah(t.st) + '</small></td><td class="n hl"><b>' + (ks ? rupiah(ph(ks)) : '✓') + '</b></td><td class="n">' + nf(t.ba) + ' / ' + nf(t.bt) + '</td><td class="n hl"><b>' + (kb ? nf(Math.ceil(ph(kb))) + ' bill' : '✓') + '</b></td><td class="n">' + p1(pc(t.a, t.n)) + '<small>' + nf(t.a) + ' / ' + nf(t.n) + '</small></td><td class="n">' + p1(pc(t.d, t.n)) + '<small>' + nf(t.d) + ' / ' + nf(t.n) + '</small></td></tr>'; }).join('') + '</tbody></table></div></div>';
-    if (!B.sm) { var ch = dvTeamChart(D, 'ssv'); if (ch) h += ch.replace(/kebutuhan per hari ke ACHIEVE DSS \(\d+% target\)/, 'kebutuhan per hari tim'); }
+    if (D.__all && res.dists.length > 1) h += '<div class="br-card"><h4>Per distributor</h4><div class="br-tw"><table class="br-t"><thead><tr><th>Distributor</th><th class="n">Omset</th><th class="n hl">Kurang omset/hari</th><th class="n">BP</th><th class="n hl">Kurang BP/hari</th><th class="n">Avail.</th><th class="n">Digit.</th></tr></thead><tbody>' + res.dists.map(function (d) { var t = brSum(d.dsr), ks = Math.max(0, t.st - t.sa), kb = Math.max(0, t.bt - t.ba); return '<tr><td><b>' + esc(d.name) + '</b></td><td class="n">' + rupiah(t.sa) + '<small>' + p1(pc(t.sa, t.st)) + ' dari ' + rupiah(t.st) + '</small></td><td class="n hl"><b>' + (ks ? rupiah(ph(ks)) : '✓') + '</b></td><td class="n">' + nf(t.ba) + ' / ' + nf(t.bt) + '</td><td class="n hl"><b>' + (kb ? nf(Math.ceil(ph(kb))) + ' bill' : '✓') + '</b></td><td class="n">' + p1(pc(t.a, t.n)) + '<small>' + nf(t.a) + ' / ' + nf(t.n) + '</small></td><td class="n">' + p1(pc(t.d, t.n)) + '<small>' + nf(t.d) + ' / ' + nf(t.n) + '</small></td></tr>'; }).join('') + '</tbody></table></div></div>';
+    if (!B.sm && !D.__all) { var ch = dvTeamChart(D, 'ssv'); if (ch) h += ch.replace(/kebutuhan per hari ke ACHIEVE DSS \(\d+% target\)/, 'kebutuhan per hari tim'); }
     return h;
   }
-  document.addEventListener('change', function (e) { var t = e.target; if (!t || !/^(brSm|brRk|brIns|brSort)$/.test(t.id)) return; var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }; if (t.id === 'brSm') B.sm = t.value; else if (t.id === 'brRk') B.rk = t.value; else if (t.id === 'brSort') B.sort = t.value; else B.ins = t.checked; renderDssApp(); });
-  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-brsort],[data-brk]'); if (!b) return; var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }, v = b.getAttribute('data-brsort') || b.getAttribute('data-brk'); if (b.hasAttribute('data-brk')) { B.sort = v === 'om' ? 'omh' : v === 'bp' ? 'bph' : v; if (/^(om|bp|pa|pd)$/.test(v)) B.rk = v; } else B.sort = v; renderDssApp(); });
+  document.addEventListener('change', function (e) { var t = e.target; if (!t || !/^(brSm|brRk|brIns|brSort)$/.test(t.id)) return; var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }; if (t.id === 'brSm') B.sm = t.value; else if (t.id === 'brRk') B.rk = t.value; else if (t.id === 'brSort') B.sort = t.value; else B.ins = t.checked; dvRe(); });
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-brsort],[data-brk]'); if (!b) return; var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }, v = b.getAttribute('data-brsort') || b.getAttribute('data-brk'); if (b.hasAttribute('data-brk')) { B.sort = v === 'om' ? 'omh' : v === 'bp' ? 'bph' : v; if (/^(om|bp|pa|pd)$/.test(v)) B.rk = v; } else B.sort = v; dvRe(); });
   document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-brfull]'); if (!b) return; var on = !document.body.classList.contains('br-big'); document.body.classList.toggle('br-big', on); try { if (on && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); else if (!on && document.fullscreenElement) document.exitFullscreen(); } catch (er) {} });
-  document.addEventListener('click', function (e) { if (!(e.target.closest && e.target.closest('[data-brreset]'))) return; var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }; B.sort = 'omh'; renderDssApp(); }); /* reset urutan ke bawaan (kurang omset/hari terbesar) */
+  document.addEventListener('click', function (e) { if (!(e.target.closest && e.target.closest('[data-brreset]'))) return; var B = DV.br = DV.br || { sm: '', rk: 'om', ins: false }; B.sort = 'omh'; dvRe(); }); /* reset urutan ke bawaan (kurang omset/hari terbesar) */
   document.addEventListener('fullscreenchange', function () { if (!document.fullscreenElement) document.body.classList.remove('br-big'); });
   function dvGo(v, tk) { if (RTAK) { var _p = RTAK; DV.v = v; rtCloseAkun(); if (_p === 'dss') return; } DV.v = v; if (v === 'brief' && S.dssAll) S.dssAll = false; /* briefing per distributor */ if (tk) DV.tk = tk; if (S.sheet) closeSheet(); renderDssApp(); window.scrollTo(0, 0); }
   /* dsp (9 Nov 2026): DSS melihat Laporan Display Pajangan yang diisi field force di RADAR SONIK+ */
@@ -9139,7 +9160,7 @@
   document.addEventListener('input', function (e) { if (e.target && e.target.id === 'dspQ') { DSP.q = e.target.value; DSP.shown = 20; S.sheet.dspFokus = true; renderSheet(); dspCari(); } });
   document.addEventListener('change', function (e) { if (e.target && e.target.id === 'dspBulan') { DSP.bulan = e.target.value; DSP.shown = 20; DSP.tgl = ''; DSP.wa = ''; DSP.open = null; DSP.d = null; renderSheet(); dspLoad(); } if (e.target && e.target.id === 'dspTgl') { DSP.tgl = e.target.value; DSP.shown = 20; renderSheet(); } if (e.target && e.target.id === 'dspWa') { DSP.wa = e.target.value; DSP.shown = 20; renderSheet(); } });
   /* /dsp */
-  $('dssNav').addEventListener('click', function (e) { var tl = e.target.closest('.sn-tools [data-dv], .sn-tools [data-dvwa]'); if (tl) { if (S.sheet) closeSheet(); if (tl.hasAttribute('data-dvwa')) { var D0 = dvD(); window.open('https://wa.me/?text=' + encodeURIComponent(dvTeamReport(D0, dvMoney(D0))), '_blank'); } else { navMarkDv(); dvGo(tl.dataset.dv); } return; } /* sn-tools */ var b = e.target.closest('[data-dvv]'); if (b) { navClear(); filtersReset(); /* filter-reset: seragam dgn DSR */ if (S.role === 'AASM' && !S.aasDv) { if (b.dataset.dvv === 'home') { renderDss(); window.scrollTo(0, 0); } else aasEnter(S.dssI || 0, b.dataset.dvv); return; } /* aasm-nav: dari Gabungan, menu lain membuka distributor terpilih/pertama */ dvGo(b.dataset.dvv); } });
+  $('dssNav').addEventListener('click', function (e) { if (S.role === 'AASM') { var at = e.target.closest('.sn-tools [data-jua], .sn-tools [data-jra], .sn-tools [data-fma]'); if (at) { if (at.hasAttribute('data-jua')) { JUA.tab = 'baru'; JUA.sel = {}; openSheet({ type: 'juaasm' }); juaLoad(); } else if (at.hasAttribute('data-jra')) { JRA.tab = 'baru'; JRA.sel = {}; openSheet({ type: 'jraasm' }); jraLoad(); } else if (S.aasDv) { FMA.sel = {}; FMA.cf = ''; FMA.rej = false; openSheet({ type: 'fmaasm' }); fmaLoad(); } return; } } /* aasm-rev: Alat AASM dari menu samping (fda/visr/akb/kel ditangani pendengar dokumen) */ var tl = e.target.closest('.sn-tools [data-dv], .sn-tools [data-dvwa]'); if (tl) { if (S.sheet) closeSheet(); if (tl.hasAttribute('data-dvwa')) { var D0 = dvD(); window.open('https://wa.me/?text=' + encodeURIComponent(dvTeamReport(D0, dvMoney(D0))), '_blank'); } else { navMarkDv(); dvGo(tl.dataset.dv); } return; } /* sn-tools */ var b = e.target.closest('[data-dvv]'); if (b) { navClear(); filtersReset(); /* filter-reset: seragam dgn DSR */ if (S.role === 'AASM' && !S.aasDv) { if (b.dataset.dvv === 'home' || b.dataset.dvv === 'brief') { DV.v = b.dataset.dvv; renderDss(); window.scrollTo(0, 0); } else aasEnter(S.dssI || 0, b.dataset.dvv); return; } /* aasm-rev: Dashboard Gabungan */ /* aasm-nav: dari Gabungan, menu lain membuka distributor terpilih/pertama */ dvGo(b.dataset.dvv); } });
   $('dssBody').addEventListener('click', function (e) {
     if (!DVM()) return;
     var p = e.target.closest('[data-dvp]'); if (p) { openSheet({ type: 'dssdsr', id: p.dataset.dvp, k: p.dataset.dvk || '' }); return; }
@@ -9272,7 +9293,7 @@
   // ----- gerbang tombol Kembali HP (= app lama): Kembali memunculkan konfirmasi; bila ada lembar terbuka, Kembali menutup lembar dulu -----
   function armGate() { try { history.pushState({ rsGate: 1 }, ''); } catch (e) {} }
   function exitShow(on) { $('exitConfirm').hidden = !on; }
-  window.addEventListener('popstate', function () { if (scanSt.live) { scnLiveStop(); armGate(); return; } /* kamera scan terbuka: tutup kamera saja */ if (S.sheet) { if (S.sheet.back) openSheet(S.sheet.back); else closeSheet(); armGate(); return; } if (navBack()) { armGate(); return; } if (!$('exitConfirm').hidden) { armGate(); return; } exitShow(true); });
+  window.addEventListener('popstate', function () { if (scanSt.live) { scnLiveStop(); armGate(); return; } /* kamera scan terbuka: tutup kamera saja */ if (S.sheet) { if (S.sheet.back) openSheet(S.sheet.back); else closeSheet(); armGate(); return; } if (navBack()) { armGate(); return; } if (S.role === 'AASM' && S.aasDv) { aasLeave(); armGate(); return; } if (S.role === 'AASM' && DV.v !== 'home' && $('dssScreen').style.display === 'block') { DV.v = 'home'; renderDss(); armGate(); return; } /* aasm-rev: Kembali = naik ke Gabungan/Beranda dulu, baru konfirmasi keluar */ if (!$('exitConfirm').hidden) { armGate(); return; } exitShow(true); });
   $('exitStay').addEventListener('click', function () { exitShow(false); armGate(); });
   $('exitGo').addEventListener('click', function () { exitShow(false); try { history.back(); } catch (e) {} });
   armGate(); (function () { var once = function () { armGate(); document.removeEventListener("pointerdown", once, true); document.removeEventListener("keydown", once, true); }; document.addEventListener("pointerdown", once, true); document.addEventListener("keydown", once, true); })(); /* gerbang-laptop (11 Nov): Chrome laptop mengabaikan entri riwayat tanpa klik pengguna -> pasang ulang saat interaksi pertama */
