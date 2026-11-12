@@ -491,7 +491,7 @@
   .past-sel .past-v b { font-size: 16.5px; font-weight: 700; }
   .past-sel .past-ch { font-size: 12px; font-weight: 600; opacity: .9; }
   .past-sel select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; font-size: 16px; cursor: pointer; }
-  body.bulan-lalu #hariCard, body.bulan-lalu #homeLinksT, body.bulan-lalu #homeLinks, body.bulan-lalu #repSend, body.bulan-lalu #todayBtn, body.bulan-lalu #visHome { display: none !important; }
+  body.bulan-lalu #visToday, body.bulan-lalu #hariCard, body.bulan-lalu #homeLinksT, body.bulan-lalu #homeLinks, body.bulan-lalu #repSend, body.bulan-lalu #todayBtn, body.bulan-lalu #visHome { display: none !important; }
   .rep-card { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; border: 0; background: var(--white); border-radius: 20px; padding: 14px 16px; box-shadow: var(--shadow); cursor: pointer; font-family: inherit; color: var(--ink); }
   .rep-card .rc-ico { width: 44px; height: 44px; border-radius: 14px; background: var(--ice); color: var(--navy); display: grid; place-items: center; flex-shrink: 0; }
   .rep-card .rc-ico svg { width: 22px; height: 22px; }
@@ -606,7 +606,7 @@
   .actrow { margin: 0 0 8px; align-items: center; gap: 6px; }
   .actchip { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px 0 12px; border: 1px solid var(--navy); border-radius: 99px; background: var(--ice); color: var(--navy); font: 600 12px/1 Geist, system-ui, sans-serif; white-space: nowrap; cursor: pointer; }
   .actchip .x { font-style: normal; font-weight: 700; font-size: 12px; opacity: .65; }
-  /* hari-reset */ .day-reset { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; font-size: 12.5px; color: var(--slate); margin: -2px 2px 10px; } .day-reset[hidden] { display: none; } .day-reset b { color: var(--navy); } .day-reset .dr-x { margin-left: auto; min-height: 34px; padding: 0 12px; border-radius: 17px; border: 1.5px solid #30A0E5; background: #fff; color: #134F7E; font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+  /* hari-reset */ .day-reset .dr-t { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .day-reset { background: #fff; border: 1px solid #D6E6F3; border-radius: 14px; padding: 5px 5px 5px 12px; flex-wrap: nowrap !important; } .day-reset .dr-x { flex: none; min-height: 32px !important; } .day-reset { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; font-size: 12.5px; color: var(--slate); margin: -2px 2px 10px; } .day-reset[hidden] { display: none; } .day-reset b { color: var(--navy); } .day-reset .dr-x { margin-left: auto; min-height: 34px; padding: 0 12px; border-radius: 17px; border: 1.5px solid #30A0E5; background: #fff; color: #134F7E; font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
   .actclr { flex: 0 0 auto; height: 28px; padding: 0 8px; border: 0; background: transparent; color: var(--slate); font: 600 12px/1 Geist, system-ui, sans-serif; text-decoration: underline; white-space: nowrap; cursor: pointer; }
   .chip.act { display: inline-flex; align-items: center; gap: 6px; } .chip.act b { display: inline; font-weight: 700; margin: 0; }
   #osSearch { flex: 1; min-width: 0; padding: 12px 18px; font: inherit; font-size: 14px; border: 1.5px solid transparent; border-radius: 999px; background: rgba(255,255,255,.9); box-shadow: var(--shadow); color: var(--ink); }
@@ -917,6 +917,13 @@
   .dv-row { display: flex; width: 100%; gap: 10px; align-items: flex-start; padding: 12px 12px; background: none; border: 0; border-bottom: 1px solid #EEF3F8; font: inherit; text-align: left; cursor: pointer; } .dv-row:last-child { border-bottom: 0; } .dv-row .o-avatar { flex: 0 0 auto; margin-top: 2px; }
   .dv-rm { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; } .dv-rn { display: flex; justify-content: space-between; gap: 8px; align-items: center; flex-wrap: wrap; } .dv-rn b { color: var(--navy); font-size: 14px; }
   .dv-lab { font-size: 11.5px; font-weight: 800; border-radius: 99px; padding: 2px 9px; white-space: nowrap; } .dv-lab.bad { background: #FDECEC; color: #991B1B; } .dv-lab.wait { background: #FEF3C7; color: #92400E; } .dv-lab.ok { background: #EAF7EE; color: #14532D; }
+  /* dv-dsr2 (12 Nov 2026, masukan user): kartu DSR perlu dibantu = daftar per KPI berkolom, bukan deretan chip */
+  .dv-kl { display: grid; grid-template-columns: 18px auto 1fr auto; gap: 7px 10px; align-items: center; font-size: 13px; }
+  .dv-kr { display: contents; } .dv-kr i { font-style: normal; width: 18px; height: 18px; border-radius: 50%; color: #fff; font-size: 11px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+  .dv-kr.bad i { background: #DC2626; } .dv-kr.wait i { background: #D97706; }
+  .dv-kr .kn { font-weight: 800; color: #0F172A; } .dv-kr .kv { font-weight: 700; color: #334155; font-variant-numeric: tabular-nums; } .dv-kr .kv small { color: #64748B; font-weight: 600; font-size: 11.5px; }
+  .dv-kr .kg { text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; } .dv-kr.bad .kg { color: #B91C1C; } .dv-kr.wait .kg { color: #B45309; }
+  .dv-wn { font-size: 12px; font-weight: 700; color: #9A3412; background: #FFF7ED; border-radius: 10px; padding: 6px 10px; }
   .dv-mx { display: flex; flex-wrap: wrap; gap: 4px; } .dv-k { display: inline-flex; align-items: center; gap: 3px; font-size: 11.5px; font-weight: 700; border-radius: 8px; padding: 2px 7px 2px 4px; } .dv-k i { font-style: normal; width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; }
   .dv-k.ok { background: #EAF7EE; color: #14532D; } .dv-k.ok i { background: #15803D; } .dv-k.wait { background: #FEF3C7; color: #92400E; } .dv-k.wait i { background: #D97706; } .dv-k.bad { background: #FDECEC; color: #991B1B; } .dv-k.bad i { background: #DC2626; } .dv-k.na { background: #F1F5F9; color: #64748B; } .dv-k.na i { background: #94A3B8; }
   .dv-rf { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--slate); } .dv-chev { color: #94A3B8; font-size: 20px; align-self: center; }
@@ -1052,11 +1059,19 @@
   .vf-title { font-size: 13px; font-weight: 700; color: #0B4F48; margin: 0 2px 8px; }
   .vis-row.vr-do, .vis-row.vr-red, .vis-row.vr-md, .vis-row.vr-ok, .vis-row.vr-no { border-left: 4px solid #2BA597; } .vis-row.vr-red { border-left-color: #DC2626; } .vis-row.vr-md { border-left-color: #7FB8B0; } .vis-row.vr-ok { border-left-color: #15803D; } .vis-row.vr-no { border-left-color: #94A3B8; }
   .vr-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; } .vr-top .o-name { flex: 1; min-width: 0; }
-  .vlv { flex: 0 0 auto; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 10px; } .vlv.w { background: #0F766E; color: #fff; } .vlv.a { background: #D5F0EC; color: #0B4F48; } .vlv.r { background: #FDECEC; color: #B91C1C; }
+  .vlv { flex: 0 0 auto; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 10px; } .vlv.w { background: #DC2626; color: #fff; } .vlv.a { background: #FACC15; color: #422006; } .vlv.c { background: #DBEAFE; color: #1E3A8A; } /* vis-lv (12 Nov 2026, masukan user): Wajib merah, Anjuran kuning */
+  .vr-foto { display: flex; gap: 6px; margin-top: 6px; } .vr-foto img { width: 56px; height: 56px; object-fit: cover; border-radius: 10px; background: #E2E8F0; border: 1px solid #CBD5E1; }
+  .vis-tgi .vt-foto { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; } .vis-tgi .vt-foto img { width: 96px; height: 96px; object-fit: cover; border-radius: 12px; border: 1px solid #CBD5E1; background: #E2E8F0; }
+  .vis-tgi.cek { background: #EFF6FF; border-color: #93C5FD; } .vis-tgi.cek b { color: #1E3A8A; }
+  /* vis-hari (12 Nov 2026, masukan user): Beranda DSR = sorotan tugas pajangan hari ini */
+  #visToday { margin: 0 0 14px; border-left: 5px solid #0F766E; } #visToday.hot { border-left-color: #DC2626; } #visToday .vt-row svg { width: 18px; height: 18px; flex: none; color: #94A3B8; } #visToday .vt-warn { margin: -2px 0 8px; padding: 8px 10px; border-radius: 12px; background: #DC2626; color: #fff; font-size: 13px; font-weight: 800; line-height: 1.35; } #visToday .vt-h { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; } #visToday .vt-h b { font-size: 15.5px; } #visToday .vt-h small { color: #64748B; font-size: 12px; }
+  #visToday .vt-cnt { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; } #visToday .vt-cnt span { font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 99px; background: #F1F5F9; color: #334155; } #visToday .vt-cnt span.r { background: #FEE2E2; color: #991B1B; } #visToday .vt-cnt span.y { background: #FEF9C3; color: #713F12; } #visToday .vt-cnt span.b { background: #DBEAFE; color: #1E3A8A; }
+  #visToday .vt-row { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 2px; border: 0; border-top: 1px solid #EEF2F7; background: none; font: inherit; text-align: left; cursor: pointer; } #visToday .vt-row > div { flex: 1 1 auto; min-width: 0; } #visToday .vt-row b { display: block; font-size: 13.5px; } #visToday .vt-row small { display: block; font-size: 12px; color: #475569; }
+  #visToday .vt-all { display: block; width: 100%; margin-top: 6px; padding: 10px; border-radius: 12px; border: 1.5px solid #0F766E; background: #F2FBF9; color: #0B4F48; font: inherit; font-weight: 800; cursor: pointer; } .vlv.r { background: #FDECEC; color: #B91C1C; }
   .vr-act { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 13.5px; color: #0B4F48; } .vr-act i { font-style: normal; width: 18px; text-align: center; } .vr-red .vr-act { color: #B91C1C; } .vr-ok .vr-act { color: #15803D; } .vr-no .vr-act { color: #64748B; }
   .vr-s { font-size: 12px; color: var(--slate); margin: 2px 0 0 24px; }
   .vis-do { display: block; margin-top: 6px; padding: 8px 10px; border-radius: 12px; background: #E3F6F3; border: 1px solid #A7DCD3; color: #0B4F48; font-size: 13.5px; font-weight: 700; } .vis-do i { font-style: normal; } .vis-do.vr-red { background: #FDECEC; border-color: #F5B5B5; color: #B91C1C; } .vis-do.vr-ok { background: #E8F6EC; border-color: #A7DDB9; color: #15803D; } .vis-do.vr-no { background: #F1F5F9; border-color: #CBD5E1; color: #475569; }
-  body.tema-vis .vis-vbtn { border-color: #2BA597; color: #0B4F48; } body.tema-vis #outletSeg .seg-btn.active { background: #0F766E; }
+  body.tema-vis .vis-vbtn { border-color: #0F766E; background: #0F766E; color: #fff; } /* vis-peta (12 Nov 2026, masukan user): tombol peta/daftar mencolok */ body.tema-vis #outletSeg .seg-btn.active { background: #0F766E; }
   /* os-urus (8 Nov 2026, pilihan user): Outlet = baris 1 pencapaian [Transaksi (ECO) | Loyalty], baris 2 urusan [Visibility toska | Pengajuan kuning] */
   #outletSeg.oseg { flex-direction: column !important; gap: 8px !important; }
   #outletSeg .oseg-urus { display: flex; gap: 8px; }
@@ -1086,10 +1101,24 @@
   @keyframes dlok { 0%, 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } } /* banner melayang: isi halaman tidak bergeser saat muncul/hilang */
   @media (prefers-reduced-motion: reduce) { .dv-load .dl-spin, .dv-load.ok, .dv-load .dl-ok { animation: none; } }
   .br-ld { display: inline-block; padding: 1px 8px; border-radius: 99px; font-weight: 800; } .br-ld.ok { background: #DCFCE7; color: #166534; } .br-ld.wait { background: #FEF3C7; color: #92400E; }
+  .sn-tools { display: none; }
   .bottom-nav .nav-sep { flex: none; align-self: stretch; width: 1px; margin: 10px 2px; background: #CBD5E1; } body.dt-dss #dssNav .nav-sep { width: auto; height: 1px; margin: 6px 12px; }
   /* briefing (11 Nov 2026, keputusan user): layar tayang saat briefing DSS/AASM dgn semua salesman. Angka absolut + %, kekurangan per hari per salesman & per distributor,
      peringkat bisa dipilih, insentif DSR disembunyikan (sakelar), Jasper DSS TIDAK PERNAH tampil. Tidak menggantikan menu Target. */
   .br-top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 12px; margin: 2px 0 12px; }
+  /* br-info (12 Nov 2026, masukan user): laju waktu, sisa hari kerja, data s.d. per KPI = kotak menonjol di kanan judul */
+  .br-info { display: grid; grid-template-columns: auto auto minmax(230px, auto); gap: 8px; }
+  .br-info .bi { background: #fff; border-radius: 14px; padding: 8px 14px; box-shadow: 0 2px 10px rgba(15,23,42,.06); border-left: 4px solid #1D74B8; min-width: 0; }
+  .br-info .bi-l { display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: .03em; }
+  .br-info .bi > b { display: block; font-size: 22px; font-weight: 800; color: #0F3D63; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .br-top .br-info small { font-size: 11.5px; margin-top: 1px; }
+  .br-info .bi-d { border-left-color: #0F766E; } .br-info .bi-d ul { list-style: none; margin: 3px 0 0; padding: 0; display: grid; grid-template-columns: auto auto; gap: 1px 14px; font-size: 12px; font-weight: 600; color: #334155; }
+  .br-info .bi-d li b { color: #0F172A; font-variant-numeric: tabular-nums; }
+  @media (max-width: 700px) { .br-info { grid-template-columns: 1fr 1fr; width: 100%; } .br-info .bi-d { grid-column: 1 / -1; } }
+  .br-k .bk-d { font-size: 11px; font-weight: 700; color: #0F766E; margin-top: 2px; }
+  /* br-freeze (12 Nov 2026, masukan user): kolom nama tetap saat tabel digeser ke samping */
+  .br-t th:first-child, .br-t td:first-child { position: sticky; left: 0; z-index: 1; background: #fff; box-shadow: inset -1px 0 0 #E2E8F0; }
+  .br-t th.srt:first-child, .br-t td.srt:first-child { background: #E0F2FE; } .br-t tr.tot td:first-child { background: #F8FBFE; }
   .br-top h3 { margin: 0; font-size: 19px; } .br-top small { display: block; color: var(--muted, #64748B); font-size: 12.5px; font-weight: 600; margin-top: 2px; }
   .br-fil { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
   .br-fil select { font: inherit; font-size: 13px; font-weight: 700; padding: 9px 10px; border-radius: 12px; border: 1.5px solid #CFE0EE; background: #fff; color: #0F172A; max-width: 100%; }
@@ -1122,7 +1151,7 @@
   .br-rk { display: grid; gap: 6px; } .br-rk div { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 12px; background: #F8FBFE; font-size: 13.5px; font-weight: 700; }
   .br-rk div .rk-n { width: 28px; text-align: center; font-size: 16px; } .br-rk div .rk-v { margin-left: auto; font-weight: 800; font-variant-numeric: tabular-nums; }
   .br-rk div.top { background: #FFF7E0; }
-  @media (min-width: 1440px) { body.dt-peran .br-two { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 14px; align-items: start; } body.dt-peran .br-two > .br-card { margin-bottom: 0; } body.dt-peran .br-two { margin-bottom: 14px; } }
+  @media (min-width: 1440px) { body.dt-peran .br-two { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 14px; align-items: stretch; } /* br-sama (12 Nov 2026): tinggi kotak kekurangan & peringkat disamakan */ body.dt-peran .br-two > .br-card { margin-bottom: 0; } body.dt-peran .br-two { margin-bottom: 14px; } }
   body.br-big .br-k .bk-v { font-size: 30px; } body.br-big .br-t { font-size: 15px; } body.br-big .br-top h3 { font-size: 24px; }
   /* seg-lepas (10 Nov 2026, masukan user): pita biru penutup hanya saat sub menu MENEMPEL di atas. Di posisi biasa (belum digulir) pita
      disembunyikan karena warnanya tidak senada dengan latar gradasi. Kelas .seg-lepas dipasang JS segPita(); tanpa JS pita tetap seperti dulu. */
@@ -1144,7 +1173,16 @@
   .adm-sn { flex: none; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; background: #E2EEF8; color: #134F7E; }
   .seg-btn.active .adm-sn { background: #E7F77D; color: #0F172A; }
   .adm-sl { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; line-height: 1.15; }
+  .sw-card { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; } .sw-card .fd-in { margin: 0; } .sw-card .adm-b { align-self: flex-start; flex: none; min-height: 0; padding: 11px 18px; } .sw-err { color: #B91C1C; font-size: 12.5px; font-weight: 700; }
   .adm-sl small { font-size: 10.5px; font-weight: 600; opacity: .72; margin-top: 2px; }
+  /* adm-tugas (12 Nov 2026, masukan user): tahap yang jadi tugas Admin harus mencolok, bukan tulisan kecil */
+  .adm-tg { display: inline-block; align-self: flex-start; margin-top: 4px; padding: 2px 8px; border-radius: 99px; font-size: 10.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; background: #E2E8F0; color: #475569; }
+  .adm-flow .seg-btn.adm-step.mine { background: #FFF8E1; border: 2px solid #F59E0B; box-shadow: 0 4px 14px rgba(245,158,11,.22); } .adm-flow .seg-btn.adm-step.mine .adm-tg { background: #F59E0B; color: #fff; }
+  .adm-flow .seg-btn.adm-step.mine.active { background: #0F172A; border-color: #F59E0B; } .adm-flow .seg-btn.adm-step.ro { background: #F1F5F9; color: #475569; }
+  @media (max-width: 599px) { .adm-tg { font-size: 9.5px; padding: 2px 6px; } }
+  /* adm-info (12 Nov 2026, masukan user): penjelasan singkat tiap menu Admin di atas, selalu terlihat */
+  .adm-info { display: flex; gap: 10px; align-items: flex-start; background: #EAF4FC; border: 1px solid #BFDCF2; border-radius: 16px; padding: 12px 14px; margin: 0 0 14px; font-size: 13px; line-height: 1.45; color: #0F3D63; }
+  .adm-info > i { font-style: normal; font-size: 18px; line-height: 1.2; } .adm-info b { display: block; font-size: 13.5px; margin-bottom: 2px; } .adm-info ul { margin: 4px 0 0; padding-left: 18px; }
   .adm-flow .adm-tnew { position: absolute; top: -8px; right: 8px; }
   @media (max-width: 599px) { .adm-tiles.adm-flow { gap: 10px; } .adm-flow .adm-sl small { display: none; } .adm-flow .seg-btn.adm-step { flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 9px; font-size: 12.5px; } .adm-flow .seg-n { position: absolute; top: 8px; right: 8px; } }
   /* dss-v3 */ .dv-tgrp { margin: 2px 0 8px; } .dv-full { display: block; width: 100%; margin: 0; text-align: center; padding: 12px; font-size: 14px; } .adm-row.dv-static { cursor: default; } .adm-row.dv-static::after { content: none !important; }
@@ -1202,7 +1240,9 @@
   .fm-sec { padding: 14px; margin: 0 0 12px; } .fm-h { font-weight: 700; font-size: 15px; color: var(--navy, #0F172A); display: flex; align-items: center; gap: 8px; margin: 0 0 10px; } .fm-h small { font-weight: 500; color: var(--slate); font-size: 12px; }
   .fm-n { width: 26px; height: 26px; border-radius: 50%; background: #134F7E; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; flex: 0 0 auto; }
   .fm-sel { display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; background: #EAF5FD; border: 1.5px solid #B3DAF3; border-left: 5px solid #15803D; border-radius: 12px; padding: 10px 12px; } .fm-sel b { display: block; font-size: 15px; } .fm-sel small { color: var(--slate); font-size: 12.5px; line-height: 1.45; } .fm-sel .adm-b { flex: 0 0 auto; }
-  .fm-olist { margin-top: 8px; } .fm-nomaster { opacity: .75; } .fm-nm { color: #92400E !important; font-weight: 600; }
+  .fm-pj { display: block; margin-top: 3px; font-size: 12px; font-weight: 700; color: #9A3412; } .fm-pjt { color: #0F766E; font-weight: 800; }
+  .fm-olist { margin-top: 8px; } #fmOutList .fm-olist { max-height: min(55vh, 460px); overflow-y: auto; overscroll-behavior: contain; border: 1px solid #E2E8F0; border-radius: 14px; } /* fm-scroll (12 Nov 2026, masukan user): hanya daftar outlet yang bergulir */
+  .fm-sel .fm-ganti { background: #0F172A; color: #fff; border-color: #0F172A; font-weight: 800; } .fm-sel .fm-ganti:hover { background: #1E293B; } /* fm-ganti: tombol Ganti outlet mencolok */ .fm-nomaster { opacity: .75; } .fm-nm { color: #92400E !important; font-weight: 600; }
   .fm-who { font-weight: 700; } .fm-who small { font-weight: 500; color: var(--slate); }
   .fm-jgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; } @media (max-width: 340px) { .fm-jgrid { grid-template-columns: 1fr; } }
   .fm-jb { display: flex; gap: 8px; align-items: flex-start; border: 1.5px solid #CBD5E1; border-radius: 12px; padding: 10px; background: #fff; cursor: pointer; min-height: 56px; } .fm-jb input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: #134F7E; flex: 0 0 auto; } .fm-jb b { display: block; font-size: 14px; } .fm-jb small { color: var(--slate); font-size: 11.5px; } .fm-jb.on { border-color: #134F7E; background: #EAF5FD; }
@@ -1233,7 +1273,11 @@
 /* vis-client */
   .vb { display: inline-block; font-size: 11.5px; font-weight: 700; border-radius: 99px; padding: 2px 8px; margin: 2px 4px 0 0; white-space: nowrap; } .vb.ok { background: #E8F6EC; color: #14532D; } .vb.ya { background: #DBEAFE; color: #1E3A8A; } .vb.no { background: #FDECEC; color: #991B1B; } .vb.na { background: #F1F5F9; color: #475569; } .vb.done { background: #FEF3C7; color: #92400E; } .vb.tg.wait { background: #EAF5FD; color: #134F7E; } .vb.tg.ok { background: #E8F6EC; color: #14532D; } .vb.tg.no { background: #FDECEC; color: #991B1B; } .vb.fix { background: #FFF8EB; color: #92400E; display: block; white-space: normal; margin: 6px 0; }
   .vis-bs { margin-top: 2px; } .vis-lbl { font-size: 12px; color: var(--slate); align-self: center; margin-right: 2px; } .vis-vt { margin: 4px 0 8px; }
-  .vis-map { height: 420px; border-radius: 14px; overflow: hidden; border: 1px solid #E2E8F0; } .vis-legend { font-size: 12px; color: var(--slate); margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; } .vis-legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 3px; vertical-align: middle; }
+  .vis-map { height: 420px; border-radius: 14px; overflow: hidden; border: 1px solid #E2E8F0; position: relative; z-index: 0; isolation: isolate; } /* vis-peta: lapisan peta tidak menimpa lembar */
+  .vis-mleg { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; } .vis-mleg button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 99px; border: 1.5px solid #CBD5E1; background: #fff; font: inherit; font-size: 12px; font-weight: 700; color: #0F172A; cursor: pointer; }
+  .vis-mleg button i { width: 12px; height: 12px; border-radius: 50%; flex: none; } .vis-mleg button.off { opacity: .45; text-decoration: line-through; background: #F1F5F9; } .vis-mhint { font-size: 12px; color: #64748B; margin: -2px 0 8px; }
+  .fd-count.vis-cnt { display: block; } .vis-cnt > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } /* vis-peta: baris simetris, jumlah outlet di dalam tombol */ .vis-cnt .vis-vbtn { width: 100%; justify-content: center; min-height: 46px; padding: 0 18px; font-size: 15px; font-weight: 800; box-shadow: 0 6px 16px rgba(15,118,110,.28); }
+  #fd_groups .seg-btn, #fd_tabs .chip { display: inline-flex; align-items: center; justify-content: center; gap: 7px; } #fd_groups .seg-btn svg, #fd_tabs .chip svg { flex: none; } /* fd-ikon (12 Nov 2026, masukan user) */ .vis-legend { font-size: 12px; color: var(--slate); margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; } .vis-legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 3px; vertical-align: middle; }
   .vis-head { margin: 0 0 10px; } .vis-blk .fm-h small { color: var(--slate); font-weight: 500; } .vis-awal { background: #F8FAFC; border: 1px dashed #CBD5E1; border-radius: 10px; padding: 8px 10px; margin: 0 0 8px; font-size: 13px; } .vis-fix { color: #92400E; font-weight: 700; margin-top: 4px; }
   .vis-seg { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 6px; } .vis-seg button { flex: 1 1 0; min-width: 88px; min-height: 42px; border: 1.5px solid #CBD5E1; background: #fff; border-radius: 10px; font-weight: 700; font-size: 13.5px; color: #0F172A; } .vis-seg button.on.yes { background: #E8F6EC; border-color: #15803D; color: #14532D; } .vis-seg button.on.no { background: #FDECEC; border-color: #DC2626; color: #991B1B; } .vis-seg button.on.neu { background: #EAF5FD; border-color: #134F7E; color: #134F7E; }
   .vis-ph { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 6px; } .vis-th { position: relative; width: 84px; height: 84px; } .vis-th img { width: 84px; height: 84px; object-fit: cover; border-radius: 10px; border: 1px solid #E2E8F0; } .vis-th .rm { position: absolute; top: -6px; right: -6px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: #DC2626; color: #fff; font-weight: 800; }
@@ -1320,6 +1364,15 @@
     body.dt-adm #admNav, body.dt-dss #dssNav { top: 0; bottom: 0; left: 0; width: 220px; border-radius: 0 28px 28px 0; padding: 22px 12px 18px; }
     body.dt-adm #admNav .sn-head, body.dt-dss #dssNav .sn-head { display: block; padding: 2px 10px 16px; margin-bottom: 8px; border-bottom: 1px solid #E2E8F0; }
     body.dt-adm #admNav .sn-foot, body.dt-dss #dssNav .sn-foot { display: flex; flex-direction: column; gap: 4px; margin-top: auto; padding-top: 12px; border-top: 1px solid #E2E8F0; }
+    /* sn-tools (12 Nov 2026, keputusan user): di laptop "Alat" pindah ke menu samping; di HP tetap di Beranda (atas) */
+    body.dt-dss #dssNav { overflow-y: auto; } body.dt-dss #dssNav:has(.sn-tl) .nav-item { padding-top: 8px; padding-bottom: 8px; } body.dt-dss #dssNav:has(.sn-tl) .sn-head { padding-bottom: 10px; } body.dt-dss #dssBody .dv-tools-sec { display: none; }
+    body.dt-dss #dssNav .sn-tools { display: flex; flex-direction: column; gap: 2px; margin-top: 6px; padding-top: 8px; border-top: 1px solid #E2E8F0; }
+    body.dt-dss #dssNav .sn-tl { font-size: 11px; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: .04em; padding: 2px 14px 4px; }
+    body.dt-dss #dssNav .sn-tools .rep-card { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 12px; width: 100%; padding: 6px 14px; border-radius: 12px; font-size: 13px; font-weight: 700; color: #334155; cursor: pointer; }
+    body.dt-dss #dssNav .sn-tools .rep-card:hover { background: #F1F5F9; } body.dt-dss #dssNav .sn-tools .rep-card.active { background: #E0F2FE; color: #0F3D63; }
+    body.dt-dss #dssNav .sn-tools .rep-card:focus-visible { outline: 2px solid #1D74B8; }
+    body.dt-dss #dssNav .sn-tools .rc-ico { flex: none; width: 20px; height: 20px; display: inline-flex; background: none; padding: 0; } body.dt-dss #dssNav .sn-tools .rc-ico svg { width: 20px; height: 20px; }
+    body.dt-dss #dssNav .sn-tools .rc-main b { font-size: 13px; font-weight: 700; line-height: 1.25; } body.dt-dss #dssNav .sn-tools small, body.dt-dss #dssNav .sn-tools .rc-go { display: none; }
     body.dt-dss #dssScreen .rtop .topbar-sync, body.dt-adm #admScreen .rtop .topbar-sync { display: none; }
     body.dt-peran .sheet { left: auto; right: 0; top: 0; bottom: 0; width: min(580px, 46vw); max-width: none; max-height: none; height: 100vh; border-radius: 28px 0 0 28px; transform: translateX(100%); }
     body.dt-peran .sheet-wrap.show .sheet { transform: translateX(0); }
@@ -1597,7 +1650,7 @@
   <button class="nav-item" type="button" data-admv="daftar"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9.5 5 4.5h14l1.5 5"/><path d="M4.5 9.5V20h8"/><path d="M19.5 9.5V12"/><path d="M18 15v6"/><path d="M15 18h6"/></svg></span><span>Daftar Outlet</span></button>
   <button class="nav-item" type="button" data-admv="mod"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="M14.5 7.5l3 3"/></svg></span><span>Modifikasi</span></button>
   <button class="nav-item" type="button" data-admv="status"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 12.5l2 2 4-4"/></svg></span><span>Status</span></button>
-  <button class="nav-item" type="button" data-admv="manual"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6.5 10h.01"/><path d="M10 10h.01"/><path d="M14 10h.01"/><path d="M17.5 10h.01"/><path d="M7.5 14h9"/></svg></span><span>Input Manual</span></button>
+  <button class="nav-item" type="button" data-admv="manual"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6.5 10h.01"/><path d="M10 10h.01"/><path d="M14 10h.01"/><path d="M17.5 10h.01"/><path d="M7.5 14h9"/></svg></span><span>Outlet Manual</span></button>
 </nav>
 <nav class="bottom-nav" id="dssNav" aria-label="Menu DSS" style="display:none"><!-- dss-v2 -->
   <button class="nav-item" type="button" data-dvv="brief"><span class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 21l4-5 4 5"/><path d="M7 12l3-3 3 2 4-4"/></svg></span>Dashboard</button>
@@ -1902,10 +1955,30 @@
     window.scrollTo(0, 0);
     renderPane();
   }
+  /* sw-adm (12 Nov 2026, keputusan user): DSS yang juga mengurus outlet bisa pindah ke Admin SND dengan kode akses Admin distributornya.
+     Kode DSS hanya disimpan di memori (tidak di penyimpanan HP) agar bisa kembali ke DSS tanpa mengetik ulang. */
+  var SW = { from: '', want: '', dist: [], err: '' }; /* from = kode asal, HANYA untuk kembali bila kode tujuan salah (tidak disimpan di HP) */
+  function swDists() { return S.role === 'ADMIN' ? [String((ADM.data && ADM.data.distributorNama) || '').toUpperCase()].filter(Boolean) : ((S.dss && S.dss.dists) || []).map(function (d) { return String(d.name || '').toUpperCase(); }); }
+  function swCard() {
+    var to = S.role === 'DSS' ? 'ADMIN' : S.role === 'ADMIN' ? 'DSS' : ''; if (!to) return '';
+    var lb = to === 'ADMIN' ? 'Admin SND' : 'DSS', sub = to === 'ADMIN' ? 'Untuk DSS yang juga mengurus pendaftaran outlet di SND Pro. Masukkan kode akses Admin distributor Anda.' : 'Untuk Admin yang juga bertugas sebagai DSS. Masukkan kode akses DSS distributor Anda.';
+    return '<div class="card sw-card"><b>⇄ Pindah ke ' + lb + '</b><div class="o-sub">' + sub + '</div><input id="swCode" class="fd-in" type="password" autocomplete="off" placeholder="Kode akses ' + lb + '" aria-label="Kode akses ' + lb + '">' + (SW.err ? '<div class="sw-err">' + esc(SW.err) + '</div>' : '') + '<button type="button" class="adm-b ok" data-swgo="' + to + '">Masuk sebagai ' + lb + '</button></div>';
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-swgo]'); if (!b) return; var lb = b.dataset.swgo === 'ADMIN' ? 'Admin SND' : 'DSS';
+    var c = (($('swCode') || {}).value || '').trim(); if (!c) { SW.err = 'Kode akses ' + lb + ' belum diisi.'; renderAkun(); return; } if (c === S.code) { SW.err = 'Itu kode akun yang sedang dipakai. Masukkan kode akses ' + lb + '.'; renderAkun(); return; }
+    SW.err = ''; SW.dist = swDists(); SW.from = S.code; SW.want = b.dataset.swgo; logout(''); $('pwInput').value = c; submit(c, false);
+  });
+  function swCheck() { /* setelah data peran tujuan termuat: distributor harus sesuai */
+    if (!SW.want || !SW.from) return; var nm = []; if (SW.want === 'ADMIN') { if (!ADM.data) return; nm = swDists(); } else { if (!S.dss) return; nm = swDists(); }
+    var ok = !SW.dist.length || nm.some(function (x) { return SW.dist.indexOf(x) >= 0; }); SW.want = ''; if (ok) { SW.from = ''; SW.dist = []; return; }
+    swBack('Kode ini untuk ' + (nm.join(', ') || 'distributor lain') + ', bukan distributor Anda.');
+  }
+  function swBack(msg) { var d = SW.from; SW.from = ''; SW.dist = []; SW.want = ''; logout(''); if (d) { $('pwInput').value = d; submit(d, false); } setTimeout(function () { SW.err = msg; try { toast(msg); } catch (e) {} }, 50); }
   function renderAkun() { /* akun-satu */
     var ma = document.querySelector('#view-akun [data-act="menu-all"]');
     if (RTAK) { if (ma) ma.style.display = 'none'; $('akunName').textContent = rtName(); var pr = S.dss && S.dss.period, rr = [['Peran', rtRole()], rtScope() ? ['Cakupan', rtScope()] : null, ['Akses', S.role === 'ADMIN' ? 'Input SND Pro' : S.role === 'DSS' ? 'Memantau DSR (hanya melihat)' : 'Memantau' + (S.dss && S.dss.kelola ? ' & mengelola' : '')], pr ? ['Periode', pr] : null, ['Versi aplikasi', APP_BUILD]].filter(Boolean);
-      $('akunList').innerHTML = rr.map(function (r) { return '<div class="akun-row"><span>' + esc(r[0]) + '</span><span>' + esc(r[1]) + '</span></div>'; }).join(''); return; }
+      $('akunList').innerHTML = rr.map(function (r) { return '<div class="akun-row"><span>' + esc(r[0]) + '</span><span>' + esc(r[1]) + '</span></div>'; }).join('') + swCard(); return; }
     if (ma) ma.style.display = '';
     var d = S.data; if (!d) return;
     updateTamuBar();
@@ -2529,7 +2602,7 @@
     $('dayChips').innerHTML = h; dayResetPaint(); /* hari-reset */
   }
   /* hari-reset (8 Nov 2026, keluhan user: bawaan = rute hari ini, ke "Semua" harus menggeser chip): baris di bawah chip hari = rute yg tampil + tombol Hapus filter, selalu terlihat */
-  function dayResetHtml(day, attr) { return 'Menampilkan rute <b>' + esc(day) + '</b> (bawaan: rute hari ini)<button type="button" class="dr-x" ' + attr + '>✕ Hapus filter hari</button>'; }
+  function dayResetHtml(day, attr) { return '<span class="dr-t">📅 Rute <b>' + esc(day) + '</b> · bawaan hari ini</span><button type="button" class="dr-x" ' + attr + ' aria-label="Hapus filter hari">✕ Semua hari</button>'; /* hari-reset v2 (12 Nov 2026, masukan user): satu baris rapi */ }
   function dayResetPaint() { var r = $('dayReset'); if (!r) return; var on = !!S.day && S.day !== 'Semua' && $('dayChips').style.display !== 'none'; r.hidden = !on; r.innerHTML = on ? dayResetHtml(S.day, 'data-day="Semua"') : ''; }
   function rowSub(o) { /* v56 */ var q = String((S.view === 'outlet' ? S.osq : S.q) || '').trim(); var a = []; if (/\d{3,}/.test(q) || !o.hari) a.push(esc(o.kode)); if (o.hari) a.push(esc(o.hari)); return a.join(' · '); }
   function outletRow(o, kind) {
@@ -4249,7 +4322,7 @@
       '<div class="fd-wanote" id="fd_waNote"><b>📣 Langkah terakhir: kirim ke WhatsApp</b><span>Kirim ke grup / AASM &amp; Admin distributor supaya pendaftaran segera diproses.</span></div>' + /* fd-notif */
       '<div class="fd-note" id="fd_dupNote" hidden>ℹ️ Data outlet yang <b>persis sama</b> baru saja tersimpan sebelumnya &mdash; tidak dibuat pendaftaran ganda. ID di atas adalah ID yang sudah ada.</div>' +
       '<button type="button" class="fd-submit fd-wabtn" id="fd_wa"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg><span>Kirim ke WhatsApp</span></button><button type="button" class="fd-btn2" id="fd_again">Daftar Outlet Lain</button><button type="button" class="fd-btn2" id="fd_toStatus">Lihat Status Pengajuan</button></div>';
-    fdEl('fdHost').innerHTML = '<div class="seg fd-seg" id="fd_groups"><button class="seg-btn" type="button" data-fdg="ajukan">Ajukan</button><button class="seg-btn" type="button" data-fdg="status">Status</button></div><div class="chips fd-sub" id="fd_tabs"><button class="chip" type="button" data-fdt="form">Daftar outlet baru</button><button class="chip" type="button" data-fdt="mod">Modifikasi outlet</button><button class="chip" type="button" data-fdt="status">Pendaftaran</button><button class="chip" type="button" data-fdt="modst">Modifikasi</button></div>' +
+    fdEl('fdHost').innerHTML = '<div class="seg fd-seg" id="fd_groups"><button class="seg-btn" type="button" data-fdg="ajukan"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>Ajukan</button><button class="seg-btn" type="button" data-fdg="status"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 11l2 2 4-4M9 17h6"/></svg>Status</button></div><div class="chips fd-sub" id="fd_tabs"><button class="chip" type="button" data-fdt="form"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h9M20 9v4"/><path d="M3 9h18"/><path d="M18 16v6M15 19h6"/></svg>Daftar outlet baru</button><button class="chip" type="button" data-fdt="mod"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Modifikasi outlet</button><button class="chip" type="button" data-fdt="status"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9h18"/><path d="M9 15l2 2 4-4"/></svg>Pendaftaran</button><button class="chip" type="button" data-fdt="modst"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Modifikasi</button></div>' +
       '<div id="fd_paneForm">' + form + '</div><div id="fd_paneStatus" hidden></div><div id="fd_paneMod" class="fm-root" hidden></div><div id="fd_paneModSt" class="fm-root" hidden></div>' + /* fm-client */
       '<div class="fd-overlay" id="fd_overlay" hidden><div class="fd-spin"></div><div>Menyimpan data &amp; foto...</div></div>';
     fdBind();
@@ -5189,13 +5262,14 @@
   function rfMe() { var L = rfRoster() || []; return L.filter(function (x) { return x.id === RF.as; })[0] || null; }
   function rfMount(host) {
     if (!host) return; rfHome(); var L = rfRoster();
+    if (S.role === 'ADMIN') { var rk = admNavKey(); RF.asBy = RF.asBy || {}; if (RF.k !== rk) { if (RF.k) RF.asBy[RF.k] = RF.as; RF.k = rk; if (RF.as !== (RF.asBy[rk] || '')) { RF.as = RF.asBy[rk] || ''; FD.mine = null; fmReset(true); } } } /* rf-pisah (12 Nov 2026, masukan user): pilihan salesman tiap menu Admin berdiri sendiri */
     host.innerHTML = '<div class="card fm-sec rf-pick"><label class="adm-rl" for="rfAs">Salesman</label><select id="rfAs" class="fd-in">' + (L ? '<option value="">Semua salesman (lihat status)</option>' + L.map(function (x) { return '<option value="' + esc(x.id) + '"' + (RF.as === x.id ? ' selected' : '') + '>' + esc(x.full || x.label) + '</option>'; }).join('') : '<option value="">Memuat daftar salesman…</option>') + '</select>' +
       '<div class="fmt-hint" style="display:block">' + (RF.as ? 'Pengajuan dibuat atas nama salesman ini dan muncul di tracking-nya.' : 'Pilih salesman untuk mendaftarkan/mengajukan modifikasi. "Semua salesman" menampilkan status seluruh tim.') + '</div></div><div id="rfFdSlot"></div>';
     RF.on = true; var fh = $('fdHost'); $('rfFdSlot').appendChild(fh); fh.hidden = false; fdRender();
   }
   function rfRepaint() { var h = $('rfHost'); if (h) rfMount(h); }
   function rfPickNote(what) { var me = rfMe(); return '<div class="card rf-note"><b>Pilih salesman dulu</b><div class="o-sub">' + esc(what) + ' dibuat atas nama salesman. Pilih salesman di kotak "Salesman" di atas.</div></div>'; }
-  document.addEventListener('change', function (e) { if (e.target && e.target.id === 'rfAs') { RF.as = e.target.value; FD.mine = null; fmReset(true); rfRepaint(); } });
+  document.addEventListener('change', function (e) { if (e.target && e.target.id === 'rfAs') { RF.as = e.target.value; if (RF.k) (RF.asBy = RF.asBy || {})[RF.k] = RF.as; /* rf-pisah */ FD.mine = null; fmReset(true); rfRepaint(); } });
   function fdActAs() { return RF.on ? RF.as : (S.role === 'DSS' || S.role === 'AASM' ? (S.as || '') : ''); }
   function fdCanW() { return RF.on ? !!RF.as : ((S.role === 'DSR' && !(S.data && S.data.readOnly)) || (S.role === 'DSS' && !!S.as)); } /* pendaftaran outlet tidak terikat periode: sama dengan fmCanWrite */
   function fdSK() { return SK() + '|' + (RF.on ? 'rf:' + RF.as : ''); }
@@ -5278,9 +5352,10 @@
     if (!fmCanWrite()) { host.innerHTML = RF.on ? rfPickNote('Pengajuan modifikasi') : '<div class="empty">Pengajuan modifikasi dibuat oleh salesman, DSS, atau Admin SND.</div>'; return; } /* rf-role */
     fmLoad();
     if (!FM.data) { host.innerHTML = FM.err ? '<div class="banner lock">' + esc(FM.err) + ' <button type="button" class="adm-b ghost" data-fm="retry">Coba lagi</button></div>' : '<div class="empty">Memuat daftar outlet…</div>'; return; }
-    var d = FM.data, o = fmOut();
+    var d = FM.data, o = fmOut(); try { fmLoadMine(); } catch (eM) {} /* fm-split: status pengajuan berjalan utk penanda di daftar outlet */
     h += '<div class="card fm-sec"><div class="fm-h"><span class="fm-n">1</span>Pilih outlet ' + infoBtn('fmform') + '</div>';
-    if (o) h += '<div class="fm-sel"><div><b>' + esc(o.namaOutlet) + '</b><small>Kode ' + esc(o.kodeOutlet) + (o.hari ? ' · ' + esc(o.hari) : '') + '<br>' + esc(o.namaDistributor || '') + '<br>Alamat: ' + esc(o.alamat || '-') + '</small></div><button type="button" class="adm-b ghost" data-fm="ganti">Ganti outlet</button></div>';
+    if (o && fmPairNote(o.kodeOutlet)) h += '<div class="banner warn fm-pjb" style="margin:0 0 8px">' + esc(fmPairNote(o.kodeOutlet)) + '. Anda tetap bisa mengajukan; pastikan perubahannya tidak sama agar tidak dobel.</div>';
+    if (o) h += '<div class="fm-sel"><div><b>' + esc(o.namaOutlet) + '</b><small>Kode ' + esc(o.kodeOutlet) + (o.hari ? ' · ' + esc(o.hari) : '') + '<br>' + esc(o.namaDistributor || '') + '<br>Alamat: ' + esc(o.alamat || '-') + '</small></div><button type="button" class="adm-b ghost fm-ganti" data-fm="ganti">⇄ Ganti outlet</button></div>';
     else h += '<div class="o-sub" style="margin:0 0 6px">Outlet milik <b>' + esc(dispName(d.me)) + '</b> · ' + d.outlets.length + ' outlet</div><span class="sbox"><input id="fmQ" type="search" placeholder="Cari nama atau kode outlet" aria-label="Cari outlet" value="' + esc(FM.q) + '"><button type="button" class="sclr" data-fm="qx" aria-label="Hapus pencarian"' + (FM.q ? '' : ' hidden') + '>×</button></span><div id="fmOutList">' + fmOutListHtml() + '</div>';
     h += '</div>';
     if (o) {
@@ -5292,13 +5367,17 @@
     }
     host.innerHTML = h; fmPaintGps();
   }
+  /* fm-split (12 Nov 2026, permintaan user): pengajuan modifikasi yang masih berjalan untuk outlet ini (oleh pasangan SPLIT / DSS / Admin / diri sendiri) ditampilkan agar tidak dobel */
+  function fmMeId() { return RF.on ? RF.as : (S.data && S.data.me && S.data.me.id) || ''; }
+  function fmPairCards(kode) { var me = fmMeId(); return (FM.mine || []).filter(function (c) { return c.kodeOutlet === kode && c.items.some(function (it) { return it.status !== 'Disetujui' && it.status !== 'Ditolak'; }); }); }
+  function fmPairNote(kode) { var C = fmPairCards(kode); if (!C.length) return ''; var c = C[0], me = fmMeId(), who = c.sid && c.sid !== me ? c.pengaju + (c.peran === 'DSR' || !c.peran ? ' (pasangan SPLIT)' : '') : c.sid === me ? 'Anda' : c.pengaju; return '📝 Sedang diajukan oleh ' + who + ': ' + c.items.map(function (it) { return it.jenisLabel; }).join(', ') + ' · ' + c.items[0].status; }
   function fmOutListHtml() {
-    var d = FM.data; if (!d) return ''; var q = FM.q.trim().toLowerCase(), L = q ? d.outlets.filter(function (o) { return (o.namaOutlet + ' ' + o.kodeOutlet).toLowerCase().indexOf(q) >= 0; }) : d.outlets, more = L.length > 40;
+    var d = FM.data; if (!d) return ''; var q = FM.q.trim().toLowerCase(), L = q ? d.outlets.filter(function (o) { return (o.namaOutlet + ' ' + o.kodeOutlet).toLowerCase().indexOf(q) >= 0; }) : d.outlets, more = L.length > 400; /* fm-scroll: daftar bergulir sendiri -> semua outlet tampil (dulu 40 pertama saja, outlet berawalan huruf belakang tidak terlihat) */
     if (!L.length) return '<div class="empty">Tidak ada outlet yang cocok' + (q ? ' dengan “' + esc(FM.q.trim()) + '”' : '') + '.</div>';
     var cnt = {}; L.forEach(function (o) { var k = String(o.namaOutlet).toLowerCase(); cnt[k] = (cnt[k] || 0) + 1; }), dup = Object.keys(cnt).filter(function (k) { return cnt[k] > 1; })[0];
     return (dup ? '<div class="banner warn" style="margin:8px 0">⚠️ Ada ' + cnt[dup] + ' outlet dengan nama sama ("' + esc(dup.toUpperCase()) + '"). Cek Kode Outlet &amp; alamatnya supaya tidak tertukar.</div>' : '') +
-      '<div class="adm-list fm-olist">' + L.slice(0, 40).map(function (o) { return o.inMaster ? '<button type="button" class="adm-row" data-fmo="' + esc(o.kodeOutlet) + '"><div class="adm-rm"><b>' + esc(o.namaOutlet) + '</b><span>Kode ' + esc(o.kodeOutlet) + (o.hari ? ' · ' + esc(o.hari) : '') + '</span><span>' + esc(o.alamat || '-') + '</span></div><span class="adm-go">Pilih ›</span></button>'
-        : '<div class="adm-row ro fm-nomaster"><div class="adm-rm"><b>' + esc(o.namaOutlet) + '</b><span>Kode ' + esc(o.kodeOutlet) + '</span><span class="fm-nm">Belum ada di Master Outlet form modifikasi — hubungi AASM</span></div></div>'; }).join('') + '</div>' + (more ? '<div class="fd-count">Menampilkan 40 dari ' + L.length + ' outlet · ketik nama/kode untuk mempersempit</div>' : '');
+      '<div class="adm-list fm-olist">' + L.slice(0, 400).map(function (o) { var pj = fmPairNote(o.kodeOutlet); return o.inMaster ? '<button type="button" class="adm-row" data-fmo="' + esc(o.kodeOutlet) + '"><div class="adm-rm"><b>' + esc(o.namaOutlet) + '</b><span>Kode ' + esc(o.kodeOutlet) + (o.hari ? ' · ' + esc(o.hari) : '') + '</span><span>' + esc(o.alamat || '-') + '</span>' + (pj ? '<span class="fm-pj">' + esc(pj) + '</span>' : '') + '</div><span class="adm-go">Pilih ›</span></button>'
+        : '<div class="adm-row ro fm-nomaster"><div class="adm-rm"><b>' + esc(o.namaOutlet) + '</b><span>Kode ' + esc(o.kodeOutlet) + '</span><span class="fm-nm">Belum ada di Master Outlet form modifikasi — hubungi AASM</span></div></div>'; }).join('') + '</div>' + (more ? '<div class="fd-count">Menampilkan 400 dari ' + L.length + ' outlet · ketik nama/kode untuk mempersempit</div>' : '');
   }
   function fmLock(lbl, val) { return '<div class="fm-lock"><small>' + lbl + ' 🔒</small><b>' + esc(val == null || val === '' ? '-' : val) + '</b></div>'; }
   function fmFotoHtml(k, req, pdf) {
@@ -5441,7 +5520,7 @@
       ((FM.st.status || FM.st.jenis) && !m.q ? '<div class="chips actrow"><button class="actclr" type="button" data-fm="stclr">Hapus semua filter</button></div>' : '');
     var x = document.querySelector('[data-fm="stqx"]'); if (x) x.hidden = !FM.st.q;
     el.innerHTML = '<div class="fd-count">' + (m.q ? '🔎 <b>' + m.list.length + '</b> hasil untuk “' + esc(FM.st.q.trim()) + '” · di semua pengajuan' + ((FM.st.status || FM.st.jenis) ? ' (filter diabaikan saat mencari)' : '') : m.list.length + ' dari ' + m.all.length + ' pengajuan') + '</div>' +
-      (m.list.length ? m.list.map(function (k) { return '<div class="card fm-card"><b class="adm-hn">' + esc(k.namaOutlet) + '</b><div class="o-sub">' + (RF.on && !RF.as && k.salesman ? '<b>' + esc(k.salesman) + '</b> · ' : '') + esc(k.namaDistributor) + ' · Pemohon: ' + esc(k.pengaju) + ' · ' + esc(k.timestamp) + ' · <span class="fm-id">' + esc(k.id) + '</span></div>' + k.items.map(fmItemHtml).join('') + '</div>'; }).join('')
+      (m.list.length ? m.list.map(function (k) { return '<div class="card fm-card"><b class="adm-hn">' + esc(k.namaOutlet) + '</b><div class="o-sub">' + (RF.on && !RF.as && k.salesman ? '<b>' + esc(k.salesman) + '</b> · ' : '') + esc(k.namaDistributor) + ' · Pemohon: ' + esc(k.pengaju) + (k.sid && fmMeId() && k.sid !== fmMeId() && (k.peran === 'DSR' || !k.peran) ? ' <b class="fm-pjt">🤝 pasangan SPLIT</b>' : '') + ' · ' + esc(k.timestamp) + ' · <span class="fm-id">' + esc(k.id) + '</span></div>' + k.items.map(fmItemHtml).join('') + '</div>'; }).join('')
         : '<div class="empty">' + (m.q ? 'Tidak ada pengajuan yang cocok dengan “' + esc(FM.st.q.trim()) + '”.' : m.all.length ? 'Tidak ada pengajuan untuk filter ini.' : 'Belum ada pengajuan modifikasi.') + '</div>');
   }
   // ---------- Admin SND: tab "Modifikasi" ----------
@@ -5655,8 +5734,14 @@
   var VIS_SB = { menunggu: ['Menunggu jadwal MD', 'wait'], jadwal: ['Dijadwalkan', 'tgj'], terpasang: ['✓ Terpasang', 'ok'], ditolak: ['Ditolak toko', 'no'], ulang: ['↩ Perlu konfirmasi ulang', 'ulang'] };
   /* vis-lvl */ function visLvl(o) { if (o.t) return 0; /* PH sudah terpasang: tidak lagi Prioritas/Perhatian */ if (o.rm) return 2; var ps = F('ps'), p = ps && ps.outlets && ps.outlets.filter(function (x) { return x.kode === o.k; })[0]; return !p ? 0 : p.cdfd ? 2 : 1; }
   function visPrio(o) { return visLvl(o) === 2; }
-  function visTgMatch(o, k) { var tg = F('vis').tugas[o.k]; if (k === 'prio') return !visDone(o.k) && visLvl(o) === 2; if (k === 'att') return !visDone(o.k) && visLvl(o) === 1; if (k === 'ph') return !!o.t; if (k === 'sh') return !!o.ts; if (k === 'konf') return visDone(o.k); if (!tg) return false; if (k === 'terlambat') return !!tg.terlambat; if (k === 'lama') return !!tg.lama; return tg.sb === k; }
+  function visTgMatch(o, k) { var tg = F('vis').tugas[o.k]; if (k === 'cek') return visCekDue(o); if (k === 'terpasang') return visStage(o) === 'pasang'; if (k === 'ditolak') return visStage(o) === 'tolak'; if (k === 'prio') return !visDone(o.k) && visLvl(o) === 2; if (k === 'att') return !visDone(o.k) && visLvl(o) === 1; if (k === 'ph') return !!o.t; if (k === 'sh') return !!o.ts; if (k === 'konf') return visDone(o.k); if (!tg) return false; if (k === 'terlambat') return !!tg.terlambat; if (k === 'lama') return !!tg.lama; return tg.sb === k; }
   function visNextPjp(hari, today) { var map = { minggu: 0, senin: 1, selasa: 2, rabu: 3, kamis: 4, jumat: 5, sabtu: 6 }, w = map[String(hari || '').toLowerCase()], d = new Date((today || todayIso()) + 'T00:00:00'); if (w == null) { d.setDate(d.getDate() + 1); if (d.getDay() === 0) d.setDate(d.getDate() + 1); } else { do { d.setDate(d.getDate() + 1); } while (d.getDay() !== w); } return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function visPasangInfo(o) { /* vis-4tahap: kartu terpasang + foto PH + status cek bulanan */
+    var f = F('vis'), p = f.pasang && f.pasang[o.k], ct = visCekTgl(o), due = visCekDue(o), ft = visFotoP(o), kd = (f.last && f.last[o.k] && f.last[o.k].phKondisi) || o.tk || '';
+    return '<div class="vis-tgi ' + (due ? 'cek' : 'ok') + '"><b>' + (due ? '🔍 Cek kondisi PH bulan ini' : '✓ Terpasang · sudah dicek ' + esc(visDs(ct))) + '</b>' + (p && p.tgl ? '<span>Dipasang MD ' + esc(visDay(p.tgl)) + (p.hasil ? ' · ' + esc(p.hasil) : '') + '</span>' : '') + (kd && kd !== '-' ? '<span>Kondisi terakhir: ' + esc(kd.toLowerCase()) + '</span>' : '') +
+      (due ? '<span>Cek apakah PH masih baik, rusak, atau hilang, dan tanyakan perlu tambah. Tekan <b>Cek kondisi sekarang</b>.</span>' : '') +
+      (ft.length ? '<div class="vt-foto">' + ft.map(function (u, i) { var t = visThumb(u, 300); return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + (t ? '<img loading="lazy" alt="Foto PH terpasang ' + (i + 1) + '" src="' + esc(t) + '" onerror="this.replaceWith(document.createTextNode(\'📷 Foto ' + (i + 1) + ' ↗\'))">' : '📷 Foto ' + (i + 1) + ' ↗') + '</a>'; }).join('') + '</div>' : '<span>Belum ada foto pemasangan dari MD.</span>') + '</div>';
+  }
   function visTgInfo(tg) {
     if (!tg) return ''; var rows = [];
     if (tg.sb === 'ulang') return '<div class="vis-tgi ulang"><b>↩ MD gagal memasang — mohon konfirmasi ulang</b><span>Alasan: ' + esc(tg.gagalAlasan || '-') + '</span><span>Isi formulir di bawah lagi sesuai kesepakatan terbaru dengan toko.</span></div>';
@@ -5665,7 +5750,7 @@
     if (tg.sb === 'jadwal') return '<div class="vis-tgi ' + (tg.terlambat ? 'red' : 'tgj') + '"><b>' + (tg.terlambat ? '🔴 Terlambat — ' : '📅 ') + 'Dijadwalkan MD: ' + esc(visDay(tg.rencana)) + '</b>' + (tg.alasanUbah ? '<span>MD mengubah dari usulan ' + esc(visDs(tg.usul)) + ': ' + esc(tg.alasanUbah) + '</span>' : '') + '<span>' + (tg.terlambat ? 'Ingatkan MD agar segera memasang, lalu kabari toko.' : 'Kabari toko jadwal kedatangan MD.') + '</span></div>';
     return '<div class="vis-tgi ' + (tg.lama ? 'red' : 'wait') + '"><b>' + (tg.lama ? '🔴 ' : '') + 'Menunggu persetujuan jadwal MD</b><span>' + (tg.usul ? 'Usulan Anda: ' + esc(visDay(tg.usul)) : 'Tanggal pemasangan akan ditetapkan MD') + (tg.lama ? ' · lebih dari ' + ((F('vis') && F('vis').lamaHk) || 3) + ' hari kerja' : '') + '</span></div>';
   }
-  function visRank(o) { var f = F('vis'), tg = f.tugas[o.k]; if (tg) { if (tg.sb === 'ulang') return 0; if (tg.terlambat) return 1; if (tg.sb === 'menunggu') return 5; if (tg.sb === 'jadwal') return 6; return 8; } if (visDone(o.k)) return 7; var lv = visLvl(o); if (lv === 2) return 2; if (lv === 1) return 3; return o.b === 'TIDAK' || visAda(o) ? 4.5 : 4; }
+  function visRank(o) { var f = F('vis'), tg = f.tugas[o.k]; if (visCekDue(o) && !(tg && (tg.sb === 'ulang' || tg.sb === 'menunggu' || tg.sb === 'jadwal'))) return 3.5; if (tg) { if (tg.sb === 'ulang') return 0; if (tg.terlambat) return 1; if (tg.sb === 'menunggu') return 5; if (tg.sb === 'jadwal') return 6; return 8; } if (visDone(o.k)) return 7; var lv = visLvl(o); if (lv === 2) return 2; if (lv === 1) return 3; return o.b === 'TIDAK' || visAda(o) ? 4.5 : 4; }
   function visModel() {
     var f = F('vis'), all = f.outlets, q = String(S.osq || '').trim().toLowerCase(), st = S.visSt || 'semua', bs = S.visBisa || 'semua', tg = S.visTg || '';
     if (!S.visHariInit) { S.visHariInit = true; var td = all.filter(visIsToday)[0]; S.visHari = td ? td.hari : null; }
@@ -5678,33 +5763,41 @@
   }
   /* vis-alur (8 Nov 2026, keluhan user: Visibility pusing, semua konteks seragam; pilihan user via dialog): 3 TAHAP = Tugas Anda -> Ditangani MD -> Terpasang,
      baris outlet diawali KATA KERJA (apa yang harus dilakukan), tingkat Prioritas/Perhatian -> Wajib/Anjuran, warna identitas TOSKA (body.tema-vis). */
-  var VIS_TG_STAGE = { ulang: 'tugas', prio: 'tugas', att: 'tugas', terlambat: 'md', lama: 'md', menunggu: 'md', jadwal: 'md', terpasang: 'done', ditolak: 'done', ph: 'done', sh: 'done', konf: 'done' };
-  function visStage(o) { var tg = F('vis').tugas[o.k]; if (tg) return tg.sb === 'ulang' ? 'tugas' : (tg.sb === 'menunggu' || tg.sb === 'jadwal') ? 'md' : 'done'; return visDone(o.k) || visAda(o) ? 'done' : 'tugas'; }
+  /* vis-4tahap (12 Nov 2026, keputusan user): 1 Tugas Anda (tanya izin, konfirmasi ulang, CEK KONDISI PH terpasang sekali per bulan) -> 2 Ditangani MD -> 3 Terpasang (foto PH) -> 4 Ditolak toko.
+     Outlet terpasang yang dicek & tidak perlu tambah tercatat DITOLAK di sheet tugas -> tetap tahap Terpasang, bukan Ditolak. */
+  var VIS_TG_STAGE = { ulang: 'tugas', prio: 'tugas', att: 'tugas', cek: 'tugas', terlambat: 'md', lama: 'md', menunggu: 'md', jadwal: 'md', terpasang: 'pasang', ph: 'pasang', sh: 'pasang', ditolak: 'tolak' };
+  function visPasang(o) { var f = F('vis'), tg = f.tugas[o.k]; return !!(visAda(o) || (tg && tg.sb === 'terpasang') || (f.pasang && f.pasang[o.k])); }
+  function visCekTgl(o) { var f = F('vis'), L = f.last && f.last[o.k], p = f.pasang && f.pasang[o.k], a = L && L.waktu ? String(L.waktu).slice(0, 10) : '', b = (p && p.tgl) || ''; return a > b ? a : b; }
+  function visCekDue(o) { if (!visPasang(o)) return false; var t = visCekTgl(o); return !t || t.slice(0, 7) !== String(F('vis').today || todayIso()).slice(0, 7); } /* sekali per bulan berjalan */
+  function visFotoP(o) { var f = F('vis'), p = f.pasang && f.pasang[o.k], tg = f.tugas[o.k]; return (p && p.foto && p.foto.length ? p.foto : tg && tg.sb === 'terpasang' ? tg.foto || [] : []); }
+  function visThumb(u, w) { var m = String(u || '').match(/[-\w]{25,}/); return m ? 'https://drive.google.com/thumbnail?id=' + m[0] + '&sz=w' + (w || 200) : ''; }
+  function visStage(o) { var tg = F('vis').tugas[o.k]; if (tg && tg.sb === 'ulang') return 'tugas'; if (tg && (tg.sb === 'menunggu' || tg.sb === 'jadwal')) return 'md'; if (visPasang(o)) return visCekDue(o) ? 'tugas' : 'pasang'; if (tg && tg.sb === 'ditolak') return 'tolak'; return visDone(o.k) ? 'md' : 'tugas'; }
   function visAksi(o) {
     var f = F('vis'), tg = f.tugas[o.k], lv = visLvl(o), hk = f.lamaHk || 3;
     if (tg) {
       if (tg.sb === 'ulang') return { ic: '↩', t: 'Konfirmasi ulang ke toko', s: 'MD gagal memasang: ' + (tg.gagalAlasan || '-'), c: 'red', b: ['Ulang', 'r'] };
       if (tg.sb === 'jadwal') return tg.terlambat ? { ic: '⏰', t: 'Ingatkan MD: terlambat', s: 'rencana ' + visDs(tg.rencana), c: 'red' } : { ic: '📅', t: 'Kabari toko: MD datang ' + visDs(tg.rencana), s: tg.alasanUbah ? 'tanggal diubah MD' : '', c: 'md' };
       if (tg.sb === 'menunggu') return tg.lama ? { ic: '⏳', t: 'Ingatkan MD: belum dijadwalkan', s: 'lebih dari ' + hk + ' hari kerja', c: 'red' } : { ic: '⏳', t: 'Menunggu MD menjadwalkan', s: tg.usul ? 'usul Anda ' + visDs(tg.usul) : '', c: 'md' };
-      if (tg.sb === 'terpasang') return { ic: '✓', t: 'Terpasang ' + visDs(tg.selesai), s: tg.hasil || '', c: 'ok' };
-      return { ic: '✕', t: 'Ditolak toko', s: 'tidak ada pemasangan', c: 'no' };
     }
-    if (visDone(o.k)) return { ic: '✓', t: 'Sudah dikonfirmasi', s: 'menunggu diproses', c: 'ok' };
-    if (visAda(o)) return { ic: '✓', t: (o.t && o.ts ? 'PH & SH' : o.t ? 'PH' : 'SH') + ' sudah terpasang', s: '', c: 'ok' };
+    if (visPasang(o)) { var ct = visCekTgl(o), pp = f.pasang && f.pasang[o.k], kd = (f.last && f.last[o.k] && f.last[o.k].phKondisi) || o.tk || ''; /* vis-4tahap */
+      if (visCekDue(o)) return { ic: '🔍', t: 'Cek kondisi PH terpasang', s: 'belum dicek bulan ini · baik/rusak/hilang, perlu tambah?' + (ct ? ' · cek terakhir ' + visDs(ct) : ''), c: 'do', b: ['Cek bulanan', 'c'] };
+      return { ic: '✓', t: (o.t && o.ts ? 'PH & SH' : o.ts && !o.t ? 'SH' : 'PH') + ' terpasang' + (pp && pp.tgl ? ' ' + visDs(pp.tgl) : ''), s: 'dicek ' + visDs(ct) + (kd && kd !== '-' ? ' · kondisi ' + kd.toLowerCase() : '') + (pp && pp.hasil ? ' · ' + pp.hasil : ''), c: 'ok', foto: visFotoP(o) }; }
+    if (tg && tg.sb === 'ditolak') return { ic: '✕', t: 'Ditolak toko', s: 'tidak ada pemasangan · bisa ditanyakan lagi', c: 'no' };
+    if (visDone(o.k)) return { ic: '⏳', t: 'Sudah dikonfirmasi', s: 'menunggu diproses', c: 'md' };
     return { ic: '▶', t: o.rm ? 'Validasi rencana pasang ke toko' : 'Tanya izin pasang PH ke toko', s: o.b === 'TIDAK' ? 'data awal: tidak bisa, cek lagi' : '', c: 'do', b: lv === 2 ? ['Wajib', 'w'] : lv === 1 ? ['Anjuran', 'a'] : null };
   }
   function visRow2(o, m) {
     var a = visAksi(o), sub = m.stg !== 'tugas' || !S.visHari || m.q ? rowSub({ kode: o.k, hari: o.hari }) : '';
     return '<button class="orow vis-row vr-' + a.c + '" type="button" data-visopen="' + esc(o.k) + '"><span class="o-avatar ' + toneOf(o.k) + '" aria-hidden="true">' + esc(initials(o.n)) + '</span><div class="o-info"><div class="vr-top"><span class="o-name">' + esc(o.n) + '</span>' + (a.b ? '<span class="vlv ' + a.b[1] + '">' + a.b[0] + '</span>' : '') + '</div>' +
-      '<div class="vr-act"><i aria-hidden="true">' + a.ic + '</i><b>' + esc(a.t) + '</b></div>' + (a.s ? '<div class="vr-s">' + esc(a.s) + '</div>' : '') + (sub ? '<div class="o-sub">' + sub + '</div>' : '') + '</div>' + ICON_CHEV + '</button>';
+      '<div class="vr-act"><i aria-hidden="true">' + a.ic + '</i><b>' + esc(a.t) + '</b></div>' + (a.s ? '<div class="vr-s">' + esc(a.s) + '</div>' : '') + (a.foto && a.foto.length ? '<div class="vr-foto">' + a.foto.slice(0, 3).map(function (u) { var t = visThumb(u, 160); return t ? '<img loading="lazy" alt="Foto PH terpasang" src="' + esc(t) + '" onerror="this.remove()">' : ''; }).join('') + '</div>' : '') + (sub ? '<div class="o-sub">' + sub + '</div>' : '') + '</div>' + ICON_CHEV + '</button>';
   }
   function visStepper(m) {
-    var all = m.all, N = { tugas: 0, md: 0, done: 0 }, td = 0, alert = 0, f = m.f, wk = new Date((f.today || todayIso()) + 'T00:00:00'); wk.setDate(wk.getDate() - 7); var w7 = wk.toISOString().slice(0, 10), nw = 0;
-    all.forEach(function (o) { var s = visStage(o), tg = f.tugas[o.k]; N[s]++; if (s === 'tugas' && (visIsToday(o) || (tg && tg.sb === 'ulang'))) td++; if (s === 'md' && tg && (tg.terlambat || tg.lama)) alert++; if (tg && tg.sb === 'terpasang' && tg.selesai >= w7) nw++; });
-    var st = [['tugas', S.as ? 'Tugas salesman' : 'Tugas Anda', N.tugas, td + ' di rute hari ini', ''], ['md', 'Ditangani MD', N.md, alert ? alert + ' perlu diingatkan' : 'pantau saja', alert ? 'red' : ''], ['done', 'Terpasang', N.done, nw ? '+' + nw + ' minggu ini' : 'hasil', '']];
-    return '<div class="card vis-flow"><div class="vf-h"><b>Alur Pajangan</b>' + infoBtn('vis') + '</div><div class="vf-steps">' + st.map(function (x, i) { return '<button type="button" class="vf-s' + (m.stg === x[0] ? ' on' : '') + '" data-visstage="' + x[0] + '"><small>' + (i + 1) + '. ' + x[1] + '</small><b>' + x[2] + '</b><span class="' + x[4] + '">' + esc(x[3]) + '</span></button>' + (i < 2 ? '<i class="vf-ar" aria-hidden="true">›</i>' : ''); }).join('') + '</div></div>';
+    var all = m.all, N = { tugas: 0, md: 0, pasang: 0, tolak: 0 }, td = 0, alert = 0, ck = 0, f = m.f, wk = new Date((f.today || todayIso()) + 'T00:00:00'); wk.setDate(wk.getDate() - 7); var w7 = wk.toISOString().slice(0, 10), nw = 0;
+    all.forEach(function (o) { var s = visStage(o), tg = f.tugas[o.k]; N[s]++; if (s === 'tugas' && visCekDue(o)) ck++; if (s === 'tugas' && (visIsToday(o) || (tg && tg.sb === 'ulang'))) td++; if (s === 'md' && tg && (tg.terlambat || tg.lama)) alert++; if (tg && tg.sb === 'terpasang' && tg.selesai >= w7) nw++; });
+    var st = [['tugas', S.as ? 'Tugas salesman' : 'Tugas Anda', N.tugas, td + ' di rute hari ini' + (ck ? ' · ' + ck + ' cek kondisi' : ''), ''], ['md', 'Ditangani MD', N.md, alert ? alert + ' perlu diingatkan' : 'pantau saja', alert ? 'red' : ''], ['pasang', 'Terpasang', N.pasang, nw ? '+' + nw + ' minggu ini' : 'foto PH', ''], ['tolak', 'Ditolak toko', N.tolak, 'bisa ditanya lagi', '']];
+    return '<div class="card vis-flow"><div class="vf-h"><b>Alur Pajangan</b>' + infoBtn('vis') + '</div><div class="vf-steps">' + st.map(function (x, i) { return '<button type="button" class="vf-s' + (m.stg === x[0] ? ' on' : '') + '" data-visstage="' + x[0] + '"><small>' + (i + 1) + '. ' + x[1] + '</small><b>' + x[2] + '</b><span class="' + x[4] + '">' + esc(x[3]) + '</span></button>' + (i < 3 ? '<i class="vf-ar" aria-hidden="true">›</i>' : ''); }).join('') + '</div></div>';
   }
-  var VIS_TGL = [['ulang', 'Perlu konfirmasi ulang'], ['terlambat', 'Terlambat dipasang'], ['prio', 'Wajib belum dikonfirmasi'], ['att', 'Anjuran belum dikonfirmasi'], ['menunggu', 'Menunggu jadwal MD'], ['jadwal', 'Dijadwalkan'], ['terpasang', 'Terpasang']];
+  var VIS_TGL = [['ulang', 'Perlu konfirmasi ulang'], ['cek', 'Cek kondisi PH bulan ini'], ['terlambat', 'Terlambat dipasang'], ['prio', 'Wajib belum dikonfirmasi'], ['att', 'Anjuran belum dikonfirmasi'], ['menunggu', 'Menunggu jadwal MD'], ['jadwal', 'Dijadwalkan'], ['terpasang', 'Terpasang']];
   var VIS_INFOL = [['ph', 'PH terpasang'], ['sh', 'SH terpasang'], ['konf', 'Sudah dikonfirmasi']];
   function visActCard(m) {
     var all = m.all, tgs = Object.keys(m.f.tugas).map(function (k) { return m.f.tugas[k]; }), ul = tgs.filter(function (t) { return t.sb === 'ulang'; }).length, tl = tgs.filter(function (t) { return t.terlambat; }).length, pr = all.filter(function (o) { return visIsToday(o) && !visDone(o.k) && visPrio(o); }), at = all.filter(function (o) { return visIsToday(o) && !visDone(o.k) && visLvl(o) === 1; }), nd = all.filter(function (o) { return visDone(o.k); }).length, wk = new Date((m.f.today || todayIso()) + 'T00:00:00'); wk.setDate(wk.getDate() - 7); var w7 = wk.toISOString().slice(0, 10), bar = tgs.filter(function (t) { return t.sb === 'terpasang' && t.selesai >= w7; }), nPh = bar.filter(function (t) { return /\bPH\b/.test(t.hasil || '') || !t.hasil; }).length, nSh = bar.length - nPh;
@@ -5725,8 +5818,8 @@
     var STT = { tugas: m.stg === 'tugas' && S.visHari && !m.q ? 'Tugas di rute ' + S.visHari : 'Semua tugas Anda', md: 'Ditangani MD · Anda cukup memantau & mengabari toko', done: 'Sudah terpasang / selesai' };
     var h = '<div class="vf-title">' + esc(S.as && m.stg === 'tugas' ? STT.tugas.replace('Anda', 'salesman') : STT[m.stg]) + '</div>' + (m.q ? '<div class="dim">' + dayH + '</div>' : dayH) + visActRow(m);
     h += m.q ? qNote(list.length, S.osq, 'di semua hari & status (filter diabaikan saat mencari)', 'os') : '';
-    h += '<div class="fd-count vis-cnt"><span>' + list.length + ' outlet</span><button type="button" class="vis-vbtn" data-visview="' + (VIS.view === 'map' ? 'list' : 'map') + '">' + (VIS.view === 'map' ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Lihat daftar' : '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Lihat peta') + '</button></div>';
-    if (VIS.view === 'map') { h += '<div class="vis-legend"><i style="background:#0e9f6e"></i>Sudah ada <i style="background:#1a56db"></i>Bisa <i style="background:#e02424"></i>Tidak <i style="background:#9ca3af"></i>- <i style="background:#f59e0b"></i>Dikonfirmasi</div><div id="visMap" class="vis-map"></div>'; setTimeout(function () { visMap(list); }, 30); }
+    h += '<div class="fd-count vis-cnt"><span>' + list.length + ' outlet</span><button type="button" class="vis-vbtn" data-visview="' + (VIS.view === 'map' ? 'list' : 'map') + '">' + (VIS.view === 'map' ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Lihat daftar · ' + list.length + ' outlet' : '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Lihat peta · ' + list.length + ' outlet') + '</button></div>';
+    if (VIS.view === 'map') { var mp = visMapRows(m); h += (m.stg !== 'tugas' && !m.q ? dayChipsHtml(m.all, S.visHari, 'visd') : '') + '<div class="vis-mhint">Peta menampilkan semua tahap' + (S.visHari && !m.q ? ' di rute ' + esc(S.visHari) : '') + '. Ketuk warna untuk menampilkan/menyembunyikan.</div><div class="vis-mleg" id="visMleg">' + visMlegHtml(mp) + '</div><div id="visMap" class="vis-map"></div>'; setTimeout(function () { visMap(mp.filter(function (o) { return !(VIS.off || {})[visCat(o)]; })); }, 30); }
     else h += list.length ? '<div class="rowlist">' + list.map(function (o) { return visRow2(o, m); }).join('') + '</div>' /* vis-semua: tanpa batas baris; vis-alur: baris berkata kerja */
       : '<div class="empty">' + (m.q ? 'Tidak ada outlet “' + esc(String(S.osq).trim()) + '”. Cek ejaan, atau ketik kode outlet.' : m.stg === 'tugas' ? 'Tidak ada tugas di pilihan ini 👍' : 'Tidak ada outlet di tahap ini.') + '</div>';
     return { top: visStepper(m) + (visQueue().length ? '<div class="banner warn" style="margin:8px 0">' + visQueue().length + ' konfirmasi tersimpan di HP menunggu sinyal · <button type="button" class="linkbtn" data-visflush="1">Kirim sekarang</button></div>' : ''), rest: h };
@@ -5745,14 +5838,20 @@
     var c = document.createElement('link'); c.rel = 'stylesheet'; c.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(c);
     var s = document.createElement('script'); s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'; s.onload = function () { VIS.leafLoading = false; cb(); }; s.onerror = function () { VIS.leafLoading = false; var m = $('visMap'); if (m) m.innerHTML = '<div class="empty">Peta butuh koneksi internet.</div>'; }; document.head.appendChild(s);
   }
+  /* vis-peta (12 Nov 2026, masukan user): warna titik = tindakan/tahap yang sama dgn daftar; legenda bisa dipilih; peta ikut filter hari untuk SEMUA tahap */
+  var VIS_CAT = [['ul', 'Konfirmasi ulang', '#7F1D1D'], ['w', 'Tanya izin · Wajib', '#DC2626'], ['a', 'Tanya izin · Anjuran', '#EAB308'], ['iz', 'Tanya izin', '#2563EB'], ['ck', 'Cek kondisi PH', '#7C3AED'], ['md', 'Ditangani MD', '#0891B2'], ['ok', 'Terpasang', '#16A34A'], ['no', 'Ditolak toko', '#94A3B8']];
+  function visCat(o) { var s = visStage(o), tg = F('vis').tugas[o.k]; if (s === 'md') return 'md'; if (s === 'pasang') return 'ok'; if (s === 'tolak') return 'no'; if (tg && tg.sb === 'ulang') return 'ul'; if (visCekDue(o)) return 'ck'; var lv = visLvl(o); return lv === 2 ? 'w' : lv === 1 ? 'a' : 'iz'; }
+  function visMapRows(m) { return m.q ? m.list : m.all.filter(function (o) { return !S.visHari || o.hari === S.visHari; }); }
+  function visMlegHtml(rows) { var n = {}; rows.forEach(function (o) { var c = visCat(o); n[c] = (n[c] || 0) + 1; }); var off = VIS.off || {}; return VIS_CAT.filter(function (c) { return n[c[0]]; }).map(function (c) { return '<button type="button" class="' + (off[c[0]] ? 'off' : '') + '" data-vismc="' + c[0] + '" aria-pressed="' + !off[c[0]] + '"><i style="background:' + c[2] + '"></i>' + c[1] + ' (' + n[c[0]] + ')</button>'; }).join(''); }
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-vismc]'); if (!b) return; VIS.off = VIS.off || {}; VIS.off[b.dataset.vismc] = !VIS.off[b.dataset.vismc]; var m = visModel(), mp = visMapRows(m); var lg = $('visMleg'); if (lg) lg.innerHTML = visMlegHtml(mp); visMap(mp.filter(function (o) { return !VIS.off[visCat(o)]; })); });
   function visMap(rows) {
     var el = $('visMap'); if (!el) return;
     visLeaflet(function () {
       var el2 = $('visMap'); if (!el2 || !window.L) return; if (VIS.map) { try { VIS.map.remove(); } catch (e) {} VIS.map = null; }
       VIS.map = L.map(el2, { zoomControl: true }); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(VIS.map);
       var pts = [];
-      rows.forEach(function (o) { if (o.lat == null) return; var col = visDone(o.k) ? '#f59e0b' : visAda(o) ? '#0e9f6e' : o.b === 'YA' ? '#1a56db' : o.b === 'TIDAK' ? '#e02424' : '#9ca3af';
-        var m = L.circleMarker([o.lat, o.lng], { radius: visAda(o) ? 8 : 7, color: '#fff', weight: 1.5, fillColor: col, fillOpacity: .95 }).addTo(VIS.map);
+      rows.forEach(function (o) { if (o.lat == null) return; var ct = visCat(o), col = (VIS_CAT.filter(function (c) { return c[0] === ct; })[0] || ['', '', '#9ca3af'])[2];
+        var m = L.circleMarker([o.lat, o.lng], { radius: ct === 'w' || ct === 'ul' ? 9 : 7, color: '#fff', weight: 1.5, fillColor: col, fillOpacity: .95 }).addTo(VIS.map);
         m.bindPopup('<b>' + esc(o.n) + '</b><br><small>' + esc(o.k) + '</small><br>' + visBadges(o) + '<br><button type="button" class="adm-b ok" data-visopen="' + esc(o.k) + '">Pilih outlet ini</button> <a href="https://www.google.com/maps/dir/?api=1&destination=' + o.lat + ',' + o.lng + '" target="_blank" rel="noopener">Rute Google Maps ↗</a>');
         pts.push([o.lat, o.lng]); });
       if (pts.length) VIS.map.fitBounds(pts, { padding: [20, 20], maxZoom: 16 }); else VIS.map.setView([-2.5, 134], 6);
@@ -5833,15 +5932,15 @@
     if (ter && d.kondisi && d.izin !== 'SKIP') t = 'Kondisi ' + d.kondisi.toLowerCase() + ' · ' + t;
     return '<div class="vis-rv"><div><b>' + VIS_J[j].nama + '</b><span>' + esc(t) + '</span></div><button type="button" class="linkbtn" data-visgo="' + (j === 'PH' ? 0 : 1) + '">Ubah</button></div>'; }
   function visStatusSheet(sp, o, f, keep) { /* outlet sudah dikonfirmasi: status dulu, formulir hanya bila diminta */
-    var tg = f.tugas[o.k], lt = f.last[o.k], ro = f.canWrite === false, h = '<div class="vis-head"><div class="vis-bs">' + visBadges(o) + '</div>' + visTgInfo(tg) + '</div>';
-    if (!tg) h += '<div class="card fm-sec"><div class="o-sub">' + (visDone(o.k) ? 'Sudah dikonfirmasi' + (lt && lt.waktu ? ' ' + esc(fmtShort(String(lt.waktu).slice(0, 10))) : '') + '.' : 'Belum dikonfirmasi salesman.') + '</div></div>';
-    sheetFrame(o.n, esc(o.k) + (o.hari ? ' · ' + esc(o.hari) : ''), h, ro ? '<div class="o-sub">Hanya melihat.</div>' : '<button type="button" class="btn-ghost vis-wide" data-visedit="1">Isi konfirmasi baru</button><div class="fm-why">Mengisi lagi akan menambah data baru' + (tg && tg.status === 'BELUM SELESAI' ? ' dan memperbarui tugas MD' : '') + '.</div>', keep);
+    var tg = f.tugas[o.k], lt = f.last[o.k], ro = f.canWrite === false, stg0 = visStage(o), h = '<div class="vis-head"><div class="vis-bs">' + visBadges(o) + '</div>' + (stg0 === 'pasang' || (stg0 === 'tugas' && visCekDue(o)) ? visPasangInfo(o) : visTgInfo(tg)) + '</div>'; /* vis-4tahap */
+    if (!tg && !visPasang(o)) h += '<div class="card fm-sec"><div class="o-sub">' + (visDone(o.k) ? 'Sudah dikonfirmasi' + (lt && lt.waktu ? ' ' + esc(fmtShort(String(lt.waktu).slice(0, 10))) : '') + '.' : 'Belum dikonfirmasi salesman.') + '</div></div>';
+    sheetFrame(o.n, esc(o.k) + (o.hari ? ' · ' + esc(o.hari) : ''), h, ro ? '<div class="o-sub">Hanya melihat.</div>' : '<button type="button" class="' + (visCekDue(o) ? 'adm-done' : 'btn-ghost') + ' vis-wide" data-visedit="1">' + (visCekDue(o) ? '🔍 Cek kondisi sekarang' : visPasang(o) ? 'Cek kondisi / ajukan tambah PH' : 'Isi konfirmasi baru') + '</button><div class="fm-why">Mengisi lagi akan menambah data baru' + (tg && tg.status === 'BELUM SELESAI' ? ' dan memperbarui tugas MD' : '') + '.</div>', keep);
   }
   function visFormSheet(sp, keep) {
     if (sp.done) return visDoneSheet(sp, keep); /* laporan selesai tidak bergantung data daftar */
     var f = F('vis'), o = f && visO(sp.kode); if (!o) { closeSheet(); return; }
     var tg = f.tugas[o.k], ulang = !!(tg && tg.sb === 'ulang');
-    if (f.canWrite === false || (!sp.edit && !ulang && visDone(o.k))) return visStatusSheet(sp, o, f, keep); /* vis-alur: peran hanya-lihat TIDAK pernah membuka formulir (termasuk konfirmasi ulang) */
+    if (f.canWrite === false || (!sp.edit && !ulang && (visDone(o.k) || (visPasang(o) && !visCekDue(o))))) return visStatusSheet(sp, o, f, keep); /* vis-4tahap: terpasang & sudah dicek -> status + foto dulu */ /* vis-alur: peran hanya-lihat TIDAK pernah membuka formulir (termasuk konfirmasi ulang) */
     if (o.rm && !visDone(o.k) && !sp.full) return visQuickSheet(sp, o, f, keep); /* vis-mars */
     var v = sp.v || (sp.v = visNewV(o)), h = ''; if (!v.usulTanggal) v.usulTanggal = visNextPjp(o.hari, f.today); /* vis-flow: bawaan kunjungan PJP berikutnya */
     var steps = visSteps(v), s = sp.step || 0; if (steps.indexOf(s) < 0) s = sp.step = 3; var si = steps.indexOf(s);
@@ -5949,8 +6048,20 @@
       var one = function () { if (kk >= files.length || arr.length >= mx) { renderSheet(); return; } visCompress(files[kk++]).then(function (u) { if (u) arr.push(u); one(); }); }; one(); }
   });
   /* vis-flow: pemberitahuan Beranda salesman (baru dipasang 7 hari, jadwal diubah MD, perlu konfirmasi ulang) */
+  function visTodayCard() { /* vis-hari (12 Nov 2026, masukan user): sorotan tugas pajangan hari ini di Beranda DSR + daftar toko yang bisa langsung dibuka */
+    var hc = $('hariCard'), el = $('visToday'); if (!hc) return; var f = (S.role === 'DSR' && visAllowed()) ? F('vis') : null;
+    if (!f || !f.outlets) { if (el) el.hidden = true; return; } if (!el) { el = document.createElement('div'); el.id = 'visToday'; el.className = 'card'; hc.parentNode.insertBefore(el, hc.nextSibling); }
+    var L = f.outlets.filter(function (o) { var tg = f.tugas[o.k], s = visStage(o); return (s === 'tugas' && (visIsToday(o) || (tg && tg.sb === 'ulang'))) || (s === 'md' && tg && (tg.terlambat || tg.lama)); });
+    L.sort(function (a, b) { return (visRank(a) - visRank(b)) || String(a.n).localeCompare(String(b.n)); });
+    if (!L.length) { el.hidden = true; return; } el.hidden = false;
+    var n = { ul: 0, w: 0, a: 0, iz: 0, ck: 0, md: 0 }; L.forEach(function (o) { var tg = f.tugas[o.k], s = visStage(o); if (s === 'md') n.md++; else if (tg && tg.sb === 'ulang') n.ul++; else if (visCekDue(o)) n.ck++; else { var lv = visLvl(o); if (lv === 2) n.w++; else if (lv === 1) n.a++; else n.iz++; } });
+    var cnt = (n.ul ? '<span class="r">↩ ' + n.ul + ' konfirmasi ulang</span>' : '') + (n.w ? '<span class="r">' + n.w + ' tanya izin · Wajib</span>' : '') + (n.a ? '<span class="y">' + n.a + ' tanya izin · Anjuran</span>' : '') + (n.iz ? '<span>' + n.iz + ' tanya izin</span>' : '') + (n.ck ? '<span class="b">🔍 ' + n.ck + ' cek kondisi PH</span>' : '') + (n.md ? '<span class="r">⏰ ' + n.md + ' ingatkan MD</span>' : '');
+    var hot = n.ul + n.w + n.md > 0, hr = todayName() || ''; el.className = 'card' + (hot ? ' hot' : ''); el.innerHTML = '<div class="vt-h"><b>🪝 Tugas Pajangan hari ini</b><small>' + L.length + ' toko</small></div>' + '<div class="vt-warn" role="alert">⚠️ WAJIB dikerjakan saat kunjungan rute ' + esc(hr) + ' hari ini: tanya izin pasang, validasi rencana, dan cek kondisi PH di toko berikut.</div><div class="vt-cnt">' + cnt + '</div>' + L.slice(0, 5).map(function (o) { var a = visAksi(o); return '<button type="button" class="vt-row" data-visopen="' + esc(o.k) + '"><div><b>' + esc(o.n) + '</b><small>' + esc(a.ic + ' ' + a.t) + '</small></div>' + (a.b ? '<span class="vlv ' + a.b[1] + '">' + a.b[0] + '</span>' : '') + ICON_CHEV + '</button>'; }).join('') +
+      '<button type="button" class="vt-all" data-vtall="1">' + (L.length > 5 ? 'Lihat semua ' + L.length + ' toko ›' : 'Buka menu Pajangan ›') + '</button>';
+  }
+  document.addEventListener('click', function (e) { if (!(e.target.closest && e.target.closest('[data-vtall]'))) return; S.visTg = ''; S.visStage = 'tugas'; S.visSt = 'semua'; S.visBisa = 'semua'; S.visHariInit = false; goSeg('outlet', 'vis'); });
   function visHomeNote() {
-    var c = $('visHome'); if (!c) return; if (!(S.role === 'DSR' && visAllowed())) { c.hidden = true; return; } ensureF('vis'); var f = F('vis'); if (!f) { c.hidden = true; return; }
+    var c = $('visHome'); try { visTodayCard(); } catch (e0) {} if (!c) return; if (!(S.role === 'DSR' && visAllowed())) { c.hidden = true; return; } ensureF('vis'); var f = F('vis'); if (!f) { c.hidden = true; return; }
     var T = Object.keys(f.tugas).map(function (k) { return f.tugas[k]; }), wk = new Date((f.today || todayIso()) + 'T00:00:00'); wk.setDate(wk.getDate() - 7); var w7 = wk.toISOString().slice(0, 10);
     var ul = T.filter(function (t) { return t.sb === 'ulang'; }).length, ps = T.filter(function (t) { return t.sb === 'terpasang' && t.selesai >= w7; }).length, ub = T.filter(function (t) { return t.sb === 'jadwal' && t.alasanUbah; }).length, tl = T.filter(function (t) { return t.terlambat; }).length;
     var parts = []; if (ul) parts.push('<span class="vh-red">↩ ' + ul + ' perlu konfirmasi ulang</span>'); if (tl) parts.push('<span class="vh-red">🔴 ' + tl + ' terlambat dipasang</span>'); if (ub) parts.push('<span class="vh-blue">📅 ' + ub + ' jadwal diubah MD</span>'); if (ps) parts.push('<span class="vh-ok">✓ ' + ps + ' baru dipasang MD</span>');
@@ -6871,6 +6982,7 @@
   }
   function renderDss() {
     if (DVM()) { renderDssApp(); return; } /* dss-v2 / aasm-v3 */
+    if (S.role === 'AASM') setTimeout(function () { if (S.role === 'AASM' && !S.aasDv && $('dssScreen').style.display !== 'none') { DV.v = 'home'; dvNav(true); } }, 0); /* aasm-nav (12 Nov 2026, keputusan user): menu tetap tampil di Gabungan; Beranda = Ringkasan */
     var res = S.dss, el = $('dssBody'); if (!el) return;
     $('dssTitle').textContent = 'Ringkasan'; rtSync('dss', res ? 'ok' : S.dssLoading ? 'busy' : 'bad', res ? rtStamp(res.serverTime) : S.dssLoading ? 'Memuat…' : 'Gagal memuat');
     if (!res) { el.innerHTML = '<div class="empty">' + (S.dssLoading ? 'Memuat ringkasan DSS…' : 'Ringkasan belum dimuat.') + '</div>'; return; }
@@ -7081,8 +7193,14 @@
     /* adm-alur: tahap bernomor sesuai alur pendaftaran outlet + kelompok Lainnya (ob-manual + fm-client + rf-role) */
     var flow = [['waiting', d.waiting.length, 'Konfirmasi AASM', 'hanya lihat'], ['queue', d.queue.length, 'Input SND Pro', 'tugas Anda'], ['riwayat', nCheck, 'Cek hasil SND', 'tugas Anda']]; /* adm-nav: Daftar/Modifikasi/Status/Input manual = menu Admin */
     var admBtn = function (t, no) { var k = t[0] === 'queue' ? d.queue.filter(function (x) { return admIsNew(x, 'queue'); }).length : t[0] === 'waiting' ? d.waiting.filter(function (x) { return admIsNew(x, 'waiting'); }).length : 0; /* seg-seragam */
-      return '<button type="button" role="tab" class="seg-btn' + (no ? ' adm-step' : '') + (ADM.tab === t[0] ? ' active' : '') + '" data-admtab="' + t[0] + '" aria-selected="' + (ADM.tab === t[0]) + '">' + (no ? '<span class="adm-sn">' + no + '</span>' : '') + '<span class="adm-sl">' + t[2] + '<small>' + t[3] + '</small></span><b class="seg-n' + (t[0] !== 'waiting' && t[1] ? ' todo' : '') + '">' + t[1] + '</b>' + (k ? '<em class="adm-tnew">' + k + ' baru</em>' : '') + '</button>'; };
-    if (admNavKey() === 'snd') h += '<div class="adm-grpl">Alur pendaftaran outlet</div><div class="adm-tiles adm-seg adm-flow" role="tablist">' + flow.map(function (t, i) { return admBtn(t, i + 1); }).join('') + '</div>';
+      return '<button type="button" role="tab" class="seg-btn' + (no ? ' adm-step' + (t[0] === 'waiting' ? ' ro' : ' mine') : '') + (ADM.tab === t[0] ? ' active' : '') + '" data-admtab="' + t[0] + '" aria-selected="' + (ADM.tab === t[0]) + '">' + (no ? '<span class="adm-sn">' + no + '</span>' : '') + '<span class="adm-sl">' + t[2] + (no ? '<span class="adm-tg">' + (t[0] === 'waiting' ? '👁 hanya lihat' : '★ tugas Anda') + '</span>' : '<small>' + t[3] + '</small>') + '</span><b class="seg-n' + (t[0] !== 'waiting' && t[1] ? ' todo' : '') + '">' + t[1] + '</b>' + (k ? '<em class="adm-tnew">' + k + ' baru</em>' : '') + '</button>'; };
+    var INF = { snd: ['Proses SND', 'Tuntaskan pendaftaran outlet dari sales sampai terdaftar di SND Pro.', ['<b style="display:inline">Tahap 2 · Input SND Pro</b>: salin data outlet ke SND Pro, lalu tandai sudah diinput.', '<b style="display:inline">Tahap 3 · Cek hasil SND</b>: setelah AASM approve, tandai tuntas/ditolak dan isi kode &amp; nama outlet SND.']],
+      daftar: ['Daftar Outlet', 'Daftarkan outlet baru atas nama salesman (misalnya bila sales berhalangan). Pilih salesman, isi form, lalu kirim. Pengajuan masuk ke alur Proses SND seperti biasa.'],
+      mod: ['Modifikasi', 'Ajukan perubahan data outlet yang sudah terdaftar (nama, alamat, pemilik, dan lainnya) atas nama salesman. Pilih salesman, lalu pilih outletnya.'],
+      status: ['Status', 'Pantau semua pengajuan pendaftaran dan modifikasi: sudah sampai tahap mana dan bagaimana hasilnya. Pilih "Semua salesman" atau satu salesman.'],
+      manual: ['Outlet Manual', 'Catat outlet yang <b style="display:inline">sudah tuntas di SND Pro tetapi tidak lewat Pengajuan Outlet</b> (misalnya didaftarkan langsung di SND Pro). Isi kode &amp; nama outlet SND, salesman pemilik, dan tanggal tuntas, agar outlet ini ikut dipantau tim salesman di menu Outlet Baru.'] }[admNavKey()];
+    if (INF) h += '<div class="adm-info" role="note"><i aria-hidden="true">ℹ️</i><div><b>Di menu ' + INF[0] + '</b>' + INF[1] + (INF[2] ? '<ul>' + INF[2].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' : '') + '</div></div>'; /* adm-info */
+    if (admNavKey() === 'snd') h += '<div class="adm-grpl">Alur pendaftaran outlet · kotak oranye = tugas Anda</div><div class="adm-tiles adm-seg adm-flow" role="tablist">' + flow.map(function (t, i) { return admBtn(t, i + 1); }).join('') + '</div>';
     if (ADM.loading) h += '<div class="adm-note">Memperbarui…</div>';
     if (ADM.tab === 'queue') {
       h += '<div class="sec-title adm-st">Siap diinput ke SND Pro <small class="adm-sub">urut dari yang paling lama dikonfirmasi AASM</small></div>';
@@ -7108,7 +7226,7 @@
       if (lk.length) h += '<div class="sec-title adm-st">Tuntas, kode outlet belum diisi <small class="adm-sub">' + lk.length + ' outlet · isi agar outlet baru bisa dipantau</small></div>' + lk.map(function (r) { return admKdCard(r, 'lengkapi'); }).join('');
       if (done.length) h += '<div class="sec-title adm-st">Tuntas di SND Pro <small class="adm-sub">30 hari terakhir</small></div>' + done.map(function (r) { return admKdCard(r, 'done'); }).join('');
     }
-    $('admBody').innerHTML = h; admHeroAfter(); if (ADM.tab === 'mod') rfMount($('rfHost')); /* rf-role */ admNav(true); /* adm-nav */
+    $('admBody').innerHTML = h; swCheck(); /* sw-adm */ admHeroAfter(); if (ADM.tab === 'mod') rfMount($('rfHost')); /* rf-role */ admNav(true); /* adm-nav */
   }
   function admKdOk(k, n) { var c = String(k || '').replace(/[\s.\-]/g, ''); return /^\d{18}$/.test(c) && String(n || '').trim().length >= 3; } /* ob-client */
   function admKdForm(r, busy) {
@@ -7159,11 +7277,15 @@
         '<div class="adm-chips">' + (od >= 2 ? '<span class="gt warn">⏱ Sudah lebih dari 2 hari — dahulukan</span>' : '') + (begun ? '<span class="gt">✎ ' + begun + ' outlet sedang dikerjakan</span>' : '') + '</div></div>'
       : '<div class="hslide"><div class="hero-label">Antrean input SND Pro</div><div class="inc-row"><div class="inc-amt"><span class="adm-unit">Semua sudah diinput</span> 🎉</div></div><div class="adm-oldn">Outlet baru muncul di sini setelah AASM mengonfirmasi channel &amp; sales.</div></div>';
     var r = d.riwayat, tuntas = r.filter(function (x) { return !!x.tanggalKonfirmasiSnd; }).length, appr = r.filter(function (x) { return x.status === 'Diinput SND (Admin)'; }).length;
+    var nCk = r.filter(admNeedCheck).length, nLk = (d.lengkapi || []).length; /* adm-cek (12 Nov 2026): tugas cek hasil SND juga tampil di kartu biru */
+    var sC = '<div class="hslide"><div class="hero-label">Cek hasil SND Pro · tugas Anda</div><div class="inc-row"><div class="inc-amt">' + (nCk + nLk ? (nCk + nLk) + ' <span class="adm-unit">outlet perlu dicek</span>' : '<span class="adm-unit">Tidak ada yang perlu dicek</span> ✓') + '</div>' +
+      (nCk + nLk ? '<button class="inc-more" type="button" data-admtab="riwayat">Cek hasil <span aria-hidden="true">›</span></button>' : '') + '</div>' +
+      '<div class="adm-chips">' + (nCk ? '<span class="gt warn">✓ ' + nCk + ' sudah di-approve AASM · tandai tuntas/ditolak</span>' : '') + (nLk ? '<span class="gt">✎ ' + nLk + ' tuntas, kode outlet belum diisi</span>' : '') + (!nCk && !nLk ? '<span class="gt">Hasil muncul di sini setelah AASM meng-approve</span>' : '') + '</div></div>';
     var s2 = '<div class="hslide"><div class="hero-label">30 hari terakhir · diinput ke SND Pro</div><div class="inc-row"><div class="inc-amt">' + r.length + ' <span class="adm-unit">outlet</span></div></div>' +
       '<div class="adm-chips"><span class="gt">✓ ' + tuntas + ' tuntas di SND Pro</span><span class="gt">⏳ ' + appr + ' menunggu approval AASM</span></div></div>';
     var steps = [['Sales', 'mendaftarkan outlet'], ['AASM', 'konfirmasi channel & sales'], ['Admin', 'input ke SND Pro'], ['AASM', 'approval akhir'], ['Admin', 'cek hasil SND Pro']];
     var s3 = '<div class="hslide"><div class="hero-label">Alur pendaftaran outlet · tugas Anda disorot</div><ol class="adm-flow">' + steps.map(function (s, i) { return '<li class="' + (s[0] === 'Admin' ? 'me' : '') + '"><span>' + (i + 1) + '</span><b>' + s[0] + '</b> ' + s[1] + '</li>'; }).join('') + '</ol></div>';
-    return '<div class="hero adm-hero">' + hello + '<div class="hero-slides" id="admSlides">' + s1 + s2 + s3 + '</div><div class="hdots" id="admDots"></div></div>';
+    return '<div class="hero adm-hero">' + hello + '<div class="hero-slides" id="admSlides">' + s1 + sC + s2 + s3 + '</div><div class="hdots" id="admDots"></div></div>';
   }
   function admHeroAfter() {
     var tr = $('admSlides'), dots = $('admDots'); if (!tr || !dots) return; var n = tr.children.length, html = '';
@@ -7719,16 +7841,30 @@
     dots.addEventListener('click', function (e) { var b = e.target.closest('[data-dvdot]'); if (!b) return; DV.slide = Number(b.dataset.dvdot); tr.scrollTo({ left: DV.slide * tr.clientWidth, behavior: 'smooth' }); });
   }
   function dvWho(list, max) { if (!list.length) return ''; var sh = list.slice(0, max || 3); return '<div class="dv-who">' + sh.map(function (w) { return '<button type="button" data-dvp="' + esc(w[0]) + '"><b>' + esc(w[1]) + '</b><span>' + esc(w[2]) + '</span></button>'; }).join('') + (list.length > sh.length ? '<span class="dv-more">+' + (list.length - sh.length) + ' DSR lain</span>' : '') + '</div>'; }
-  function dvHome(D, M) { /* dss-v2d: ringkas per DSR */
-    var h = dvHero(D, M), pr = dvProblems(), wr = dvWarnings(), rows = dvRows(), fc = dvFocus(), qk = dvQuick(), tools = '', juN = '';
-    var jsn = S.aasSnap && Object.keys(S.aasSnap).map(function (k) { return S.aasSnap[k].dsrJuraganReg; }).filter(function (x) { return x && x.periodeUsul; })[0], jpu = jsn && jsn.periodeUsul; /* ju-countdown: DSS */
-    if (jpu && (jpu.open || jpu.status === 'AKAN')) juN = '<div class="dv-ju"><div class="adm-kdt">👥 Usulan peserta Juragan ' + (jpu.open ? 'dibuka' : 'segera dibuka') + '</div>' + juCountHtml(jpu) + '<div class="o-sub">Ajak DSR mengusulkan outlet SEMI SD (Peserta baru / Penggantian): lewat kartu “Juragan” di Beranda (pilih salesman > Usulan peserta).</div></div>';
+  function dvTools() { /* sn-tools: daftar Alat dipakai di Beranda (HP) & menu samping (laptop) */
+    var tools = '';
     if (S.role === 'DSS') tools += '<button type="button" class="rep-card dv-wab rf-card" data-dv="form"><span class="rc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3v5h5M12 11v6M9 14h6"/></svg></span><span class="rc-main"><b>Pengajuan Outlet</b><small>Daftar outlet baru · modifikasi · status (pilih salesman)</small></span><span class="rc-go">Buka</span></button>'; /* rf-role */
     if (S.role === 'DSS') tools += '<button type="button" class="rep-card dv-wab jrf-card" data-dv="jur"><span class="rc-ico" aria-hidden="true"><svg class="lic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="8" cy="9" r="1.4"/></svg></span><span class="rc-main"><b>Juragan</b><small>Registrasi outlet belum aktif · pengajuan perubahan data · usulan peserta (pilih salesman)</small></span><span class="rc-go">Buka</span></button>'; /* jr-role */
     if (S.role === 'DSS' && (S.roster || []).some(function (x) { return VIS_OK.indexOf(x.dist) >= 0; })) tools += '<button type="button" class="rep-card dv-wab visf-card" data-dv="vis"><span class="rc-ico" aria-hidden="true"><svg class="lic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6.5a2 2 0 1 1 2 2v2"/><path d="M12 10.5 3.6 16a1.1 1.1 0 0 0 .6 2h15.6a1.1 1.1 0 0 0 .6-2z"/></svg></span><span class="rc-main"><b>Konfirmasi Pajangan</b><small>PH & Standing Hanger · tugas pemasangan MD (pilih salesman)</small></span><span class="rc-go">Buka</span></button>'; /* vis-client */
     tools += '<button type="button" class="rep-card dv-wab" data-dvwa="1"><span class="rc-ico" aria-hidden="true"><svg class="lic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M4 14v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/></svg></span><span class="rc-main"><b>Laporan tim ke WhatsApp</b><small>Posisi KPI DSS, insentif, DSR perlu perhatian & fokus hari ini</small></span><span class="rc-go">Kirim</span></button>' +
       '<button type="button" class="rep-card dv-wab" data-dspopen="1"><span class="rc-ico" aria-hidden="true"><svg class="lic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 16-5-5L5 19"/></svg></span><span class="rc-main"><b>Laporan Display Pajangan</b><small>Foto sebelum dan sesudah dari field force</small></span><span class="rc-go"></span></button>' +
       '<button type="button" class="rep-card dv-wab" data-rptopen="1"><span class="rc-ico" aria-hidden="true"><svg class="lic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><span class="rc-main"><b>Laporan bulanan (PDF)</b><small>Semua KPI distributor &amp; tiap DSR · bulan berjalan atau bulan lalu</small></span><span class="rc-go">Unduh</span></button>';
+    return tools;
+  }
+  function snTools(html) { var n = $('dssNav'); if (!n) return; var t = n.querySelector('.sn-tools'); if (!t) { t = document.createElement('div'); t.className = 'sn-tools'; n.insertBefore(t, n.querySelector('.sn-foot')); } t.innerHTML = html ? '<div class="sn-tl">Alat</div>' + html : ''; }
+  function dvUntil(k) { /* br-info: tanggal data tiap KPI */
+    var D = dvD(), r = S.dss || {}, u = '';
+    if (k === 'om') u = r.dataUntil; else if (k === 'bp') u = (D && D.daily && D.daily.bpUntil) || r.dataUntil; else if (k === 'hy') u = r.hygDataUntil;
+    else if (k === 'pa' || k === 'pd') { var ids = Object.keys(S.aasSnap || {}); for (var i = 0; i < ids.length && !u; i++) { var p = S.aasSnap[ids[i]] && S.aasSnap[ids[i]].dsrPs; if (p) { var ku = p.kpiUntil; u = (ku && (k === 'pa' ? ku.A : ku.D)) || p.historyUntil || ''; } } }
+    else if (k === 'ps' && D) u = (dvAgg(D).until || {}).ps || '';
+    return u ? fmtShort(String(u).slice(0, 10)) : '';
+  }
+  function dvHome(D, M) { /* dss-v2d: ringkas per DSR */
+    var h = dvHero(D, M), pr = dvProblems(), wr = dvWarnings(), rows = dvRows(), fc = dvFocus(), qk = dvQuick(), tools = '', juN = '';
+    var jsn = S.aasSnap && Object.keys(S.aasSnap).map(function (k) { return S.aasSnap[k].dsrJuraganReg; }).filter(function (x) { return x && x.periodeUsul; })[0], jpu = jsn && jsn.periodeUsul; /* ju-countdown: DSS */
+    if (jpu && (jpu.open || jpu.status === 'AKAN')) juN = '<div class="dv-ju"><div class="adm-kdt">👥 Usulan peserta Juragan ' + (jpu.open ? 'dibuka' : 'segera dibuka') + '</div>' + juCountHtml(jpu) + '<div class="o-sub">Ajak DSR mengusulkan outlet SEMI SD (Peserta baru / Penggantian): lewat kartu “Juragan” di Beranda (pilih salesman > Usulan peserta).</div></div>';
+    tools = dvTools(); /* sn-tools */
+    if (tools) h += '<div class="dv-tools-sec"><div class="sec-title adm-st">Alat</div><div class="tool-grid">' + tools + '</div></div>'; /* sn-tools: HP di atas */
     if (fc.length) h += '<div class="sec-title adm-st"><span class="dv-stt">Fokus hari ini ' + infoBtn('dvfocus') + '</span><small class="adm-sub">maksimal 3 tindakan, mulai dari atas</small></div><div class="card dv-focus">' + fc.map(function (f, i) { return '<button type="button" class="dv-fi" data-dvp="' + esc(f.id) + '" data-dvk="' + esc(f.k) + '"><span class="dv-fn">' + (i + 1) + '</span><div><b>' + esc(f.verb) + ' ' + esc(f.nm) + '</b><span>' + esc(f.txt) + '</span><small>' + esc(f.why) + '</small></div><span class="dv-chev" aria-hidden="true">›</span></button>'; }).join('') + '</div>';
     h += juN;
     h += '<div class="sec-title adm-st"><span class="dv-stt">Radar masalah ' + infoBtn('dvradar') + '</span><small class="adm-sub">KPI DSS yang belum di slab tertinggi · dampak terbesar di atas</small></div>';
@@ -7738,11 +7874,17 @@
     var wBy = {}, team = []; wr.forEach(function (w) { if (w.id) (wBy[w.id] = wBy[w.id] || []).push(w.t); else team.push(w.t); });
     var need = rows.filter(function (x) { return x.s.lab !== 'ok' || wBy[x.r.id]; }).sort(function (a, b) { return b.s.x - a.s.x || (wBy[b.r.id] ? 1 : 0) - (wBy[a.r.id] ? 1 : 0); });
     if (team.length) h += '<div class="card dv-warn"><b>⚠️ ' + esc(team.join(' · ')) + '</b></div>';
-    if (need.length) h += '<div class="sec-title adm-st">DSR yang perlu dibantu <small class="adm-sub">semua masalah tiap DSR dalam satu kartu</small></div>' + need.map(function (x) { var lb = DV_LAB[x.s.lab], chips = [];
-      DV_KPI.forEach(function (k) { var v = x.s[k[0]]; if (!v || v.st === 'ok') return; chips.push('<span class="dv-k ' + v.st + '"><i>' + dvIco(v.st) + '</i>' + k[1] + ' ' + esc(k[0] === 'om' ? v.txt + (v.gap ? ' · kurang ' + rpShort(v.gap) : '') : k[0] === 'bp' ? v.txt + (v.gap ? ' · kurang ' + v.gap : '') : k[0] === 'hy' ? v.txt : v.txt + (v.gap ? ' · kurang ' + v.gap : '')) + '</span>'); });
-      (wBy[x.r.id] || []).forEach(function (t) { chips.push('<span class="dv-k warn"><i>!</i>' + esc(t) + '</span>'); });
-      return '<button type="button" class="card dv-dsr" data-dvp="' + esc(x.r.id) + '"><div class="dv-rn"><b>' + esc(dispName(x.r)) + '</b><span class="dv-lab ' + lb[1] + '">' + lb[0] + '</span></div><div class="dv-mx">' + chips.join('') + '</div><div class="dv-rf dv-rfb"><span>' + x.s.okN + ' dari 5 KPI tercapai</span><span class="adm-go">Buka 1-on-1 ›</span></div></button>'; }).join('');
-    if (tools) h += '<div class="sec-title adm-st">Alat</div><div class="tool-grid">' + tools + '</div>';
+    var wdH = dvWd(), tfH = wdH ? wdH.tf : 0; /* dv-dsr2: Omset & BP dinilai terhadap laju waktu, bukan slab bawah */
+    if (need.length) h += '<div class="sec-title adm-st">DSR yang perlu dibantu <small class="adm-sub">KPI yang belum aman · Omset &amp; BP dibanding laju waktu ' + p1(tfH) + '</small></div>' + need.map(function (x) { var lb = DV_LAB[x.s.lab], rws = [];
+      ['bad', 'wait'].forEach(function (want) { DV_KPI.forEach(function (k) { var v = x.s[k[0]]; if (!v || v.st !== want) return; var kv, kg;
+        if (k[0] === 'om') { kv = v.txt + ' <small>laju ' + p1(tfH * 0.97) + '</small>'; kg = v.gap ? 'kurang ' + rpShort(v.gap) : ''; }
+        else if (k[0] === 'bp') { kv = v.txt + ' <small>laju ' + p1(tfH) + '</small>'; kg = v.gap ? 'kurang ' + v.gap.toLocaleString('id-ID') + ' bill' : ''; }
+        else if (k[0] === 'pa') { kv = esc(v.txt) + ' <small>outlet</small>'; kg = v.gap ? 'kurang ' + v.gap + ' ke ' + Math.round(v.to * 100) + '%' : ''; }
+        else if (k[0] === 'pd') { kv = esc(v.txt) + ' <small>outlet</small>'; kg = v.gap ? 'kurang ' + v.gap + ' ke 40%' : ''; }
+        else { kv = esc(v.txt); kg = 'belum hygiene'; }
+        rws.push('<div class="dv-kr ' + v.st + '"><i aria-hidden="true">' + dvIco(v.st) + '</i><span class="kn">' + k[1] + '</span><span class="kv">' + kv + '</span><span class="kg">' + esc(kg) + '</span></div>'); }); });
+      var wn = (wBy[x.r.id] || []).map(function (t) { return '<div class="dv-wn">⚠️ ' + esc(t) + '</div>'; }).join('');
+      return '<button type="button" class="card dv-dsr" data-dvp="' + esc(x.r.id) + '"><div class="dv-rn"><b>' + esc(dispName(x.r)) + '</b><span class="dv-lab ' + lb[1] + '">' + lb[0] + '</span></div>' + (rws.length ? '<div class="dv-kl">' + rws.join('') + '</div>' : '') + wn + '<div class="dv-rf dv-rfb"><span>' + x.s.okN + ' dari 5 KPI tercapai</span><span class="adm-go">Buka 1-on-1 ›</span></div></button>'; }).join('');
     return h;
   }
   function dvRowHtml(x) {
@@ -8560,9 +8702,9 @@
       '<div class="adm-acts"><button type="button" class="adm-b ghost" data-manedit="' + esc(r.id) + '" ' + (busy ? 'disabled' : '') + '>✎ Edit</button><button type="button" class="adm-b bad' + (c2 ? ' confirm' : '') + '" data-mandel="' + esc(r.id) + '" ' + (busy ? 'disabled' : '') + '>' + (busy ? 'Menghapus…' : c2 ? 'Ketuk lagi: yakin hapus' : '✕ Hapus') + '</button></div></div>';
   }
   function manListHtml(list, from) {
-    var h = '<div class="sec-title adm-st">Outlet input manual <small class="adm-sub">tuntas di SND tanpa lewat Pengajuan Outlet · 6 bulan terakhir · langsung dipantau di Outlet Baru</small></div>';
+    var h = '<div class="sec-title adm-st">Outlet tuntas di luar Pengajuan Outlet <small class="adm-sub">dicatat manual · 6 bulan terakhir · ikut dipantau di Outlet Baru</small></div>'; /* adm-info: judul lebih jelas */
     if (from === 'adm') h += '<button type="button" class="adm-done man-add" data-manadd="1">＋ Tambah outlet manual</button>';
-    return h + (list.length ? list.map(function (r) { return manCard(r, from); }).join('') : '<div class="empty">Belum ada outlet input manual' + (from === 'adm' ? '. Pakai tombol di atas bila outlet sudah tuntas di SND Pro tetapi tidak didaftarkan lewat Pengajuan Outlet.' : '.') + '</div>');
+    return h + (list.length ? list.map(function (r) { return manCard(r, from); }).join('') : '<div class="empty">Belum ada outlet yang dicatat manual.</div>');
   }
   function manOk(v) { var c = String(v.kode || '').replace(/[\s.\-]/g, ''); return /^\d{18}$/.test(c) && String(v.nama || '').trim().length >= 3 && !!v.sales && /^\d{4}-\d{2}-\d{2}$/.test(v.tanggal || ''); }
   function renderManSheet(sp, keep) {
@@ -8903,11 +9045,13 @@
     if (DV.v === 'form' && S.role === 'DSS') { h += '<div id="rfHost"></div>'; el.innerHTML = h; dvNav(true); rfMount($('rfHost')); return; } /* rf-role */
     if (DV.v === 'stock') { h += '<div id="dvStockHost"></div>'; el.innerHTML = h; dvNav(true); var sb = $('stockBody'); $('dvStockHost').appendChild(sb); if (!S.as && D.dsr.length) S.as = D.dsr[0].id; ensureF('stock'); sb.innerHTML = F('stock') ? stockShell() : stateMsg('stock', 'stok'); if (F('stock') && F('stock').available) paintStokList(); return; }
     if (DV.v === 'brief') h += dvBrief(res, D); else if (DV.v === 'home') h += dvHome(D, M); else if (DV.v === 'target') h += dvTarget(D, M); else if (DV.v === 'tim') h += dvTim(); else h += dvIns(D, M);
-    el.innerHTML = h; dvHeroAfter(); dvNav(true);
+    el.innerHTML = h; dvHeroAfter(); dvNav(true); swCheck(); /* sw-adm */
   }
+  function dvNavTools() { snTools(S.dss && (S.role !== 'AASM' || S.aasDv) ? dvTools() : ''); var n = $('dssNav'); if (n) Array.prototype.forEach.call(n.querySelectorAll('.sn-tools [data-dv]'), function (b) { b.classList.toggle('active', b.dataset.dv === DV.v); }); }
   function dvNav(show) {
     var n = $('dssNav'); if (!n) return; n.style.display = show ? 'flex' : 'none'; document.body.classList.toggle('has-nav', !!show); document.body.classList.toggle('dt-dss', !!show && document.body.classList.contains('dt-peran')); /* mode-desktop: menu samping kiri DSS/AASM */
     Array.prototype.forEach.call(n.querySelectorAll('[data-dvv]'), function (b) { b.classList.toggle('active', b.dataset.dvv === DV.v); });
+    if (show) dvNavTools(); /* sn-tools */
   }
   function dvLater() { // insentif & foto DSR datang satu per satu -> segarkan tampilan tanpa mengganggu ketikan
     clearTimeout(dvLater._t); dvLater._t = setTimeout(function () { if (!VW() || $('dssScreen').style.display !== 'block') return; if (!DVM()) { var y0 = window.scrollY; renderDss(); window.scrollTo(0, y0); if (S.sheet && S.sheet.type === 'dssdsr') renderSheet(); return; } dvArsNext(); if (DV.v === 'form') return; if (DV.v === 'jur' || DV.v === 'vis') { if (!JRF.as && DV.v === 'jur') jrfRepaint(); return; } /* jr-role: ringkasan diperbarui saat foto DSR masuk */ if (DV.v === 'tim' && DV.tv !== 'rank' && DV.tv !== 'r2g') dvTimRefresh(); else renderDssApp(); if (S.sheet && S.sheet.type === 'dssdsr') renderSheet(); }, 300);
@@ -8922,17 +9066,19 @@
     var pc = function (a, b) { return b > 0 ? a / b : 0; }, ph = function (v) { return left ? v / left : 0; }, nf = function (n) { return Math.round(Number(n) || 0).toLocaleString('id-ID'); }, bar = function (p) { return '<div class="br-bar"><i style="width:' + Math.min(100, Math.round(p * 100)) + '%"></i></div>'; };
     var kS = Math.max(0, T.st - T.sa), kB = Math.max(0, T.bt - T.ba), kA40 = Math.max(0, Math.ceil(0.4 * T.n - 1e-9) - T.a), kA60 = Math.max(0, Math.ceil(0.6 * T.n - 1e-9) - T.a), kD = Math.max(0, Math.ceil(0.4 * T.n - 1e-9) - T.d);
     var nm = B.sm ? dispName((rows[0] || {}).r || {}) : 'Tim ' + (D.name || '');
-    var Ld = dvAgg(D), h = dvLoadNote(Ld) + '<div class="br-top"><div><h3>📊 Dashboard · ' + esc(nm) + '</h3><small>Data s.d. ' + esc(fdShortDate(res.dataUntil) || '-') + ' · laju waktu ' + p1(tf) + ' · sisa ' + left + ' hari kerja · ' + (Ld.n < Ld.m ? '<span class="br-ld wait">⏳ Memuat ' + Ld.n + '/' + Ld.m + ' DSR</span>' : '<span class="br-ld ok">✅ ' + Ld.m + '/' + Ld.m + ' DSR termuat</span>') + '</small></div></div>'; /* tanda lengkap data DSR (selalu tampil) */
+    var Ld = dvAgg(D), h = dvLoadNote(Ld) + '<div class="br-top"><div><h3>📊 Dashboard · ' + esc(nm) + '</h3><small>' + (Ld.n < Ld.m ? '<span class="br-ld wait">⏳ Memuat ' + Ld.n + '/' + Ld.m + ' DSR</span>' : '<span class="br-ld ok">✅ ' + Ld.m + '/' + Ld.m + ' DSR termuat</span>') + '</small></div>' + /* br-info */
+      '<div class="br-info"><div class="bi"><span class="bi-l">Laju waktu</span><b>' + p1(tf) + '</b><small>' + (wd ? 'hari kerja ke-' + wd.run + ' dari ' + wd.total : '-') + '</small></div><div class="bi"><span class="bi-l">Sisa hari kerja</span><b>' + left + ' hari</b><small>sampai akhir bulan</small></div>' +
+      '<div class="bi bi-d"><span class="bi-l">Data s.d. (per KPI)</span><ul>' + [['om', 'Omset'], ['bp', 'BP'], ['pa', 'Availability'], ['pd', 'Digitization'], ['hy', 'Hygiene']].map(function (x) { return '<li>' + x[1] + ' <b>' + esc(dvUntil(x[0]) || '-') + '</b></li>'; }).join('') + '</ul></div></div></div>'; /* tanda lengkap data DSR (selalu tampil) */
     h += '<div class="br-fil"><select id="brSm" aria-label="Pilih salesman"><option value="">Semua salesman (' + D.dsr.length + ')</option>' + D.dsr.map(function (r) { return '<option value="' + esc(r.id) + '"' + (B.sm === r.id ? ' selected' : '') + '>' + esc(dispName(r)) + '</option>'; }).join('') + '</select>' +
       '<label class="br-sw"><input type="checkbox" id="brIns"' + (B.ins ? ' checked' : '') + '> Tampilkan insentif DSR</label><button type="button" data-brfull="1">⛶ Layar penuh</button></div>';
-    var k = function (key, l, v, st, abs, basis, sub, b) { return '<button type="button" class="br-k ' + st + (B.sort === key || B.sort === key + 'h' ? ' on' : '') + '" data-brk="' + key + '" title="Ketuk: urutkan tabel menurut ' + l + '"><span class="bk-l">' + l + '</span><span class="bk-v">' + v + '</span><span class="bk-a">' + abs + '</span>' + (b || '') + '<span class="bk-b">' + basis + '</span><span class="bk-s">' + sub + '</span></button>'; };
+    var k = function (key, l, v, st, abs, basis, sub, b) { return '<button type="button" class="br-k ' + st + (B.sort === key || B.sort === key + 'h' ? ' on' : '') + '" data-brk="' + key + '" title="Ketuk: urutkan tabel menurut ' + l + '"><span class="bk-l">' + l + '</span>' + (dvUntil(key) ? '<span class="bk-d">Data s.d. ' + esc(dvUntil(key)) + '</span>' : '') + '<span class="bk-v">' + v + '</span><span class="bk-a">' + abs + '</span>' + (b || '') + '<span class="bk-b">' + basis + '</span><span class="bk-s">' + sub + '</span></button>'; };
     var pS = pc(T.sa, T.st), pB = pc(T.ba, T.bt), pA = pc(T.a, T.n), pD = pc(T.d, T.n), A = !B.sm ? dvAgg(D) : null, P = A && A.n === A.m && A.ps && A.ps.out ? A.ps : null;
     h += '<div class="br-kpis">' +
       k('om', 'Omset (SSV)', p1(pS), brSt(pS, tf), rupiah(T.sa) + '<br>dari ' + rupiah(T.st), 'Dasar: target omset DSR 100%', kS ? 'Kurang <b>' + rupiah(kS) + '</b><br><b>' + rupiah(ph(kS)) + '/hari</b>' : '✅ Target tercapai', bar(pS)) +
       k('bp', 'Bills Productivity', p1(pB), brSt(pB, tf), nf(T.ba) + ' dari ' + nf(T.bt) + ' bill', 'Dasar: target bill DSR 100%', kB ? 'Kurang <b>' + nf(kB) + ' bill</b> · <b>' + nf(Math.ceil(ph(kB))) + '/hari</b>' : '✅ Target tercapai', bar(pB)) +
       k('pa', 'Availability', p1(pA), pA >= 0.6 ? 'ok' : pA >= 0.4 ? 'wait' : 'bad', nf(T.a) + ' dari ' + nf(T.n) + ' outlet panel PS', 'Batas: 40% slab bawah · 60% slab atas', kA40 ? 'Kurang <b>' + nf(kA40) + ' outlet</b> ke 40% · ' + nf(kA60) + ' ke 60%' : kA60 ? 'Kurang <b>' + nf(kA60) + ' outlet</b> ke 60%' : '✅ Sudah 60%', bar(pA / 0.6)) +
       k('pd', 'Digitization', p1(pD), pD >= 0.4 ? 'ok' : 'bad', nf(T.d) + ' dari ' + nf(T.n) + ' outlet panel PS', 'Batas: 40% dari outlet panel', kD ? 'Kurang <b>' + nf(kD) + ' outlet</b> ke 40%' : '✅ Sudah 40%', bar(pD / 0.4)) +
-      (!B.sm ? '<div class="br-k ' + (P ? (P.perfect >= P.need ? 'ok' : 'bad') : '') + '"><span class="bk-l">Perfect Store</span><span class="bk-v">' + (P ? p1(pc(P.perfect, P.out)) : '…') + '</span><span class="bk-a">' + (P ? nf(P.perfect) + ' dari ' + nf(P.out) + ' outlet panel' : 'Memuat data outlet…') + '</span>' + (P ? bar(pc(P.perfect, P.need)) : '') + '<span class="bk-b">Target tim: ' + Math.round(((P && P.tgtPct) || 0.5) * 100) + '% outlet panel perfect</span><span class="bk-s">' + (P ? (P.perfect >= P.need ? '✅ Target tercapai' : 'Kurang <b>' + nf(P.need - P.perfect) + ' outlet perfect</b>') : '') + '</span></div>' : '') +
+      (!B.sm ? '<div class="br-k ' + (P ? (P.perfect >= P.need ? 'ok' : 'bad') : '') + '"><span class="bk-l">Perfect Store</span>' + (dvUntil('ps') ? '<span class="bk-d">Data s.d. ' + esc(dvUntil('ps')) + '</span>' : '') + '<span class="bk-v">' + (P ? p1(pc(P.perfect, P.out)) : '…') + '</span><span class="bk-a">' + (P ? nf(P.perfect) + ' dari ' + nf(P.out) + ' outlet panel' : 'Memuat data outlet…') + '</span>' + (P ? bar(pc(P.perfect, P.need)) : '') + '<span class="bk-b">Target tim: ' + Math.round(((P && P.tgtPct) || 0.5) * 100) + '% outlet panel perfect</span><span class="bk-s">' + (P ? (P.perfect >= P.need ? '✅ Target tercapai' : 'Kurang <b>' + nf(P.need - P.perfect) + ' outlet perfect</b>') : '') + '</span></div>' : '') +
       k('hy', 'Hygiene', T.hyN ? p1(pc(T.hy, T.hyN)) : '-', T.hyN && T.hy === T.hyN ? 'ok' : 'bad', nf(T.hy) + ' dari ' + nf(T.hyN) + ' DSR', 'Dasar: status HYGIENE tiap DSR', T.hyN - T.hy ? '<b>' + (T.hyN - T.hy) + ' DSR</b> belum hygiene' : '✅ Semua hygiene') + '</div>';
     // tabel kekurangan per salesman (urut per KPI, kolom aktif disorot)
     var ins = B.ins, kss = function (r) { return Math.max(0, ((r.ss || {}).target || 0) - ((r.ss || {}).actual || 0)); }, kbp = function (r) { return Math.max(0, ((r.bp || {}).target || 0) - ((r.bp || {}).actual || 0)); }, pr = function (o) { return o ? o.pct : 9; };
@@ -8993,7 +9139,7 @@
   document.addEventListener('input', function (e) { if (e.target && e.target.id === 'dspQ') { DSP.q = e.target.value; DSP.shown = 20; S.sheet.dspFokus = true; renderSheet(); dspCari(); } });
   document.addEventListener('change', function (e) { if (e.target && e.target.id === 'dspBulan') { DSP.bulan = e.target.value; DSP.shown = 20; DSP.tgl = ''; DSP.wa = ''; DSP.open = null; DSP.d = null; renderSheet(); dspLoad(); } if (e.target && e.target.id === 'dspTgl') { DSP.tgl = e.target.value; DSP.shown = 20; renderSheet(); } if (e.target && e.target.id === 'dspWa') { DSP.wa = e.target.value; DSP.shown = 20; renderSheet(); } });
   /* /dsp */
-  $('dssNav').addEventListener('click', function (e) { var b = e.target.closest('[data-dvv]'); if (b) { navClear(); filtersReset(); /* filter-reset: seragam dgn DSR */ dvGo(b.dataset.dvv); } });
+  $('dssNav').addEventListener('click', function (e) { var tl = e.target.closest('.sn-tools [data-dv], .sn-tools [data-dvwa]'); if (tl) { if (S.sheet) closeSheet(); if (tl.hasAttribute('data-dvwa')) { var D0 = dvD(); window.open('https://wa.me/?text=' + encodeURIComponent(dvTeamReport(D0, dvMoney(D0))), '_blank'); } else { navMarkDv(); dvGo(tl.dataset.dv); } return; } /* sn-tools */ var b = e.target.closest('[data-dvv]'); if (b) { navClear(); filtersReset(); /* filter-reset: seragam dgn DSR */ if (S.role === 'AASM' && !S.aasDv) { if (b.dataset.dvv === 'home') { renderDss(); window.scrollTo(0, 0); } else aasEnter(S.dssI || 0, b.dataset.dvv); return; } /* aasm-nav: dari Gabungan, menu lain membuka distributor terpilih/pertama */ dvGo(b.dataset.dvv); } });
   $('dssBody').addEventListener('click', function (e) {
     if (!DVM()) return;
     var p = e.target.closest('[data-dvp]'); if (p) { openSheet({ type: 'dssdsr', id: p.dataset.dvp, k: p.dataset.dvk || '' }); return; }
@@ -9094,10 +9240,11 @@
           if ($('rememberMe').checked || fromRemembered) { ls('set', K_CODE, code); ls('set', K_REM, '1'); }
           else { ls('remove', K_CODE); ls('remove', K_REM); }
           ssn('set', K_SES, code); var rv = (fromRemembered || fromSes) ? ssn('get', K_VIEW) : '';
-          showDashboard(res); if (rv && rv !== 'beranda' && S.role === 'DSR' && VIEWS[rv]) S.restoreView = rv;
+          showDashboard(res); if (SW.want && SW.from && res.role !== SW.want) { swBack('Kode tersebut bukan kode akses ' + (SW.want === 'ADMIN' ? 'Admin SND' : 'DSS') + '.'); return; } /* sw-adm */ if (rv && rv !== 'beranda' && S.role === 'DSR' && VIEWS[rv]) S.restoreView = rv;
         } else {
           if (fromRemembered) { ls('remove', K_CODE); ls('remove', K_REM); }
           if (fromSes || fromRemembered) ssn('remove', K_SES);
+          if (SW.want && SW.from) { swBack('Kode akses ' + (SW.want === 'ADMIN' ? 'Admin SND' : 'DSS') + ' tidak dikenali.'); return; } /* sw-adm */
           showLogin(); showError((res && res.error) || 'Gagal masuk. Coba lagi.');
         }
       })
