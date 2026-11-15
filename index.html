@@ -1686,6 +1686,39 @@
   /* nb-ruang: saat bilah Kembali tampil, semua layar (DSR body, DSS, Admin, Pengajuan AASM) diberi ruang bawah = menu + bilah; Detail KPI (bilah inline) tetap dikecualikan */ body.has-nb { padding-bottom: var(--nbpad, 150px) !important; } body.has-nb #dssScreen, body.has-nb #admScreen, body.has-nb #fdaScreen { padding-bottom: var(--nbpad, 150px) !important; } body:has(.dv-nbk).has-nb, body:has(.dv-nbk).has-nb #dssScreen { padding-bottom: 120px !important; }
   /* lmt-utuh */ .lmt-q .lmt-qt { margin-top: 8px; } .lmt-tr span { min-width: 0; } .lmt-tr b { font-size: 14px; } .lmt-tr.ins span, .lmt-tr.ins b { color: #134F7E; font-weight: 700; } .lmt-tr .infoi { margin-left: 4px; vertical-align: middle; } @media (max-width: 360px) { .lmt-tr { padding: 7px 10px; font-size: 13px; } .lmt-tr b { font-size: 13.5px; } }
   .lmt-tr.ins span { white-space: nowrap; display: inline-flex; align-items: center; }
+
+  /* ===== hero-ringkas (16 Nov 2026, keputusan user lewat mockup) ===== */
+  /* Pesan Penting (semua layar): ikon otomatis, pesan singkat huruf normal, semua kartu sama tinggi & tombol "Lihat detail" di posisi yang sama */
+  #dsrHero .hs-peng { display: flex; flex-direction: column; }
+  #dsrHero .hs-peng .pg-card { flex: 1 1 auto; position: relative; padding: 12px 14px 54px; border-radius: 18px; }
+  #dsrHero .hs-peng .pg-ico { float: right; width: 44px; height: 44px; margin: 0 0 6px 10px; border-radius: 14px; background: #0F172A; color: #FFCE1F; display: flex; align-items: center; justify-content: center; }
+  #dsrHero .hs-peng .pg-ico svg { width: 25px; height: 25px; }
+  #dsrHero .hs-peng .pg-badge { font-size: 10px; padding: 3px 9px; margin-bottom: 6px; }
+  #dsrHero .hs-peng .pg-t { font-size: 18px; line-height: 1.15; margin: 0 0 4px; }
+  #dsrHero .hs-peng .pg-i { font-size: 13.5px; line-height: 1.45; font-weight: 400; color: #0F172A; }
+  #dsrHero .hs-peng .pg-more { position: absolute; left: 14px; bottom: 12px; display: inline-block; width: auto; margin: 0; padding: 7px 14px; font-size: 12.5px; }
+  /* Bilah Periode Aktif: tetap selebar layar, 1 baris tipis */
+  .past-sel.aktif { min-height: 0; padding: 7px 14px; gap: 10px; border-radius: 14px; }
+  .past-sel.aktif .past-v { flex-direction: row; align-items: baseline; gap: 8px; }
+  .past-sel.aktif .past-v small { font-size: 10.5px; } .past-sel.aktif .past-v b { font-size: 15px; }
+  .past-sel.aktif .past-dot { flex-basis: 9px; width: 9px; height: 9px; box-shadow: 0 0 0 4px rgba(52,211,153,.28); }
+  /* HP & tablet: kartu lain dipadatkan (isi tetap), petunjuk "Geser untuk info lainnya" disembunyikan (titik tetap) */
+  @media (max-width: 1023px) {
+    #dsrHero .hello { font-size: 18px; margin-bottom: 10px; }
+    #dsrHero .hslide { min-height: 0; }
+    #dsrHero .hslide > .hero-label, #dsrHero .hero-label#incLabel, #dsrHero .hero-label#todayLabel2 { font-size: 11.5px; margin: 0 0 6px; line-height: 1.3; }
+    #dsrHero .hero-label #kpiLeg, #dsrHero .hero-label #kpiLeg2 { display: inline; margin: 0 0 0 6px; font-size: 11px; }
+    #dsrHero .tf-bar { margin-bottom: 4px; }
+    #dsrHero .kpi-grid { gap: 6px; margin-top: 4px; }
+    #dsrHero .kt { padding: 6px 8px 5px; border-radius: 12px; }
+    #dsrHero .kt small { font-size: 11px; } #dsrHero .kt b { font-size: 18px; line-height: 1.1; } #dsrHero .kt em { font-size: 10.5px; line-height: 1.2; }
+    #dsrHero .kt.syarat { padding: 6px 10px; }
+    #dsrHero .inc-amt { font-size: 32px; margin: 0 0 6px; }
+    #dsrHero .hero-meta { margin-top: 6px; padding: 4px 10px; font-size: 13px; }
+    #dsrHero #incPay .pbi { padding: 6px 10px; } #dsrHero #incPay b { font-size: 15px; }
+    #dsrHero .today-rows { gap: 6px; margin-top: 4px; }
+    #dsrHero .hero-hint { display: none; } #dsrHero .hdots { margin-top: 8px; }
+  }
 </style>
 </head>
 <body>
@@ -1731,7 +1764,7 @@
   <!-- BERANDA -->
   <section class="view" id="view-beranda">
     <div class="past-pick" id="pastPick" hidden></div>
-    <div class="hero">
+    <div class="hero" id="dsrHero">
       <div class="hello"><span id="helloName"></span><small id="helloSub"></small></div>
       <div class="hero-slides" id="heroSlides">
         <div class="hslide">
@@ -2705,6 +2738,21 @@
     renderChips(); renderList(); renderHomeResults(); showView('checklist');
     if (!has) toast('Tidak ada outlet terjadwal hari ini. Menampilkan semua rute.');
   });
+  /* hero-ringkas (16 Nov 2026, keputusan user): ikon kartu Pesan Penting dipilih OTOMATIS dari isi pesan / halaman tujuan (AASM tidak perlu memilih) */
+  var PENG_IC = {
+    ph: '<path d="M12 8a2.2 2.2 0 1 1 2.2-2.2"/><path d="M12 8v1.2L3.3 15.4A1 1 0 0 0 3.9 17h16.2a1 1 0 0 0 .6-1.6L12 9.2"/><path d="M9 20h6"/>',
+    ps: '<path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M12 13l1 2 2 .3-1.5 1.4.4 2.1L12 17.8l-1.9 1 .4-2.1L9 15.3l2-.3z"/>',
+    ins: '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M16 15h2"/>',
+    umum: '<path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/>'
+  };
+  function pengIcoKey(p) {
+    var t = (String(p.judul || '') + ' ' + String(p.isi || '') + ' ' + String(p.tujuan || '')).toLowerCase();
+    if (/hanger|\bph\b|pajangan|pasang|display|visibility/.test(t) && !/perfect|kpi/.test(String(p.judul || '').toLowerCase())) return 'ph';
+    if (/perfect|kpi|availab|visib|digiti/.test(t)) return 'ps';
+    if (/insentif|jasper|hygiene|r2g|\brp\b|bonus|uang/.test(t)) return 'ins';
+    return 'umum';
+  }
+  function pengIco(p) { return '<span class="pg-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + PENG_IC[pengIcoKey(p)] + '</svg></span>'; }
   // ===== BANNER BERANDA DSR (peng-banner, 14 Nov 2026): kartu insentif/KPI/hari ini + PESAN PENTING dari AASM (+ "Klik di sini untuk lebih detail") + TIPS, bergulir sendiri =====
   var HERO = { last: Date.now(), ms: 6000 };
   document.addEventListener('click', function (e) { var x = e.target.closest && e.target.closest('[data-vtipx]'); if (!x) return; try { localStorage.setItem('rs_vtip', '1'); } catch (er) {} var t = $('visitTip'); if (t) t.hidden = true; }); /* visit-tip: tutup petunjuk Mode Kunjungan di Target */
@@ -2746,8 +2794,8 @@
     if (tr.dataset.pk === key) return; tr.dataset.pk = key;
     Array.prototype.slice.call(tr.querySelectorAll('.hs-dyn')).forEach(function (x) { x.remove(); });
     var first = tr.children[0], html = P.map(function (p) {
-      var more = (PENG_GO[p.tujuan] || p.detail || pengSafeUrl(p.url)) ? '<button class="pg-more" type="button" data-peng="' + esc(p.id) + '">Klik di sini untuk lebih detail <span aria-hidden="true">›</span></button>' : '';
-      return '<div class="hslide hs-dyn hs-peng" data-pid="' + esc(p.id) + '"><div class="pg-card"><span class="pg-badge">PESAN PENTING</span><div class="pg-t">' + esc(p.judul) + '</div><div class="pg-i">' + esc(p.isi) + '</div>' + more + '</div></div>';
+      var more = (PENG_GO[p.tujuan] || p.detail || pengSafeUrl(p.url)) ? '<button class="pg-more" type="button" data-peng="' + esc(p.id) + '">Lihat detail <span aria-hidden="true">›</span></button>' : '';
+      return '<div class="hslide hs-dyn hs-peng" data-pid="' + esc(p.id) + '"><div class="pg-card">' + pengIco(p) + '<span class="pg-badge">PESAN PENTING</span><div class="pg-t">' + esc(p.judul) + '</div><div class="pg-i">' + esc(p.isi) + '</div>' + more + '</div></div>';
     }).join('');
     if (html && first) first.insertAdjacentHTML('beforebegin', html); /* keputusan user 14 Nov: PESAN PENTING paling depan, lalu Insentif, Posisi target, Hari ini, Tips */
     tr.scrollLeft = 0;
