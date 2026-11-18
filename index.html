@@ -2448,6 +2448,7 @@
     document.body.classList.remove('sheet-open');
     setTimeout(function () { if (!S.sheet) w.classList.add('hidden'); }, 240);
     try { if (sheetOpener && sheetOpener.focus) sheetOpener.focus(); } catch (e) {}
+    if (typeof JRF !== 'undefined' && JRF.back && typeof jrfBackGab === 'function') jrfBackGab(); /* gab-langsung */
   }
   var SHEET_PG = { dsp: 1, tlap: 1, rpt: 1, visrekap: 1 }; /* sheet-pg */
   function renderSheet() {
@@ -6203,7 +6204,7 @@
     var hch = m.hari.length ? '<div class="ov-chrow"><small>Hari PJP</small><div class="chips"><button type="button" class="chip' + (!G.h ? ' active' : '') + '" data-gabh="">Semua</button>' + m.hari.map(function (h) { return '<button type="button" class="chip' + (G.h === h ? ' active' : '') + '" data-gabh="' + h + '">' + h + '</button>'; }).join('') + '</div></div>' : '';
     var sch = '<div class="ov-chrow"><small>Status</small><div class="chips"><button type="button" class="chip' + (!G.f ? ' active' : '') + '" data-gabf="">Semua ' + tot + '</button>' + m.DEF.filter(function (x) { return cnt[x[0]]; }).map(function (x) { return '<button type="button" class="chip' + (G.f === x[0] ? ' active' : '') + '" data-gabf="' + x[0] + '">' + x[1] + ' ' + cnt[x[0]] + '</button>'; }).join('') + (m.nRed ? '<button type="button" class="chip' + (G.f === 'red' ? ' active' : '') + '" data-gabf="red">🔴 Terlambat ' + m.nRed + '</button>' : '') + '</div></div>';
     var body = m.list.length ? '<div class="rowlist">' + m.list.slice(0, G.n).map(function (r) { var Lb = m.lab[r.st] || [r.st, r.st, 'part'];
-      return '<button class="orow" type="button" data-jrfas="' + esc(G.d && r.ids.indexOf(G.d) >= 0 ? G.d : r.ids[0]) + '"><span class="o-avatar ' + toneOf(r.kode) + '" aria-hidden="true">' + esc(initials(r.nama)) + '</span><div class="o-info"><div class="o-name">' + esc(r.nama) + '</div><div class="o-sub"><span class="gab-dsr">' + esc(r.dsr) + '</span>' + (r.hariN ? ' · ' + esc(r.hariN) : '') + (r.sub ? ' · ' + esc(r.sub) : '') + '</div></div><span class="o-badge ' + Lb[2] + '">' + (r.red ? '🔴 ' : '') + esc(Lb[1]) + '</span>' + ICON_CHEV + '</button>'; }).join('') + '</div>' + (m.list.length > G.n ? '<button type="button" class="gab-more" data-gabmore="1">Tampilkan ' + Math.min(40, m.list.length - G.n) + ' lagi · sisa ' + (m.list.length - G.n) + '</button>' : '')
+      return '<button class="orow" type="button" data-jrfas="' + esc(G.d && r.ids.indexOf(G.d) >= 0 ? G.d : r.ids[0]) + '" data-jrfk="' + esc(r.kode) + '"><span class="o-avatar ' + toneOf(r.kode) + '" aria-hidden="true">' + esc(initials(r.nama)) + '</span><div class="o-info"><div class="o-name">' + esc(r.nama) + '</div><div class="o-sub"><span class="gab-dsr">' + esc(r.dsr) + '</span>' + (r.hariN ? ' · ' + esc(r.hariN) : '') + (r.sub ? ' · ' + esc(r.sub) : '') + '</div></div><span class="o-badge ' + Lb[2] + '">' + (r.red ? '🔴 ' : '') + esc(Lb[1]) + '</span>' + ICON_CHEV + '</button>'; }).join('') + '</div>' + (m.list.length > G.n ? '<button type="button" class="gab-more" data-gabmore="1">Tampilkan ' + Math.min(40, m.list.length - G.n) + ' lagi · sisa ' + (m.list.length - G.n) + '</button>' : '')
       : '<div class="empty">' + (m.q ? 'Tidak ada yang cocok dengan “' + esc(G.q) + '”.' : 'Tidak ada outlet dengan filter ini.') + '</div>';
     var act = '<div class="ov-act"><span>' + m.list.length + ' outlet</span><button type="button" data-gabimg="share"' + (G.busy || !m.list.length ? ' disabled' : '') + '>' + IMG_ICO.wa + (G.busy ? 'Membuat gambar…' : 'Kirim ke WhatsApp') + '</button><button type="button" data-gabimg="save"' + (G.busy || !m.list.length ? ' disabled' : '') + '>' + IMG_ICO.dl + 'Simpan gambar</button></div>';
     return top + '<div class="card">' + dsel + '<input type="search" id="gabQ" class="fd-in gab-q" placeholder="Cari outlet, kode, atau nama DSR" value="' + esc(G.q || '') + '">' + hch + sch + act + '<div id="gabList">' + body + '</div></div>' +
@@ -6256,7 +6257,14 @@
   }
   function jrfRepaint() { var h = $('jrfHost'); if (h && S.role === 'DSS' && (DV.v === 'jur' || DV.v === 'vis')) jrfMount(h); }
   document.addEventListener('change', function (e) { if (e.target && e.target.id === 'jrfAs') { JRF.as = e.target.value; jrfRepaint(); window.scrollTo(0, 0); } });
-  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-jrfas]'); if (b) { JRF.as = b.dataset.jrfas; jrfRepaint(); window.scrollTo(0, 0); } });
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-jrfas]'); if (!b) return;
+    /* gab-langsung (19 Nov 2026, user: dari "Semua DSR" ketuk toko masuk halaman salesman lalu harus ketuk toko lagi = berbelit): ketuk toko di daftar gabungan = langsung buka lembar toko itu (atas nama DSR-nya); tutup lembar = kembali ke daftar semua DSR (filter & posisi gulir tetap) */
+    if (b.dataset.jrfk) { JRF.pk = { kode: b.dataset.jrfk, as: b.dataset.jrfas, vm: JRF.mode === 'vis', t: Date.now() }; JRF.back = { y: window.scrollY }; JRF.as = b.dataset.jrfas; jrfRepaint(); jrfOpenPend(); return; }
+    JRF.back = null; JRF.as = b.dataset.jrfas; jrfRepaint(); window.scrollTo(0, 0); });
+  function jrfOpenPend() { var p = JRF.pk; if (!p) return; if (JRF.as !== p.as || Date.now() - p.t > 20000) { JRF.pk = null; return; } /* data DSR dimuat async: tunggu siap lalu buka lembar */
+    var ok = false; try { if (p.vm) ok = !!F('vis'); else { var f = F('jr'); ok = !!(f && (f.notActive || []).some(function (o) { return o.kode === p.kode; })); } } catch (er) { ok = false; }
+    if (!ok) { setTimeout(jrfOpenPend, 300); return; } JRF.pk = null; openSheet(p.vm ? { type: 'visform', kode: p.kode } : { type: 'jrna', kode: p.kode }); }
+  function jrfBackGab() { var bk = JRF.back; if (!bk) return; JRF.back = null; setTimeout(function () { if (S.sheet || !JRF.as || S.role !== 'DSS' || (DV.v !== 'jur' && DV.v !== 'vis')) return; JRF.as = ''; jrfRepaint(); window.scrollTo(0, bk.y || 0); }, 260); } /* gab-langsung: dipanggil closeSheet */
   /* /jr-role */
   /* fm-client (5 Nov 2026): FORM MODIFIKASI OUTLET - port form lama (..\FORM MODIFIKASI OUTLET\app.html).
      Salesman/DSS (tampilan DSR lengkap)/Admin SND mengajukan; status per jenis; AASM merekap (lembar fmaasm).
@@ -9628,7 +9636,7 @@
   function ovText(D, tk) { var L = ovFilter(ovRows(D, OV_K[tk])), nm = (DV_TK.concat(DV_TK2).filter(function (x) { return x[0] === tk; })[0] || ['', tk])[1];
     return '*Daftar outlet · ' + nm + '*\n' + D.name + (OV.dsr ? ' · ' + dispName(D.dsr.filter(function (r) { return r.id === OV.dsr; })[0] || {}) : '') + (OV.hari ? ' · ' + OV.hari : '') + (OV.st ? ' · ' + (L[0] ? L[0].stl : '') : '') + ' · ' + L.length + ' outlet\n\n' + L.map(function (x, i) { return (i + 1) + '. ' + x.nama + ' — ' + x.dsr + (x.hari ? ' (' + x.hari + ')' : '') + '\n   ' + x.stl + (x.sub ? ' · ' + x.sub : '') + (x.val ? ' · ' + x.val : ''); }).join('\n'); }
   /* jasper-ins5 (14 Nov, keluhan user: tombol Kembali ke Insentif mengambang): di Detail KPI tombol kembali jadi bilah di atas isi; yang mengambang disembunyikan (CSS :has(.dv-nbk)) */
-  function dvNbk() { var o = NAV[NAV.length - 1]; return o && o.dv ? '<button type="button" class="dv-nbk" data-dvnbk="1">‹ Kembali ke ' + esc(navLbl(o)) + '</button>' : ''; }
+  function dvNbk() { return ''; } /* nb-satu (19 Nov 2026, user: tombol Kembali 2 versi membingungkan): Detail KPI TIDAK lagi punya bilah Kembali inline di atas; semua halaman memakai SATU bilah biru menempel di atas menu bawah (#navBack, navDock) */
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-dvnbk]')) navBack(); });
   /* pd-img (17 Nov 2026, permintaan user): Detail KPI > Per DSR juga bisa "Kirim gambar ke WhatsApp" / "Simpan gambar".
      Isi gambar diambil dari daftar Per DSR yang SEDANG tampil (sesuai KPI & konteksnya): kepala KPI + capaian tim, ringkas jumlah status, baris DSR (status, capaian, kurang). */
