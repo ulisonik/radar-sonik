@@ -2,6 +2,8 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+<script>/* auto-muat (18 Nov 2026, user: tarik layar menampilkan layar login sebentar): ada kode tersimpan -> layar login disembunyikan, tampil "Memuat…" sampai masuk otomatis (gagal = showLogin membuka lagi) */try{var _a=(localStorage.getItem("rss_code")&&localStorage.getItem("rss_remember")==="1")||sessionStorage.getItem("rss_ses");if(_a){document.documentElement.className+=" rs-auto";setTimeout(function(){document.documentElement.classList.remove("rs-auto")},20000);}}catch(e){}</script>
+<style>html.rs-auto #loginScreen .lg-wrap{visibility:hidden}html.rs-auto #loginScreen::after{content:"Memuat RADAR SONIK…";position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font:700 16px system-ui,sans-serif;color:#0F3D63;background:linear-gradient(180deg,#BFE0F5,#E6F3EA)}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="only light">
 <meta name="supported-color-schemes" content="light">
@@ -11024,7 +11026,7 @@
     if (S.role === 'DSS' || S.role === 'AASM') { S.dss = null; S.dssI = 0; S.dssAll = false; S.aas = {}; S.aasFail = {}; S.aasSort = 'nama'; S.aasBusy = false; S.aasInfl = {}; S.aasGen = (S.aasGen || 1) + 1; S.aasSnap = {}; S.aasSnapAt = {}; S.aasOld = {}; S.aasTry = {}; S.dssCached = false; S.dssStale = false; S.dssLoading = false; S.snapForce = false; showDss(); return; }
     load(false);
   }
-  function showLogin() { $('dssNav').style.display = 'none'; $('admNav').style.display = 'none'; document.body.classList.remove('dt-adm'); /* adm-nav */ $('fdaScreen').style.display = 'none'; $('admScreen').style.display = 'none'; $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none'; $('dashboard').style.display = 'none'; $('bottomNav').style.display = 'none'; document.body.classList.remove('has-nav'); $('loginScreen').style.display = 'block'; $('pwInput').value = ''; }
+  function showLogin() { document.documentElement.classList.remove("rs-auto"); /* auto-muat */ $('dssNav').style.display = 'none'; $('admNav').style.display = 'none'; document.body.classList.remove('dt-adm'); /* adm-nav */ $('fdaScreen').style.display = 'none'; $('admScreen').style.display = 'none'; $('dssScreen').style.display = 'none'; $('pickScreen').style.display = 'none'; $('tamuBar').style.display = 'none'; $('dashboard').style.display = 'none'; $('bottomNav').style.display = 'none'; document.body.classList.remove('has-nav'); $('loginScreen').style.display = 'block'; $('pwInput').value = ''; }
   /* mode-desktop: kelas tubuh untuk tampilan laptop peran DSS/AASM/ADMIN (CSS hanya aktif >= 1024px) */
   /* seg-lepas: tandai sub menu yang belum menempel (lihat CSS seg-lepas) */
   (function segPita() {
