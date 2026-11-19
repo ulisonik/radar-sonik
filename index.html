@@ -2021,10 +2021,11 @@
   .vid-cnt { font-size: 12.5px; color: var(--slate); margin: 0 0 8px; }
   .vid-sbox { margin-bottom: 10px; }
   .vid-note { font-size: 12px; color: var(--slate); margin: 10px 2px 0; }
-  .vid-fr { width: min(100%, calc((100vh - 200px) * 9 / 16)); width: min(100%, calc((100dvh - 200px) * 9 / 16)); margin: 0 auto; aspect-ratio: 9 / 16; background: #0F172A; border-radius: 16px; overflow: hidden; border: 5px solid #0F172A; box-sizing: border-box; box-shadow: 0 12px 30px rgba(15, 23, 42, .28); } /* bingkai gelap: video berwarna terang tidak menyatu dgn latar */
+  .vid-fr { width: min(100%, calc((100vh - 280px) * 9 / 16)); width: min(100%, calc((100dvh - 280px) * 9 / 16)); margin: 0 auto; aspect-ratio: 9 / 16; background: #0F172A; border-radius: 16px; overflow: hidden; border: 5px solid #0F172A; box-sizing: border-box; box-shadow: 0 12px 30px rgba(15, 23, 42, .28); } /* bingkai gelap: video berwarna terang tidak menyatu dgn latar */
   .vid-fr.datar { width: min(100%, calc((100vh - 200px) * 16 / 9)); width: min(100%, calc((100dvh - 200px) * 16 / 9)); aspect-ratio: 16 / 9; } /* video laptop (DSS/Admin) */
   .vid-fr iframe { width: 100%; height: 100%; border: 0; display: block; }
-  .vid-dl { display: block; text-align: center; margin: 12px 0 0; font-size: 13.5px; font-weight: 600; color: #1D74B8; }
+  .vid-dl { display: flex; align-items: center; gap: 12px; margin: 12px auto 0; max-width: 520px; padding: 12px 16px; border-radius: 16px; background: #D9F25A; color: #0F172A; text-decoration: none; box-shadow: 0 6px 16px rgba(15,23,42,.18); border: 2px solid #0F172A; } /* vid-drive: rekomendasi utama = tonton di Drive */
+  .vid-dl .vid-dl-ic { flex: 0 0 38px; height: 38px; border-radius: 50%; background: #0F172A; color: #D9F25A; display: flex; align-items: center; justify-content: center; font-size: 15px; padding-left: 2px; } .vid-dl > span:nth-child(2) { flex: 1; display: flex; flex-direction: column; } .vid-dl b { font-size: 15px; font-weight: 800; } .vid-dl small { font-size: 12.5px; color: #334155; font-weight: 600; } .vid-dl > i { font-style: normal; font-size: 22px; font-weight: 800; }
   .vid-adv { border: 1px dashed #CFE0EE; border-radius: 12px; padding: 8px 12px; } .vid-adv summary { cursor: pointer; font-weight: 700; color: #12305F; font-size: 13.5px; } .vid-adv summary small { font-weight: 400; color: var(--slate); } .vid-advb { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
   .kel-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 </style>
@@ -11388,7 +11389,7 @@
     var L = vidList().filter(vidFid), ix = L.indexOf(v), nx = ix >= 0 ? L[ix + 1] : null;
     sheetFrame(v.no + '. ' + v.j, 'Video Panduan' + vidMnt(v),
       '<div class="vid-fr' + (v.b === 'd' ? ' datar' : '') + '"><iframe data-f="' + f + '" src="https://drive.google.com/file/d/' + f + '/preview" allow="autoplay; fullscreen" allowfullscreen title="' + esc(v.j) + '"></iframe></div>' +
-      '<a class="vid-dl" href="https://drive.google.com/file/d/' + f + '/view" target="_blank" rel="noopener">Tidak bisa diputar? Buka di Google Drive ›</a>' +
+      '<a class="vid-dl" href="https://drive.google.com/file/d/' + f + '/view" target="_blank" rel="noopener"><span class="vid-dl-ic" aria-hidden="true">▶</span><span><b>Tonton lebih nyaman di Google Drive</b><small>Klik di sini · layar penuh & lebih lancar</small></span><i aria-hidden="true">›</i></a>' +
       (nx ? '<div class="vid-ih" style="margin-top:14px">Berikutnya</div>' + vidRowHtml(nx, 'sm') : ''), '', keep);
   }
   function vidStop() { try { var fr = document.querySelectorAll('#sheetBody .vid-fr iframe'); Array.prototype.forEach.call(fr, function (x) { x.src = 'about:blank'; if (x.parentNode) x.parentNode.removeChild(x); }); } catch (e) {} }
